@@ -14,7 +14,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "goLembrarClient",
+            "prefix": "gl",
             "style": "camelCase"
           }
         ],
@@ -22,7 +22,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "go-lembrar-client",
+            "prefix": "gl",
             "style": "kebab-case"
           }
         ]

@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.singleAttributePerLine": true,
+  "prettier.singleQuote": true,
+  "editor.formatOnPaste": false,
+  "javascript.format.insertSpaceAfterConstructor": false
+}

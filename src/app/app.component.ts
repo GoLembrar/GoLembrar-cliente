@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { Component } from '@angular/core'
+import { RouterModule } from '@angular/router'
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
-  selector: 'go-lembrar-client-root',
+  imports: [RouterModule],
+  selector: 'gl-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

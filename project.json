@@ -2,7 +2,7 @@
   "name": "go-lembrar-client",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "go-lembrar-client",
+  "prefix": "gl",
   "sourceRoot": "./src",
   "tags": [],
   "targets": {
