@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import { RouterModule } from '@angular/router'
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -8,4 +8,4 @@ import { RouterModule } from '@angular/router'
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent { }
+export class AppComponent {}
