@@ -1,1 +1,14 @@
-<p>register works!</p>
+<section class="form-container">
+  <form [formGroup]="user" (submit)="onSubmit()">
+    <div class="input">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" placeholder="Digite seu email" formControlName="email">
+    </div>
+    <div class="input">
+      <label for="password">Senha</label>
+      <input type="password" name="password" id="password" placeholder="Digite sua senha" formControlName="password">
+    </div>
+    <p>{{ user.status }}</p>
+    <button class="btn-register">Registrar</button>
+  </form>
+</section>
