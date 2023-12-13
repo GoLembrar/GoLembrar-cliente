@@ -1,14 +1,21 @@
-<section class="form-container">
-  <form [formGroup]="user" (submit)="onSubmit()">
-    <div class="input">
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" placeholder="Digite seu email" formControlName="email">
-    </div>
-    <div class="input">
-      <label for="password">Senha</label>
-      <input type="password" name="password" id="password" placeholder="Digite sua senha" formControlName="password">
-    </div>
-    <p>{{ user.status }}</p>
-    <button class="btn-register">Registrar</button>
+<section class="flex flex-column justify-content-center align-items-center min-h-screen">
+  <form [formGroup]="user" (submit)="onSubmit()" class="p-5 flex flex-column gap-3">
+    <h1 class="m-0 mb-2 text-3xl">Fazer cadastro</h1>
+    <fieldset class="border-none p-0 m-0">
+      <legend class="mb-2">Email</legend>
+      <span class="p-input-icon-right">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText formControlName="email" placeholder="Digite seu email" />
+      </span>
+    </fieldset>
+    <fieldset class="border-none p-0 m-0">
+      <legend class="mb-2">Senha</legend>
+      <p-password formControlName="password" placeholder="Digite sua senha" [toggleMask]="true"></p-password>
+    </fieldset>
+    <fieldset class="border-none p-0 m-0">
+      <legend class="mb-2">Confirmar senha</legend>
+      <p-password formControlName="password" placeholder="Confirme sua senha" [toggleMask]="true"></p-password>
+    </fieldset>
+    <p-button label="Registrar" icon="pi pi-check" type="submit"></p-button>
   </form>
 </section>
