@@ -1,21 +1,27 @@
 <section class="flex flex-column justify-content-center align-items-center min-h-screen">
-  <form [formGroup]="user" (submit)="onSubmit()" class="p-5 flex flex-column gap-3">
+  <form [formGroup]="user" class="p-5 flex flex-column gap-3">
     <h1 class="m-0 mb-2 text-3xl">Fazer cadastro</h1>
     <fieldset class="border-none p-0 m-0">
-      <legend class="mb-2">Email</legend>
+      <legend class="mb-2">
+        <label for="email">Email</label>
+      </legend>
       <span class="p-input-icon-right">
-        <i class="pi pi-search"></i>
-        <input type="text" pInputText formControlName="email" placeholder="Digite seu email" />
+        <i class="pi pi-envelope"></i>
+        <input type="email" pInputText formControlName="email" placeholder="Digite seu email" id="email" />
       </span>
     </fieldset>
     <fieldset class="border-none p-0 m-0">
-      <legend class="mb-2">Senha</legend>
-      <p-password formControlName="password" placeholder="Digite sua senha" [toggleMask]="true"></p-password>
+      <legend class="mb-2">
+        <label for="password">Senha</label>
+      </legend>
+      <p-password formControlName="password" placeholder="Digite sua senha" [toggleMask]="true" inputId="password"></p-password>
     </fieldset>
     <fieldset class="border-none p-0 m-0">
-      <legend class="mb-2">Confirmar senha</legend>
-      <p-password formControlName="password" placeholder="Confirme sua senha" [toggleMask]="true"></p-password>
+      <legend class="mb-2">
+        <label for="confirmPassword">Confirmar senha</label>
+      </legend>
+      <p-password formControlName="confirmPassword" placeholder="Confirme sua senha" [toggleMask]="true" inputId="confirmPassword"></p-password>
     </fieldset>
-    <p-button label="Registrar" icon="pi pi-check" type="submit"></p-button>
+    <p-button label="Registrar" icon="pi pi-check" type="submit" [disabled]="user.invalid"></p-button>
   </form>
 </section>
