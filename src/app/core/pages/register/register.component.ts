@@ -51,5 +51,17 @@ export class RegisterComponent {
     };
   }
 
+  getEmail() {
+    return this.user.get('email')
+  }
+
+  getPassword() {
+    return this.user.get('password')
+  }
+
+  getConfirmPassword() {
+    return this.user.get('confirmPassword')
+  }
+
   constructor(private formBuilder: FormBuilder) {}
 }
