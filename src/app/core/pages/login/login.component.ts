@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormBuilder, ReactiveFormsModule, Validators as V } from '@angular/forms'
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
@@ -19,4 +19,18 @@ import { PasswordModule } from 'primeng/password'
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  user = this.formBuilder.group({
+    email: ['', [V.required, V.email]],
+    password: ['', [V.required, V.pattern('^(?=.*?[A-Z])(?=.*?[a-z]).{6,}$')]]
+  })
+
+  inputInvalid(input: string) {
+    return this.user.get(input)?.invalid && (this.user.get(input)?.dirty || this.user.get(input)?.touched)
+  }
+
+  getInputError(input: string, error: string) {
+    return this.user.get(input)?.hasError(error)
+  }
+
+  constructor(private formBuilder: FormBuilder){}
 }
