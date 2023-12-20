@@ -9,11 +9,11 @@
       <span class="p-input-icon-right">
         <i class="pi pi-envelope"></i>
         <input type="email" pInputText formControlName="email" placeholder="Digite seu email" id="email" 
-        [ngClass]="{'ng-invalid ng-dirty': getEmail()?.invalid && getEmail()?.dirty || getEmail()?.touched}" />
+        [ngClass]="{'ng-invalid ng-dirty': inputInvalid('email')}" />
       </span>
-      <div *ngIf="getEmail()?.invalid && getEmail()?.dirty || getEmail()?.touched">
-        <small class="text-red-600" *ngIf="getEmail()?.hasError('required')">Campo obrigatório</small>
-        <small class="text-red-600" *ngIf="getEmail()?.hasError('email')">Digite um email válido</small>
+      <div *ngIf="inputInvalid('email')">
+        <small class="text-red-600" *ngIf="getInputError('email', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('email', 'email')">Digite um email válido</small>
       </div>
     </fieldset>
 
@@ -22,11 +22,11 @@
         <label for="password">Senha</label>
       </legend>
       <p-password formControlName="password" placeholder="Digite sua senha" [toggleMask]="true" inputId="password" 
-      [ngClass]="{'ng-invalid ng-dirty': getPassword()?.invalid && getPassword()?.dirty || getPassword()?.touched}">
+      [ngClass]="{'ng-invalid ng-dirty': inputInvalid('password')}">
       </p-password>
-      <div *ngIf="getPassword()?.invalid && getPassword()?.dirty || getPassword()?.touched">
-        <small class="text-red-600" *ngIf="getPassword()?.hasError('required')">Campo obrigatório</small>
-        <small class="text-red-600" *ngIf="getPassword()?.hasError('pattern')">A senha deve ter no minimo 6 caracteres<br> sendo 1 maiusculo</small>
+      <div *ngIf="inputInvalid('password')">
+        <small class="text-red-600" *ngIf="getInputError('password', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('password', 'pattern')">A senha deve ter no minimo 6 caracteres<br> sendo 1 maiusculo</small>
       </div>
     </fieldset>
 
@@ -35,11 +35,11 @@
         <label for="confirmPassword">Confirmar senha</label>
       </legend>
       <p-password formControlName="confirmPassword" placeholder="Confirme sua senha" [toggleMask]="true" inputId="confirmPassword"
-      [ngClass]="{'ng-invalid ng-dirty': getConfirmPassword()?.invalid && getConfirmPassword()?.dirty || getConfirmPassword()?.touched}">
+      [ngClass]="{'ng-invalid ng-dirty': inputInvalid('confirmPassword')}">
       </p-password>
-      <div *ngIf="getConfirmPassword()?.invalid && getConfirmPassword()?.dirty || getConfirmPassword()?.touched">
-        <small class="text-red-600" *ngIf="getConfirmPassword()?.hasError('required')">Campo obrigatório</small>
-        <small class="text-red-600" *ngIf="getConfirmPassword()?.hasError('passwordMismatch')">As senhas devem ser iguais</small>
+      <div *ngIf="inputInvalid('confirmPassword')">
+        <small class="text-red-600" *ngIf="getInputError('confirmPassword', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('confirmPassword', 'passwordMismatch')">As senhas devem ser iguais</small>
       </div>
     </fieldset>
 

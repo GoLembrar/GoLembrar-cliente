@@ -10,6 +10,7 @@ import {
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
+import { REGEX_PASSWORD } from '../../constants/regexp'
 @Component({
   selector: 'gl-register',
   standalone: true,
@@ -26,7 +27,7 @@ import { PasswordModule } from 'primeng/password'
 export class RegisterComponent {
    user = this.formBuilder.group({
     email: ['', [V.required, V.email]],
-    password: ['', [V.required, V.pattern('^(?=.*?[A-Z])(?=.*?[a-z]).{6,}$')]],
+    password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
     confirmPassword: ['', [V.required]],
   }, {
     validator: this.comparatePassword()
@@ -51,16 +52,12 @@ export class RegisterComponent {
     };
   }
 
-  getEmail() {
-    return this.user.get('email')
+  inputInvalid(input: string) {
+    return this.user.get(input)?.invalid && (this.user.get(input)?.dirty || this.user.get(input)?.touched)
   }
 
-  getPassword() {
-    return this.user.get('password')
-  }
-
-  getConfirmPassword() {
-    return this.user.get('confirmPassword')
+  getInputError(input: string, error: string) {
+    return this.user.get(input)?.hasError(error)
   }
 
   constructor(private formBuilder: FormBuilder) {}

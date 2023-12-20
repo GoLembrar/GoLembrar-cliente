@@ -1,0 +1,35 @@
+<section class="flex flex-column justify-content-center align-items-center min-h-screen">
+  <form [formGroup]="user" class="p-5 flex flex-column gap-3">
+    <h1 class="m-0 mb-2 text-3xl">Fazer login</h1>
+
+    <fieldset class="border-none p-0 m-0">
+      <legend class="mb-2">
+        <label for="email">Email</label>
+      </legend>
+      <span class="p-input-icon-right">
+        <i class="pi pi-envelope"></i>
+        <input pInputText type="email" placeholder="Digite seu email" id="email" formControlName="email" 
+        [ngClass]="{'ng-invalid ng-dirty': inputInvalid('email')}" />
+      </span>
+      <div *ngIf="inputInvalid('email')">
+        <small class="text-red-600" *ngIf="getInputError('email', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('email', 'email')">Digite um email válido</small>
+      </div>
+    </fieldset>
+
+    <fieldset class="border-none p-0 m-0">
+      <legend class="mb-2">
+        <label for="password">Senha</label>
+      </legend>
+      <p-password placeholder="Digite sua senha" [toggleMask]="true" inputId="password" formControlName="password" 
+      [ngClass]="{'ng-invalid ng-dirty': inputInvalid('password')}">
+      </p-password>
+      <div *ngIf="inputInvalid('password')">
+        <small class="text-red-600" *ngIf="getInputError('password', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('password', 'pattern')">A senha deve ter no minimo 6 caracteres<br> sendo 1 maiúsculo</small>
+      </div>
+    </fieldset>
+
+    <p-button label="Login" icon="pi pi-sign-in" type="submit" [disabled]="user.invalid"></p-button>
+  </form>
+</section>
