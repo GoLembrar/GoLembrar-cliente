@@ -1,11 +1,20 @@
-import { Component } from '@angular/core';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import { Component, LOCALE_ID } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, DatePipe],
   selector: 'gl-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-br' }
+  ]
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor() {
+    registerLocaleData(localePt)
+  }
+}
