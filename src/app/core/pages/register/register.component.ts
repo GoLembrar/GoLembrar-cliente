@@ -52,16 +52,12 @@ export class RegisterComponent {
     };
   }
 
-  getEmail() {
-    return this.user.get('email')
+  inputInvalid(input: string) {
+    return this.user.get(input)?.invalid && (this.user.get(input)?.dirty || this.user.get(input)?.touched)
   }
 
-  getPassword() {
-    return this.user.get('password')
-  }
-
-  getConfirmPassword() {
-    return this.user.get('confirmPassword')
+  getInputError(input: string, error: string) {
+    return this.user.get(input)?.hasError(error)
   }
 
   constructor(private formBuilder: FormBuilder) {}
