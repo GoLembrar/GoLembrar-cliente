@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators as V } from '@angular/form
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
+import { REGEX_PASSWORD } from '../../constants/regexp'
 
 @Component({
   selector: 'gl-login',
@@ -21,7 +22,7 @@ import { PasswordModule } from 'primeng/password'
 export class LoginComponent {
   user = this.formBuilder.group({
     email: ['', [V.required, V.email]],
-    password: ['', [V.required, V.pattern('^(?=.*?[A-Z])(?=.*?[a-z]).{6,}$')]]
+    password: ['', [V.required, V.pattern(REGEX_PASSWORD)]]
   })
 
   inputInvalid(input: string) {
