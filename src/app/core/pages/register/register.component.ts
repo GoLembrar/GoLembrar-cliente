@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common'
+import { HttpClientModule } from '@angular/common/http'
 import { Component } from '@angular/core'
 import {
   AbstractControl,
@@ -11,6 +12,7 @@ import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 import { REGEX_PASSWORD } from '../../constants/regexp'
+import { PostUserService } from '../../services/post-user.service'
 @Component({
   selector: 'gl-register',
   standalone: true,
@@ -20,9 +22,11 @@ import { REGEX_PASSWORD } from '../../constants/regexp'
     InputTextModule,
     PasswordModule,
     ButtonModule,
+    HttpClientModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
+  providers: [PostUserService, HttpClientModule]
 })
 export class RegisterComponent {
    user = this.formBuilder.group({
@@ -60,5 +64,17 @@ export class RegisterComponent {
     return this.user.get(input)?.hasError(error)
   }
 
-  constructor(private formBuilder: FormBuilder) {}
+  postUser() {
+    this.service.createUser({
+      email: this.user.value.email,
+      password: this.user.value.password,
+    }).subscribe(response => {
+      console.log(response)
+    })
+  }
+
+  constructor(
+    private formBuilder: FormBuilder, 
+    private service: PostUserService
+    ) {}
 }
