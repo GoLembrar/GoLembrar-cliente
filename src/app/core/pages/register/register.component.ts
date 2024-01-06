@@ -68,9 +68,10 @@ export class RegisterComponent {
     this.service.createUser({
       email: this.user.value.email,
       password: this.user.value.password,
-    }).subscribe(response => {
-      console.log(response)
-    })
+    }).subscribe(
+      success => console.log(success),
+      error => console.error(error)
+      )
   }
 
   constructor(

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -7,7 +7,11 @@ import { Injectable } from '@angular/core';
 export class PostUserService {
 
   createUser(body: any) {
-    return this.htpp.post<any>('https://jsonplaceholder.typicode.com/posts', body)
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json',
+    })
+    const options = {headers: headers}
+    return this.htpp.post<any>('http://localhost:3000/user', body, options)
   }
 
   constructor(private htpp: HttpClient) { }
