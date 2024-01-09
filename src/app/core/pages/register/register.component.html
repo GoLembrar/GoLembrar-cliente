@@ -1,5 +1,5 @@
 <section class="flex flex-column justify-content-center align-items-center min-h-screen">
-  <form [formGroup]="user" class="p-5 flex flex-column gap-3">
+  <form [formGroup]="user" (ngSubmit)="postUser()" class="p-5 flex flex-column gap-3">
     <h1 class="m-0 mb-2 text-3xl">Fazer cadastro</h1>
     
     <fieldset class="border-none p-0 m-0">
@@ -42,6 +42,10 @@
         <small class="text-red-600" *ngIf="getInputError('confirmPassword', 'passwordMismatch')">As senhas devem ser iguais</small>
       </div>
     </fieldset>
+
+    <div *ngIf="messageError">
+      <small class="text-red-600">{{messageError}}</small>
+    </div>
 
     <p-button label="Registrar" icon="pi pi-check" type="submit" [disabled]="user.invalid"></p-button>
   </form>
