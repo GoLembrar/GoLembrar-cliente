@@ -43,6 +43,10 @@
       </div>
     </fieldset>
 
+    <div *ngIf="messageError">
+      <small class="text-red-600">{{messageError}}</small>
+    </div>
+
     <p-button label="Registrar" icon="pi pi-check" type="submit" [disabled]="user.invalid"></p-button>
   </form>
 </section>

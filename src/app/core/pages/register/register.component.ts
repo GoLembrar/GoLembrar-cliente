@@ -29,6 +29,11 @@ import { PostUserService } from '../../services/post-user.service'
   providers: [PostUserService, HttpClientModule]
 })
 export class RegisterComponent {
+  constructor(
+    private formBuilder: FormBuilder, 
+    private service: PostUserService
+    ) {}
+
    user = this.formBuilder.group({
     email: ['', [V.required, V.email]],
     password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
@@ -36,6 +41,8 @@ export class RegisterComponent {
   }, {
     validator: this.comparatePassword()
   })
+
+  messageError: string | null = null;
 
   comparatePassword(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
@@ -65,17 +72,14 @@ export class RegisterComponent {
   }
 
   postUser() {
+    this.messageError = null;
+
     this.service.createUser({
       email: this.user.value.email,
       password: this.user.value.password,
     }).subscribe(
-      success => console.log(success),
-      error => console.error(error)
+      success => alert('Cadastro realizado com sucesso :)'),
+      error => this.messageError = error
       )
   }
-
-  constructor(
-    private formBuilder: FormBuilder, 
-    private service: PostUserService
-    ) {}
 }
