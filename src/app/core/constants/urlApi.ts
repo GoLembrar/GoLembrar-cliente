@@ -1,1 +1,0 @@
-export const URL_POST_USER = 'http://localhost:3000/user'
