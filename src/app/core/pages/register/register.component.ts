@@ -26,7 +26,6 @@ import { PostUserService } from '../../services/post-user.service'
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
-  providers: [PostUserService, HttpClientModule]
 })
 export class RegisterComponent {
   constructor(
