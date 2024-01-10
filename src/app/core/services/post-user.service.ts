@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { URL_POST_USER } from '../constants/urlApi';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class PostUserService {
   constructor(private htpp: HttpClient) { }
 
   createUser(body: any) {
-    return this.htpp.post<any>(URL_POST_USER, body).pipe(
+    return this.htpp.post<any>(`${environment.apiUrl}/user`, body).pipe(
       catchError(this.handleError)
     )
   }
@@ -24,7 +24,6 @@ export class PostUserService {
     if(error.status >= 500) {
       errorMessage = 'Email já cadastrado.'
     }
-    return throwError(errorMessage);
+    return throwError(() => errorMessage);
   }
-
 }
