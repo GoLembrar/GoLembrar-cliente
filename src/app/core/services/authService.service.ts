@@ -2,15 +2,15 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-
+import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
-export class PostUserService {
+export class authService {
   constructor(private htpp: HttpClient) { }
 
-  createUser(body: any) {
-    return this.htpp.post<any>(`${environment.apiUrl}/user`, body).pipe(
+  createUser(body: User) {
+    return this.htpp.post<User>(`${environment.apiUrl}/user`, body).pipe(
       catchError(this.handleError)
     )
   }
