@@ -76,9 +76,9 @@ export class RegisterComponent {
     this.service.createUser({
       email: this.user.value.email,
       password: this.user.value.password,
-    }).subscribe(
-      success => alert('Cadastro realizado com sucesso :)'),
-      error => this.messageError = error
-      )
+    }).subscribe({
+      next: success => alert('Cadastro realizado com sucesso :)'),
+      error: err => this.messageError = err
+    })
   }
 }
