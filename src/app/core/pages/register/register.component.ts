@@ -12,7 +12,7 @@ import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 import { REGEX_PASSWORD } from '../../constants/regexp'
-import { PostUserService } from '../../services/post-user.service'
+import { authService } from '../../services/authService.service'
 @Component({
   selector: 'gl-register',
   standalone: true,
@@ -30,7 +30,7 @@ import { PostUserService } from '../../services/post-user.service'
 export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder, 
-    private service: PostUserService
+    private service: authService
     ) {}
 
    user = this.formBuilder.group({
@@ -76,9 +76,9 @@ export class RegisterComponent {
     this.service.createUser({
       email: this.user.value.email,
       password: this.user.value.password,
-    }).subscribe(
-      success => alert('Cadastro realizado com sucesso :)'),
-      error => this.messageError = error
-      )
+    }).subscribe({
+      next: success => alert('Cadastro realizado com sucesso :)'),
+      error: err => this.messageError = err
+    })
   }
 }
