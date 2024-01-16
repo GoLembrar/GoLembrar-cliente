@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'go-lembrar-client',
+  displayName: 'GO Lembrar',
   preset: './jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: './coverage/go-lembrar-client',

@@ -1,0 +1,1 @@
+export const REGEX_PASSWORD = '^(?=.*?[A-Z])(?=.*?[a-z]).{6,}$'

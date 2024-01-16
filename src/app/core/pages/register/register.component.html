@@ -1,0 +1,52 @@
+<section class="flex flex-column justify-content-center align-items-center min-h-screen">
+  <form [formGroup]="user" (ngSubmit)="postUser()" class="p-5 flex flex-column gap-3">
+    <h1 class="m-0 mb-2 text-3xl">Fazer cadastro</h1>
+    
+    <fieldset class="border-none p-0 m-0">
+      <legend class="mb-2">
+        <label for="email">Email</label>
+      </legend>
+      <span class="p-input-icon-right">
+        <i class="pi pi-envelope"></i>
+        <input type="email" pInputText formControlName="email" placeholder="Digite seu email" id="email" 
+        [ngClass]="{'ng-invalid ng-dirty': inputInvalid('email')}" />
+      </span>
+      <div *ngIf="inputInvalid('email')">
+        <small class="text-red-600" *ngIf="getInputError('email', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('email', 'email')">Digite um email válido</small>
+      </div>
+    </fieldset>
+
+    <fieldset class="border-none p-0 m-0">
+      <legend class="mb-2">
+        <label for="password">Senha</label>
+      </legend>
+      <p-password formControlName="password" placeholder="Digite sua senha" [toggleMask]="true" inputId="password" 
+      [ngClass]="{'ng-invalid ng-dirty': inputInvalid('password')}">
+      </p-password>
+      <div *ngIf="inputInvalid('password')">
+        <small class="text-red-600" *ngIf="getInputError('password', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('password', 'pattern')">A senha deve ter no minimo 6 caracteres<br> sendo 1 maiusculo</small>
+      </div>
+    </fieldset>
+
+    <fieldset class="border-none p-0 m-0">
+      <legend class="mb-2">
+        <label for="confirmPassword">Confirmar senha</label>
+      </legend>
+      <p-password formControlName="confirmPassword" placeholder="Confirme sua senha" [toggleMask]="true" inputId="confirmPassword"
+      [ngClass]="{'ng-invalid ng-dirty': inputInvalid('confirmPassword')}">
+      </p-password>
+      <div *ngIf="inputInvalid('confirmPassword')">
+        <small class="text-red-600" *ngIf="getInputError('confirmPassword', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('confirmPassword', 'passwordMismatch')">As senhas devem ser iguais</small>
+      </div>
+    </fieldset>
+
+    <div *ngIf="messageError">
+      <small class="text-red-600">{{messageError}}</small>
+    </div>
+
+    <p-button label="Registrar" icon="pi pi-check" type="submit" [disabled]="user.invalid"></p-button>
+  </form>
+</section>
