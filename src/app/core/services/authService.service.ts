@@ -9,21 +9,43 @@ import { User } from '../models/user.model'
 export class authService {
   constructor(private htpp: HttpClient) {}
 
-  createUser(body: User) {
+  messageError: string | null = null
+
+  register(body: User) {
     return this.htpp
       .post<User>(`${environment.apiUrl}/user`, body)
-      .pipe(catchError(this.handleError))
+      .pipe(catchError(this.handleError.bind(this)))
+      .subscribe({
+        next: success => console.log(success),
+        error: err => this.handleError(err),
+      })
+  }
+
+  login(body: User) {
+    return this.htpp
+      .post<User>(`${environment.apiUrl}/auth`, body)
+      .pipe(catchError(this.handleError.bind(this)))
+      .subscribe({
+        next: bearer => this.setTokenLocalStorage(bearer),
+        error: err => this.handleError(err),
+      })
+  }
+
+  private setTokenLocalStorage(res: any) {
+    const { token } = res
+    localStorage.setItem('token', token)
   }
 
   private handleError(error: HttpErrorResponse) {
-    let errorMessage: string = ''
-
     if (error.status === 0) {
-      errorMessage = 'Erro inesperado. Tente novamente mais tarde.'
+      this.messageError = 'Erro inesperado. Tente novamente mais tarde'
     }
-    if (error.status >= 500) {
-      errorMessage = 'Email já cadastrado.'
+    if (error.status === 401) {
+      this.messageError = 'Dados incorretos'
     }
-    return throwError(() => errorMessage)
+    if (error.status === 500) {
+      this.messageError = 'Email já cadastrado'
+    }
+    return throwError(() => this.messageError)
   }
 }
