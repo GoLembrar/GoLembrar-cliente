@@ -1,10 +1,15 @@
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
-import { FormBuilder, ReactiveFormsModule, Validators as V } from '@angular/forms'
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators as V,
+} from '@angular/forms'
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 import { REGEX_PASSWORD } from '../../constants/regexp'
+import { authService } from '../../services/authService.service'
 
 @Component({
   selector: 'gl-login',
@@ -20,18 +25,32 @@ import { REGEX_PASSWORD } from '../../constants/regexp'
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  constructor(private formBuilder: FormBuilder, private service: authService) {}
+
   user = this.formBuilder.group({
     email: ['', [V.required, V.email]],
-    password: ['', [V.required, V.pattern(REGEX_PASSWORD)]]
+    password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
   })
 
   inputInvalid(input: string) {
-    return this.user.get(input)?.invalid && (this.user.get(input)?.dirty || this.user.get(input)?.touched)
+    return (
+      this.user.get(input)?.invalid &&
+      (this.user.get(input)?.dirty || this.user.get(input)?.touched)
+    )
   }
 
   getInputError(input: string, error: string) {
     return this.user.get(input)?.hasError(error)
   }
 
-  constructor(private formBuilder: FormBuilder){}
+  getRequestError() {
+    return this.service.messageError
+  }
+
+  postUser() {
+    this.service.login({
+      email: this.user.value.email!,
+      password: this.user.value.password!,
+    })
+  }
 }

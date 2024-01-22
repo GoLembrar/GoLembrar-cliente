@@ -1,5 +1,5 @@
 <section class="flex flex-column justify-content-center align-items-center min-h-screen">
-  <form [formGroup]="user" class="p-5 flex flex-column gap-3">
+  <form [formGroup]="user" class="p-5 flex flex-column gap-3" (ngSubmit)="postUser()">
     <h1 class="m-0 mb-2 text-3xl">Fazer login</h1>
 
     <fieldset class="border-none p-0 m-0">
@@ -29,6 +29,10 @@
         <small class="text-red-600" *ngIf="getInputError('password', 'pattern')">A senha deve ter no minimo 6 caracteres<br> sendo 1 maiúsculo</small>
       </div>
     </fieldset>
+
+    <div *ngIf="getRequestError()">
+      <small class="text-red-600">{{getRequestError()}}</small>
+    </div>
 
     <p-button label="Login" icon="pi pi-sign-in" type="submit" [disabled]="user.invalid"></p-button>
   </form>
