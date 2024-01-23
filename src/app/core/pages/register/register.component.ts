@@ -11,6 +11,7 @@ import {
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
+import { ToastModule } from 'primeng/toast'
 import { REGEX_PASSWORD } from '../../constants/regexp'
 import { authService } from '../../services/authService.service'
 @Component({
@@ -23,6 +24,7 @@ import { authService } from '../../services/authService.service'
     PasswordModule,
     ButtonModule,
     HttpClientModule,
+    ToastModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
