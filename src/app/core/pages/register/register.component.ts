@@ -14,6 +14,7 @@ import { PasswordModule } from 'primeng/password'
 import { ToastModule } from 'primeng/toast'
 import { REGEX_PASSWORD } from '../../constants/regexp'
 import { authService } from '../../services/authService.service'
+import { LoadingService } from '../../services/loading.service'
 @Component({
   selector: 'gl-register',
   standalone: true,
@@ -30,7 +31,11 @@ import { authService } from '../../services/authService.service'
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  constructor(private formBuilder: FormBuilder, private service: authService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private service: authService,
+    private loadingService: LoadingService
+  ) {}
 
   user = this.formBuilder.group(
     {
@@ -41,6 +46,11 @@ export class RegisterComponent {
     {
       validator: this.comparatePassword(),
     }
+  )
+
+  load = false
+  loading = this.loadingService.loading$.subscribe(
+    isLoading => (this.load = isLoading)
   )
 
   comparatePassword(): ValidatorFn {
@@ -80,11 +90,11 @@ export class RegisterComponent {
     return this.user.get(input)?.hasError(error)
   }
 
-  getRequestError() {
+  getRequestError(): string | null {
     return this.service.messageError
   }
 
-  postUser() {
+  postUser(): void {
     this.service.register({
       email: this.user.value.email,
       password: this.user.value.password,

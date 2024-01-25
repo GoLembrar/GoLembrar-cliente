@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api'
 import { catchError, throwError } from 'rxjs'
 import { environment } from 'src/environments/environment.development'
 import { User } from '../models/user.model'
+import { LoadingService } from './loading.service'
 @Injectable({
   providedIn: 'root',
 })
@@ -12,34 +13,52 @@ export class authService {
   constructor(
     private htpp: HttpClient,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private loadingService: LoadingService
   ) {}
 
   messageError: string | null = null
-
   register(body: User) {
+    this.loadingService.setLoading(true)
     return this.htpp
       .post<User>(`${environment.apiUrl}/user`, body)
       .pipe(catchError(this.handleError.bind(this)))
       .subscribe({
         next: success => {
-          this.router.navigate(['login'])
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Cadastro realizado com sucesso',
+            detail: 'Via MessageService',
+          })
+          setTimeout(() => {
+            this.router.navigate(['login'])
+          }, 3000)
         },
-        error: err => this.handleError(err),
+        error: err => {
+          this.loadingService.setLoading(false)
+          this.handleError(err)
+        },
       })
   }
 
   login(body: User) {
+    this.loadingService.setLoading(true)
     return this.htpp
       .post<User>(`${environment.apiUrl}/auth`, body)
       .pipe(catchError(this.handleError.bind(this)))
       .subscribe({
-        next: bearer => this.setTokenLocalStorage(bearer),
-        error: err => this.handleError(err),
+        next: bearer => {
+          this.setTokenLocalStorage(bearer)
+          this.router.navigate([''])
+        },
+        error: err => {
+          this.loadingService.setLoading(false)
+          this.handleError(err)
+        },
       })
   }
 
-  private setTokenLocalStorage(res: any) {
+  private setTokenLocalStorage(res: any): void {
     const { token } = res
     localStorage.setItem('token', token)
   }
@@ -51,7 +70,6 @@ export class authService {
         summary: 'Erro inesperado. Tente novamente mais tarde',
         detail: 'Via MessageService',
       })
-      this.messageError = 'Erro inesperado. Tente novamente mais tarde'
     }
     if (error.status === 401) {
       this.messageService.add({
@@ -59,7 +77,6 @@ export class authService {
         summary: 'Dados incorretos',
         detail: 'Via MessageService',
       })
-      this.messageError = 'Dados incorretos'
     }
     if (error.status === 500) {
       this.messageService.add({
@@ -67,7 +84,6 @@ export class authService {
         summary: 'Email já cadastrado',
         detail: 'Via MessageService',
       })
-      this.messageError = 'Email já cadastrado'
     }
     return throwError(() => this.messageError)
   }
