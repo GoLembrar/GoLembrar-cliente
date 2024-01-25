@@ -23,7 +23,7 @@
         <label for="password">Senha</label>
       </legend>
       <p-password placeholder="Digite sua senha" [toggleMask]="true" inputId="password" formControlName="password" 
-      [ngClass]="{'ng-invalid ng-dirty': inputInvalid('password')}">
+      [ngClass]="{'ng-invalid ng-dirty': inputInvalid('password')}" [feedback]="false">
       </p-password>
       <div *ngIf="inputInvalid('password')">
         <small class="text-red-600" *ngIf="getInputError('password', 'required')">Campo obrigatório</small>
