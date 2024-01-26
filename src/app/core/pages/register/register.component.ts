@@ -12,7 +12,7 @@ import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 import { ToastModule } from 'primeng/toast'
-import { REGEX_PASSWORD } from '../../constants/regexp'
+import { REGEX_PASSWORD, REGEX_PHONE } from '../../constants/regexp'
 import { authService } from '../../services/authService.service'
 import { LoadingService } from '../../services/loading.service'
 @Component({
@@ -42,6 +42,7 @@ export class RegisterComponent {
       email: ['', [V.required, V.email]],
       password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
       confirmPassword: ['', [V.required]],
+      phone: ['', [V.required, V.pattern(REGEX_PHONE)]]
     },
     {
       validator: this.comparatePassword(),

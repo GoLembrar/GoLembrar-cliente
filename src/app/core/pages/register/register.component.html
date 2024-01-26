@@ -44,6 +44,21 @@
       </div>
     </fieldset>
 
+    <fieldset class="border-none p-0 m-0">
+      <legend class="mb-2">
+        <label for="phone">Telefone</label>  
+      </legend>
+      <span class="p-input-icon-right">
+        <i class="pi pi-phone"></i>
+        <input type="number" pInputText formControlName="phone" placeholder="Digite seu telefone" id="phone" 
+        [ngClass]="{'ng-invalid ng-dirty': inputInvalid('phone')}" />
+      </span>
+      <div *ngIf="inputInvalid('phone')">
+        <small class="text-red-600" *ngIf="getInputError('phone', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('phone', 'pattern')">Digite um telefone válido</small>
+      </div>
+    </fieldset>
+
     <div *ngIf="getRequestError()">
       <small class="text-red-600">{{getRequestError()}}</small>
     </div>
