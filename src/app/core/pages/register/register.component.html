@@ -50,7 +50,7 @@
       </legend>
       <span class="p-input-icon-right">
         <i class="pi pi-phone"></i>
-        <input type="number" pInputText formControlName="phone" placeholder="Digite seu telefone" id="phone" 
+        <input type="text" pInputText formControlName="phone" placeholder="Digite seu telefone" id="phone" 
         [ngClass]="{'ng-invalid ng-dirty': inputInvalid('phone')}" />
       </span>
       <div *ngIf="inputInvalid('phone')">

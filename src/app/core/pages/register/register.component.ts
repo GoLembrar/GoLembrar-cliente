@@ -42,7 +42,7 @@ export class RegisterComponent {
       email: ['', [V.required, V.email]],
       password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
       confirmPassword: ['', [V.required]],
-      phone: ['', [V.required, V.pattern(REGEX_PHONE)]]
+      phone: ['', [V.required, V.pattern(REGEX_PHONE)]],
     },
     {
       validator: this.comparatePassword(),
@@ -99,6 +99,7 @@ export class RegisterComponent {
     this.service.register({
       email: this.user.value.email,
       password: this.user.value.password,
+      phone: this.user.value.phone,
     })
   }
 }
