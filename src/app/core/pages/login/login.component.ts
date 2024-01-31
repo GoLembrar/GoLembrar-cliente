@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 import { ToastModule } from 'primeng/toast'
 import { REGEX_PASSWORD } from '../../constants/regexp'
+import { User } from '../../models/user.model'
 import { authService } from '../../services/authService.service'
 import { LoadingService } from '../../services/loading.service'
 
@@ -60,21 +61,20 @@ export class LoginComponent {
   }
 
   postUser() {
-    this.authService
-      .login({
-        email: this.user.value.email!,
-        password: this.user.value.password!,
-      })
-      .subscribe({
-        next: bearer => {
-          this.authService.setTokenLocalStorage(bearer)
-          this.authService.navigateHome()
-          this.authService.loading(false)
-        },
-        error: err => {
-          this.authService.loading(false)
-          this.authService.handleError(err)
-        },
-      })
+    const user: User = {
+      email: this.user.value.email!,
+      password: this.user.value.password!,
+    }
+    this.authService.login(user).subscribe({
+      next: bearer => {
+        this.authService.setTokenLocalStorage(bearer)
+        this.authService.navigateHome()
+        this.authService.loading(false)
+      },
+      error: err => {
+        this.authService.loading(false)
+        this.authService.handleError(err)
+      },
+    })
   }
 }

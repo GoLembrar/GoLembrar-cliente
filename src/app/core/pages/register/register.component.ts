@@ -14,6 +14,7 @@ import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 import { ToastModule } from 'primeng/toast'
 import { REGEX_PASSWORD, REGEX_PHONE } from '../../constants/regexp'
+import { User } from '../../models/user.model'
 import { authService } from '../../services/authService.service'
 import { LoadingService } from '../../services/loading.service'
 @Component({
@@ -98,26 +99,25 @@ export class RegisterComponent {
   }
 
   postUser(): void {
-    this.authService
-      .register({
-        email: this.user.value.email,
-        password: this.user.value.password,
-        phone: this.user.value.phone,
-      })
-      .subscribe({
-        next: success => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Cadastro realizado com sucesso',
-            detail: 'Via MessageService',
-          })
-          this.authService.navigateLogin()
-          this.loadingService.setLoading(false)
-        },
-        error: err => {
-          this.authService.loading(false)
-          this.authService.handleError(err)
-        },
-      })
+    const user: User = {
+      email: this.user.value.email!,
+      password: this.user.value.password!,
+      phone: this.user.value.phone!,
+    }
+    this.authService.register(user).subscribe({
+      next: success => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Cadastro realizado com sucesso',
+          detail: 'Via MessageService',
+        })
+        this.authService.navigateLogin()
+        this.loadingService.setLoading(false)
+      },
+      error: err => {
+        this.authService.loading(false)
+        this.authService.handleError(err)
+      },
+    })
   }
 }
