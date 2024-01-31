@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { MessageService } from 'primeng/api'
-import { catchError, throwError } from 'rxjs'
+import { Observable, catchError, map, throwError } from 'rxjs'
 import { environment } from 'src/environments/environment.development'
 import { User } from '../models/user.model'
 import { LoadingService } from './loading.service'
@@ -18,52 +18,43 @@ export class authService {
   ) {}
 
   messageError: string | null = null
-  register(body: User) {
-    this.loadingService.setLoading(true)
-    return this.htpp
-      .post<User>(`${environment.apiUrl}/user`, body)
-      .pipe(catchError(this.handleError.bind(this)))
-      .subscribe({
-        next: success => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Cadastro realizado com sucesso',
-            detail: 'Via MessageService',
-          })
-          setTimeout(() => {
-            this.router.navigate(['login'])
-          }, 3000)
-        },
-        error: err => {
-          this.loadingService.setLoading(false)
-          this.handleError(err)
-        },
-      })
+
+  register(body: User): Observable<User> {
+    this.loading(true)
+    return this.htpp.post<User>(`${environment.apiUrl}/user`, body).pipe(
+      catchError(this.handleError.bind(this)),
+      map(success => success)
+    )
   }
 
-  login(body: User) {
-    this.loadingService.setLoading(true)
-    return this.htpp
-      .post<User>(`${environment.apiUrl}/auth`, body)
-      .pipe(catchError(this.handleError.bind(this)))
-      .subscribe({
-        next: bearer => {
-          this.setTokenLocalStorage(bearer)
-          this.router.navigate([''])
-        },
-        error: err => {
-          this.loadingService.setLoading(false)
-          this.handleError(err)
-        },
-      })
+  login(body: User): Observable<User> {
+    this.loading(true)
+    return this.htpp.post<User>(`${environment.apiUrl}/auth`, body).pipe(
+      catchError(this.handleError.bind(this)),
+      map(success => success)
+    )
   }
 
-  private setTokenLocalStorage(res: any): void {
+  loading(value: boolean): void {
+    this.loadingService.setLoading(value)
+  }
+
+  navigateLogin(): void {
+    setTimeout(() => {
+      this.router.navigate(['login'])
+    }, 2000)
+  }
+
+  navigateHome(): void {
+    this.router.navigate([''])
+  }
+
+  setTokenLocalStorage(res: any): void {
     const { token } = res
     localStorage.setItem('token', token)
   }
 
-  private handleError(error: HttpErrorResponse) {
+  handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       this.messageService.add({
         severity: 'info',

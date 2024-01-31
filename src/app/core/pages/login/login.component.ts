@@ -30,7 +30,7 @@ import { LoadingService } from '../../services/loading.service'
 export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
-    private service: authService,
+    private authService: authService,
     private loadingService: LoadingService
   ) {}
 
@@ -56,13 +56,25 @@ export class LoginComponent {
   }
 
   getRequestError() {
-    return this.service.messageError
+    return this.authService.messageError
   }
 
   postUser() {
-    this.service.login({
-      email: this.user.value.email!,
-      password: this.user.value.password!,
-    })
+    this.authService
+      .login({
+        email: this.user.value.email!,
+        password: this.user.value.password!,
+      })
+      .subscribe({
+        next: bearer => {
+          this.authService.setTokenLocalStorage(bearer)
+          this.authService.navigateHome()
+          this.authService.loading(false)
+        },
+        error: err => {
+          this.authService.loading(false)
+          this.authService.handleError(err)
+        },
+      })
   }
 }

@@ -8,6 +8,7 @@ import {
   Validators as V,
   ValidatorFn,
 } from '@angular/forms'
+import { MessageService } from 'primeng/api'
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
@@ -33,8 +34,9 @@ import { LoadingService } from '../../services/loading.service'
 export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
-    private service: authService,
-    private loadingService: LoadingService
+    private authService: authService,
+    private loadingService: LoadingService,
+    private messageService: MessageService
   ) {}
 
   user = this.formBuilder.group(
@@ -92,14 +94,30 @@ export class RegisterComponent {
   }
 
   getRequestError(): string | null {
-    return this.service.messageError
+    return this.authService.messageError
   }
 
   postUser(): void {
-    this.service.register({
-      email: this.user.value.email,
-      password: this.user.value.password,
-      phone: this.user.value.phone,
-    })
+    this.authService
+      .register({
+        email: this.user.value.email,
+        password: this.user.value.password,
+        phone: this.user.value.phone,
+      })
+      .subscribe({
+        next: success => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Cadastro realizado com sucesso',
+            detail: 'Via MessageService',
+          })
+          this.authService.navigateLogin()
+          this.loadingService.setLoading(false)
+        },
+        error: err => {
+          this.authService.loading(false)
+          this.authService.handleError(err)
+        },
+      })
   }
 }
