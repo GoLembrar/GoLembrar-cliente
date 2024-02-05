@@ -8,8 +8,11 @@ import {
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
+import { ToastModule } from 'primeng/toast'
 import { REGEX_PASSWORD } from '../../constants/regexp'
+import { User } from '../../models/user.model'
 import { authService } from '../../services/authService.service'
+import { LoadingService } from '../../services/loading.service'
 
 @Component({
   selector: 'gl-login',
@@ -20,17 +23,27 @@ import { authService } from '../../services/authService.service'
     InputTextModule,
     PasswordModule,
     ButtonModule,
+    ToastModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  constructor(private formBuilder: FormBuilder, private service: authService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: authService,
+    private loadingService: LoadingService
+  ) {}
 
   user = this.formBuilder.group({
     email: ['', [V.required, V.email]],
     password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
   })
+
+  load = false
+  loading = this.loadingService.loading$.subscribe(
+    isLoading => (this.load = isLoading)
+  )
 
   inputInvalid(input: string) {
     return (
@@ -44,13 +57,24 @@ export class LoginComponent {
   }
 
   getRequestError() {
-    return this.service.messageError
+    return this.authService.messageError
   }
 
   postUser() {
-    this.service.login({
+    const user: User = {
       email: this.user.value.email!,
       password: this.user.value.password!,
+    }
+    this.authService.login(user).subscribe({
+      next: bearer => {
+        this.authService.setTokenLocalStorage(bearer)
+        this.authService.navigateHome()
+        this.authService.loading(false)
+      },
+      error: err => {
+        this.authService.loading(false)
+        this.authService.handleError(err)
+      },
     })
   }
 }

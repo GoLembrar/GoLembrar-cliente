@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <section class="flex flex-column justify-content-center align-items-center min-h-screen">
   <form [formGroup]="user" class="p-5 flex flex-column gap-3" (ngSubmit)="postUser()">
     <h1 class="m-0 mb-2 text-3xl">Fazer login</h1>
@@ -22,7 +23,7 @@
         <label for="password">Senha</label>
       </legend>
       <p-password placeholder="Digite sua senha" [toggleMask]="true" inputId="password" formControlName="password" 
-      [ngClass]="{'ng-invalid ng-dirty': inputInvalid('password')}">
+      [ngClass]="{'ng-invalid ng-dirty': inputInvalid('password')}" [feedback]="false">
       </p-password>
       <div *ngIf="inputInvalid('password')">
         <small class="text-red-600" *ngIf="getInputError('password', 'required')">Campo obrigatório</small>
@@ -34,6 +35,6 @@
       <small class="text-red-600">{{getRequestError()}}</small>
     </div>
 
-    <p-button label="Login" icon="pi pi-sign-in" type="submit" [disabled]="user.invalid"></p-button>
+    <p-button label="Login" icon="pi pi-sign-in" type="submit" [disabled]="user.invalid" [loading]="load"></p-button>
   </form>
 </section>

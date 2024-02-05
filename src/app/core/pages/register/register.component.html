@@ -1,10 +1,11 @@
+<p-toast></p-toast>
 <section class="flex flex-column justify-content-center align-items-center min-h-screen">
   <form [formGroup]="user" (ngSubmit)="postUser()" class="p-5 flex flex-column gap-3">
     <h1 class="m-0 mb-2 text-3xl">Fazer cadastro</h1>
     
     <fieldset class="border-none p-0 m-0">
       <legend class="mb-2">
-        <label for="email">Email</label>
+        <label for="email">Email</label>  
       </legend>
       <span class="p-input-icon-right">
         <i class="pi pi-envelope"></i>
@@ -43,10 +44,25 @@
       </div>
     </fieldset>
 
+    <fieldset class="border-none p-0 m-0">
+      <legend class="mb-2">
+        <label for="phone">Telefone</label>  
+      </legend>
+      <span class="p-input-icon-right">
+        <i class="pi pi-phone"></i>
+        <input type="text" pInputText formControlName="phone" placeholder="Digite seu telefone" id="phone" 
+        [ngClass]="{'ng-invalid ng-dirty': inputInvalid('phone')}" />
+      </span>
+      <div *ngIf="inputInvalid('phone')">
+        <small class="text-red-600" *ngIf="getInputError('phone', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('phone', 'pattern')">Digite um telefone válido</small>
+      </div>
+    </fieldset>
+
     <div *ngIf="getRequestError()">
       <small class="text-red-600">{{getRequestError()}}</small>
     </div>
 
-    <p-button label="Registrar" icon="pi pi-check" type="submit" [disabled]="user.invalid"></p-button>
+    <p-button label="Registrar" icon="pi pi-check" type="submit" [loading]="load"></p-button>
   </form>
 </section>

@@ -8,11 +8,15 @@ import {
   Validators as V,
   ValidatorFn,
 } from '@angular/forms'
+import { MessageService } from 'primeng/api'
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
-import { REGEX_PASSWORD } from '../../constants/regexp'
+import { ToastModule } from 'primeng/toast'
+import { REGEX_PASSWORD, REGEX_PHONE } from '../../constants/regexp'
+import { User } from '../../models/user.model'
 import { authService } from '../../services/authService.service'
+import { LoadingService } from '../../services/loading.service'
 @Component({
   selector: 'gl-register',
   standalone: true,
@@ -23,22 +27,34 @@ import { authService } from '../../services/authService.service'
     PasswordModule,
     ButtonModule,
     HttpClientModule,
+    ToastModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  constructor(private formBuilder: FormBuilder, private service: authService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: authService,
+    private loadingService: LoadingService,
+    private messageService: MessageService
+  ) {}
 
   user = this.formBuilder.group(
     {
       email: ['', [V.required, V.email]],
       password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
       confirmPassword: ['', [V.required]],
+      phone: ['', [V.required, V.pattern(REGEX_PHONE)]],
     },
     {
       validator: this.comparatePassword(),
     }
+  )
+
+  load = false
+  loading = this.loadingService.loading$.subscribe(
+    isLoading => (this.load = isLoading)
   )
 
   comparatePassword(): ValidatorFn {
@@ -78,14 +94,30 @@ export class RegisterComponent {
     return this.user.get(input)?.hasError(error)
   }
 
-  getRequestError() {
-    return this.service.messageError
+  getRequestError(): string | null {
+    return this.authService.messageError
   }
 
-  postUser() {
-    this.service.register({
-      email: this.user.value.email,
-      password: this.user.value.password,
+  postUser(): void {
+    const user: User = {
+      email: this.user.value.email!,
+      password: this.user.value.password!,
+      phone: this.user.value.phone!,
+    }
+    this.authService.register(user).subscribe({
+      next: success => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Cadastro realizado com sucesso',
+          detail: 'Via MessageService',
+        })
+        this.authService.navigateLogin()
+        this.loadingService.setLoading(false)
+      },
+      error: err => {
+        this.authService.loading(false)
+        this.authService.handleError(err)
+      },
     })
   }
 }
