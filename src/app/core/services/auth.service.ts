@@ -9,15 +9,30 @@ import { LoadingService } from './loading.service'
 @Injectable({
   providedIn: 'root',
 })
-export class authService {
+export class AuthService {
   constructor(
     private htpp: HttpClient,
     private router: Router,
     private messageService: MessageService,
     private loadingService: LoadingService
-  ) {}
+  ) {
+    if (localStorage.getItem('Bearer')) {
+      this.loginWithToken()
+    }
+  }
 
   messageError: string | null = null
+
+  private isAuth = false
+
+  getIsAuth() {
+    return this.isAuth
+  }
+
+  loginWithToken() {
+    this.isAuth = true
+    this.router.navigate(['/'])
+  }
 
   register(body: User): Observable<User> {
     this.loading(true)
@@ -31,7 +46,10 @@ export class authService {
     this.loading(true)
     return this.htpp.post<User>(`${environment.apiUrl}/auth`, body).pipe(
       catchError(this.handleError.bind(this)),
-      map(success => success)
+      map(success => {
+        this.isAuth = true
+        return success
+      })
     )
   }
 
@@ -51,7 +69,7 @@ export class authService {
 
   setTokenLocalStorage(res: any): void {
     const { token } = res
-    localStorage.setItem('token', token)
+    localStorage.setItem('Bearer', token)
   }
 
   handleError(error: HttpErrorResponse) {

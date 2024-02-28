@@ -15,14 +15,16 @@ import { PasswordModule } from 'primeng/password'
 import { ToastModule } from 'primeng/toast'
 import { REGEX_PASSWORD, REGEX_PHONE } from '../../constants/regexp'
 import { User } from '../../models/user.model'
-import { authService } from '../../services/authService.service'
+import { AuthService } from '../../services/auth.service'
 import { LoadingService } from '../../services/loading.service'
+import { RouterModule } from '@angular/router'
 @Component({
   selector: 'gl-register',
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     InputTextModule,
     PasswordModule,
     ButtonModule,
@@ -35,7 +37,7 @@ import { LoadingService } from '../../services/loading.service'
 export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
-    private authService: authService,
+    private authService: AuthService,
     private loadingService: LoadingService,
     private messageService: MessageService
   ) {}
