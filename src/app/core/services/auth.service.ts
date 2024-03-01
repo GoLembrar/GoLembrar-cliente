@@ -31,7 +31,6 @@ export class AuthService {
 
   loginWithToken() {
     this.isAuth = true
-    this.router.navigate(['/'])
   }
 
   register(body: User): Observable<User> {
@@ -53,6 +52,10 @@ export class AuthService {
     )
   }
 
+  logout() {
+    this.setNotAuth()
+  }
+
   loading(value: boolean): void {
     this.loadingService.setLoading(value)
   }
@@ -70,6 +73,12 @@ export class AuthService {
   setTokenLocalStorage(res: any): void {
     const { token } = res
     localStorage.setItem('Bearer', token)
+  }
+
+  setNotAuth() {
+    this.isAuth = false
+    localStorage.clear()
+    this.router.navigate(['/login'])
   }
 
   handleError(error: HttpErrorResponse) {

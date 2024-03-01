@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http'
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import {
   AbstractControl,
   FormBuilder,
@@ -17,7 +17,7 @@ import { REGEX_PASSWORD, REGEX_PHONE } from '../../constants/regexp'
 import { User } from '../../models/user.model'
 import { AuthService } from '../../services/auth.service'
 import { LoadingService } from '../../services/loading.service'
-import { RouterModule } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 @Component({
   selector: 'gl-register',
   standalone: true,
@@ -34,15 +34,22 @@ import { RouterModule } from '@angular/router'
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private loadingService: LoadingService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
-  user = this.formBuilder.group(
+  ngOnInit() {
+    if (this.authService.getIsAuth()) {
+      this.router.navigate(['/'])
+    }
+  }
+
+  protected user = this.formBuilder.group(
     {
       email: ['', [V.required, V.email]],
       password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
