@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -13,7 +13,7 @@ import { REGEX_PASSWORD } from '../../constants/regexp'
 import { User } from '../../models/user.model'
 import { AuthService } from '../../services/auth.service'
 import { LoadingService } from '../../services/loading.service'
-import { RouterModule } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 
 @Component({
   selector: 'gl-login',
@@ -30,12 +30,19 @@ import { RouterModule } from '@angular/router'
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private router: Router
   ) {}
+
+  ngOnInit() {
+    if (this.authService.getIsAuth()) {
+      this.router.navigate(['/'])
+    }
+  }
 
   user = this.formBuilder.group({
     email: ['', [V.required, V.email]],

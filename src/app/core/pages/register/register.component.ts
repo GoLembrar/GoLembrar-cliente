@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http'
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import {
   AbstractControl,
-  FormBuilder,
+  NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators as V,
   ValidatorFn,
@@ -17,7 +17,7 @@ import { REGEX_PASSWORD, REGEX_PHONE } from '../../constants/regexp'
 import { User } from '../../models/user.model'
 import { AuthService } from '../../services/auth.service'
 import { LoadingService } from '../../services/loading.service'
-import { RouterModule } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 @Component({
   selector: 'gl-register',
   standalone: true,
@@ -34,15 +34,22 @@ import { RouterModule } from '@angular/router'
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: NonNullableFormBuilder,
     private authService: AuthService,
     private loadingService: LoadingService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
-  user = this.formBuilder.group(
+  ngOnInit() {
+    if (this.authService.getIsAuth()) {
+      this.router.navigate(['/'])
+    }
+  }
+
+  protected user = this.formBuilder.group(
     {
       email: ['', [V.required, V.email]],
       password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
@@ -50,7 +57,7 @@ export class RegisterComponent {
       phone: ['', [V.required, V.pattern(REGEX_PHONE)]],
     },
     {
-      validator: this.comparatePassword(),
+      validators: this.comparatePassword(),
     }
   )
 
@@ -101,19 +108,15 @@ export class RegisterComponent {
   }
 
   postUser(): void {
-    const user: User = {
-      email: this.user.value.email!,
-      password: this.user.value.password!,
-      phone: this.user.value.phone!,
-    }
-    this.authService.register(user).subscribe({
-      next: success => {
+    this.user.controls.confirmPassword.disable()
+    this.authService.register(this.user.value as User).subscribe({
+      next: () => {
         this.messageService.add({
           severity: 'success',
           summary: 'Cadastro realizado com sucesso',
           detail: 'Via MessageService',
         })
-        this.authService.navigateLogin()
+        this.router.navigate(['/login'])
         this.loadingService.setLoading(false)
       },
       error: err => {
