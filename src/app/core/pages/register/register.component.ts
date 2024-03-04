@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { Component, OnInit } from '@angular/core'
 import {
   AbstractControl,
-  FormBuilder,
+  NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators as V,
   ValidatorFn,
@@ -36,7 +36,7 @@ import { Router, RouterModule } from '@angular/router'
 })
 export class RegisterComponent implements OnInit {
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: NonNullableFormBuilder,
     private authService: AuthService,
     private loadingService: LoadingService,
     private messageService: MessageService,
@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
       phone: ['', [V.required, V.pattern(REGEX_PHONE)]],
     },
     {
-      validator: this.comparatePassword(),
+      validators: this.comparatePassword(),
     }
   )
 
@@ -108,19 +108,15 @@ export class RegisterComponent implements OnInit {
   }
 
   postUser(): void {
-    const user: User = {
-      email: this.user.value.email!,
-      password: this.user.value.password!,
-      phone: this.user.value.phone!,
-    }
-    this.authService.register(user).subscribe({
-      next: success => {
+    this.user.controls.confirmPassword.disable()
+    this.authService.register(this.user.value as User).subscribe({
+      next: () => {
         this.messageService.add({
           severity: 'success',
           summary: 'Cadastro realizado com sucesso',
           detail: 'Via MessageService',
         })
-        this.authService.navigateLogin()
+        this.router.navigate(['/login'])
         this.loadingService.setLoading(false)
       },
       error: err => {
