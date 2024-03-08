@@ -2,3 +2,44 @@
 <main>
   <router-outlet></router-outlet>
 </main>
+
+<p-sidebar
+  [visible]="true"
+  position="bottom"
+  [modal]="false"
+  styleClass="h-14rem"
+>
+  <ng-template pTemplate="content">
+    <div
+      id="action-btns"
+      class="flex mt-1 flex-wrap mx-auto gap-2 align-items-center justify-content-center"
+    >
+      <p-button
+        label="Hoje"
+        icon=" pi pi-calendar"
+        [outlined]="true"
+        severity="info"
+        styleClass="w-10rem"
+      ></p-button>
+      <p-button
+        label="Todos"
+        icon=" pi pi-inbox"
+        [outlined]="true"
+        severity="secondary"
+        styleClass="w-10rem"
+      ></p-button>
+      <p-button
+        label="Agendados"
+        icon=" pi pi-clock"
+        severity="danger"
+        styleClass="w-10rem"
+      ></p-button>
+      <p-button
+        label="Novo"
+        icon=" pi pi-plus-circle"
+        severity="success"
+        styleClass="w-10rem"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-sidebar>
