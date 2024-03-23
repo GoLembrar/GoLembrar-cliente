@@ -1,0 +1,23 @@
+.p-sidebar {
+  height: 12rem;
+  .p-sidebar-footer {
+    display: none;
+  }
+  #action-btns {
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 768px) {
+  .p-sidebar {
+    padding-top: 30px;
+    height: 100%;
+    width: 400px;
+    .p-sidebar-footer {
+      display: initial;
+    }
+    #action-btns {
+      padding-top: 30px;
+    }
+  }
+}

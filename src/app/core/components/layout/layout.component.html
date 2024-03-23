@@ -1,14 +1,21 @@
-<button (click)="logout()">LOGOUT</button>
-<main>
-  <router-outlet></router-outlet>
-</main>
-
 <p-sidebar
-  [visible]="true"
-  position="bottom"
+  [(visible)]="isSibebarOpen"
+  [position]="isMobile ? 'bottom' : 'left'"
   [modal]="false"
-  styleClass="h-14rem"
+  [closeOnEscape]="false"
+  [showCloseIcon]="false"
+  [blockScroll]="true"
+  [ngClass]="{ 'h-full': !isMobile }"
 >
+  <ng-template pTemplate="header">
+    <img
+      *ngIf="!isMobile"
+      src="/assets/banner.svg"
+      alt="GoLembra logo"
+      width="200"
+      class="pl-4"
+    />
+  </ng-template>
   <ng-template pTemplate="content">
     <div
       id="action-btns"
@@ -18,7 +25,7 @@
         label="Hoje"
         icon=" pi pi-calendar"
         [outlined]="true"
-        severity="info"
+        severity="warning"
         styleClass="w-10rem"
       ></p-button>
       <p-button
@@ -31,7 +38,7 @@
       <p-button
         label="Agendados"
         icon=" pi pi-clock"
-        severity="danger"
+        severity="info"
         styleClass="w-10rem"
       ></p-button>
       <p-button
@@ -42,4 +49,58 @@
       ></p-button>
     </div>
   </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button
+      *ngIf="!isMobile"
+      label="Configurações"
+      icon=" pi pi-cog"
+      severity="secondary"
+      [outlined]="true"
+      styleClass="flex gap-2 no-underline w-full text-left"
+    ></p-button>
+  </ng-template>
 </p-sidebar>
+<div
+  [ngClass]="{
+  'space-left-content': isSibebarOpen,
+  'space-bottom-content': isSibebarOpen && isMobile,
+  }"
+  class="p-2"
+>
+  <header class="flex justify-content-between align-items-center">
+    @if(!isMobile){
+    <p-button
+      (click)="toggleSidebar()"
+      icon="pi pi-bars"
+    ></p-button>
+    } @if(isMobile){
+    <p-button
+      (click)="toggleSidebar()"
+      icon="pi pi-plus"
+    ></p-button>
+    }
+    <div class="profile cursor-pointer align-items-end">
+      <p-menu
+        #menu
+        [model]="avatarMenu"
+        [popup]="true"
+      ></p-menu>
+      <div
+        class="flex align-items-center gap-2"
+        (click)="menu.toggle($event)"
+      >
+        <h4 class="font-medium text-sm">Andrew D.</h4>
+        <p-avatar
+          icon="pi pi-user"
+          styleClass="mr-2"
+          shape="circle"
+          size="large"
+        ></p-avatar>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>
