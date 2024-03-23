@@ -4,13 +4,16 @@
   }
 
   .space-bottom-content {
-    margin-bottom: 200px;
+    margin-bottom: 214px;
   }
 }
 @media (min-width: 768px) {
   :host {
     .space-left-content {
       margin-left: 400px;
+    }
+    .space-bottom-content {
+      margin-bottom: 0;
     }
   }
 }

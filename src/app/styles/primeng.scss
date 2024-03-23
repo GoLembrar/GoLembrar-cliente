@@ -3,7 +3,7 @@
   .p-sidebar-footer {
     display: none;
   }
-  #action-btns {
+  #action-buttons {
     max-width: 400px;
   }
 }
@@ -13,10 +13,15 @@
     padding-top: 30px;
     height: 100%;
     width: 400px;
+    .p-sidebar-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .p-sidebar-footer {
       display: initial;
     }
-    #action-btns {
+    #action-buttons {
       padding-top: 30px;
     }
   }

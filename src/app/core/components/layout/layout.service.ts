@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 import { MenuItem } from 'primeng/api'
 
 import { AuthService } from '../../services/auth.service'
+import { Layout } from '../../models/layout'
 
 @Injectable()
 export class LayoutService {
@@ -25,6 +26,32 @@ export class LayoutService {
       command: () => {
         this.authService.logout()
       },
+    },
+  ]
+  actionsButtons: Layout[] = [
+    {
+      label: 'Hoje',
+      icon: ' pi pi-calendar',
+      outlined: true,
+      severity: 'warning',
+    },
+    {
+      label: 'Todos',
+      icon: ' pi pi-inbox',
+      outlined: true,
+      severity: 'secondary',
+    },
+    {
+      label: 'Agendados',
+      icon: ' pi pi-clock',
+      outlined: false,
+      severity: 'danger',
+    },
+    {
+      label: 'Novo',
+      icon: ' pi pi-plus-circle',
+      outlined: false,
+      severity: 'success',
     },
   ]
 }

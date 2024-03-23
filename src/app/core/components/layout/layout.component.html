@@ -1,7 +1,7 @@
 <p-sidebar
-  [(visible)]="isSibebarOpen"
+  [(visible)]="isSidebarOpen"
   [position]="isMobile ? 'bottom' : 'left'"
-  [modal]="false"
+  [modal]="isMobile"
   [closeOnEscape]="false"
   [showCloseIcon]="false"
   [blockScroll]="true"
@@ -11,42 +11,25 @@
     <img
       *ngIf="!isMobile"
       src="/assets/banner.svg"
-      alt="GoLembra logo"
+      alt="GoLembrar logo"
       width="200"
-      class="pl-4"
     />
   </ng-template>
   <ng-template pTemplate="content">
     <div
-      id="action-btns"
+      id="action-buttons"
       class="flex mt-1 flex-wrap mx-auto gap-2 align-items-center justify-content-center"
     >
+      @for(actionButton of actionButtons; track actionButton.label) {
       <p-button
-        label="Hoje"
-        icon=" pi pi-calendar"
-        [outlined]="true"
-        severity="warning"
+        [label]="actionButton.label"
+        [icon]="actionButton.icon"
+        [outlined]="actionButton.outlined"
+        [severity]="actionButton.severity"
         styleClass="w-10rem"
+        (click)="onClickMenu()"
       ></p-button>
-      <p-button
-        label="Todos"
-        icon=" pi pi-inbox"
-        [outlined]="true"
-        severity="secondary"
-        styleClass="w-10rem"
-      ></p-button>
-      <p-button
-        label="Agendados"
-        icon=" pi pi-clock"
-        severity="info"
-        styleClass="w-10rem"
-      ></p-button>
-      <p-button
-        label="Novo"
-        icon=" pi pi-plus-circle"
-        severity="success"
-        styleClass="w-10rem"
-      ></p-button>
+      }
     </div>
   </ng-template>
   <ng-template pTemplate="footer">
@@ -62,8 +45,8 @@
 </p-sidebar>
 <div
   [ngClass]="{
-  'space-left-content': isSibebarOpen,
-  'space-bottom-content': isSibebarOpen && isMobile,
+  'space-left-content': isSidebarOpen,
+  'space-bottom-content': isSidebarOpen && isMobile,
   }"
   class="p-2"
 >
@@ -77,6 +60,8 @@
     <p-button
       (click)="toggleSidebar()"
       icon="pi pi-plus"
+      label="GO"
+      styleClass="absolute bottom-0 right-0 m-4"
     ></p-button>
     }
     <div class="profile cursor-pointer align-items-end">
