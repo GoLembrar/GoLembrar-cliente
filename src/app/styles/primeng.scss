@@ -1,10 +1,18 @@
 .p-sidebar {
-  height: 12rem;
+  height: 17rem;
+  .p-sidebar-content {
+    padding: 0 36px;
+  }
+
   .p-sidebar-footer {
     display: none;
   }
   #action-buttons {
     max-width: 400px;
+    max-width: 328px;
+    & p-button:first-child {
+      width: 100%;
+    }
   }
 }
 

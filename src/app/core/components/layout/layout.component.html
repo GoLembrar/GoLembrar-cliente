@@ -3,7 +3,7 @@
   [position]="isMobile ? 'bottom' : 'left'"
   [modal]="isMobile"
   [closeOnEscape]="false"
-  [showCloseIcon]="false"
+  [showCloseIcon]="isMobile"
   [blockScroll]="true"
   [ngClass]="{ 'h-full': !isMobile }"
 >
@@ -15,23 +15,28 @@
       width="200"
     />
   </ng-template>
-  <ng-template pTemplate="content">
-    <div
-      id="action-buttons"
-      class="flex mt-1 flex-wrap mx-auto gap-2 align-items-center justify-content-center"
-    >
-      @for(actionButton of actionButtons; track actionButton.label) {
-      <p-button
-        [label]="actionButton.label"
-        [icon]="actionButton.icon"
-        [outlined]="actionButton.outlined"
-        [severity]="actionButton.severity"
-        styleClass="w-10rem"
-        (click)="onClickMenu()"
-      ></p-button>
-      }
-    </div>
-  </ng-template>
+  <div
+    id="action-buttons"
+    class="flex mt-1 flex-wrap mx-auto gap-2 align-items-center justify-content-center"
+  >
+    <p-button
+      label="Meus contatos"
+      icon="pi pi-user"
+      severity="info"
+      (click)="onClickMenu()"
+      styleClass="w-full text-left"
+    ></p-button>
+    @for(actionButton of actionButtons; track actionButton.label) {
+    <p-button
+      [label]="actionButton.label"
+      [icon]="actionButton.icon"
+      [outlined]="actionButton.outlined"
+      [severity]="actionButton.severity"
+      styleClass="w-10rem"
+      (click)="onClickMenu()"
+    ></p-button>
+    }
+  </div>
   <ng-template pTemplate="footer">
     <p-button
       *ngIf="!isMobile"
@@ -46,7 +51,6 @@
 <div
   [ngClass]="{
   'space-left-content': isSidebarOpen,
-  'space-bottom-content': isSidebarOpen && isMobile,
   }"
   class="p-2"
 >
@@ -69,6 +73,7 @@
         #menu
         [model]="avatarMenu"
         [popup]="true"
+        styleClass="mt-3"
       ></p-menu>
       <div
         class="flex align-items-center gap-2"
