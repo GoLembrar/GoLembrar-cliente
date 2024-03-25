@@ -1,0 +1,12 @@
+:host {
+  .space-left-content {
+    margin-left: 0;
+  }
+}
+@media (min-width: 768px) {
+  :host {
+    .space-left-content {
+      margin-left: 400px;
+    }
+  }
+}
