@@ -1,19 +1,21 @@
 import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
+import { Router, RouterModule } from '@angular/router'
 import {
   FormBuilder,
   ReactiveFormsModule,
   Validators as V,
 } from '@angular/forms'
+
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
-import { ToastModule } from 'primeng/toast'
+import { CardModule } from 'primeng/card'
+
 import { REGEX_PASSWORD } from '../../constants/regexp'
 import { User } from '../../models/user.model'
 import { AuthService } from '../../services/auth.service'
 import { LoadingService } from '../../services/loading.service'
-import { Router, RouterModule } from '@angular/router'
 
 @Component({
   selector: 'gl-login',
@@ -25,7 +27,7 @@ import { Router, RouterModule } from '@angular/router'
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    ToastModule,
+    CardModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
