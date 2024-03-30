@@ -5,3 +5,14 @@
 @import 'primeicons/primeicons.css';
 
 @import './app/styles/primeng.scss';
+
+:root {
+  --primary-color: #00a6cb;
+  --secondary-color: #53c2b3;
+  --black-color: #1e1e1e;
+  --white-color: #fffbf8;
+}
+
+body {
+  margin: 0;
+}

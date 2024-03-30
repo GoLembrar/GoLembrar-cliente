@@ -1,95 +1,105 @@
-<main
-  class="flex flex-column justify-content-center align-items-center min-h-screen"
->
-  <p-card styleClass="m-auto w-12 sm:w-30rem my-0">
-    <ng-template pTemplate="title">
-      <span class="block text-center"> Login </span>
-    </ng-template>
-    <form
-      [formGroup]="user"
-      class="p-3 flex flex-column gap-3 formgrid"
-      (ngSubmit)="postUser()"
-    >
-      <fieldset class="border-none p-0 m-0 field col-12">
-        <legend class="mb-2">
-          <label for="email">Email</label>
-        </legend>
-        <span class="p-input-icon-right w-full">
-          <i class="pi pi-envelope"></i>
-          <input
-            pInputText
-            type="email"
-            placeholder="Digite seu email"
-            id="email"
-            formControlName="email"
-            class="w-full"
-            [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('email') }"
-          />
-        </span>
-        <div *ngIf="inputInvalid('email')">
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('email', 'required')"
-            >Campo obrigatório</small
-          >
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('email', 'email')"
-            >Digite um email válido</small
-          >
-        </div>
-      </fieldset>
+<main>
+  <div class="left-container">
+    <img
+      src="/assets/left-draw.svg"
+      width="300"
+    />
+  </div>
+  <div class="right-container">
+    <img
+      src="/assets/logo.svg"
+      width="300"
+    />
+    <p-card styleClass="m-auto w-12 lg:w-30rem my-0">
+      <ng-template pTemplate="title">
+        <span class="block text-center"> Login </span>
+      </ng-template>
+      <form
+        [formGroup]="user"
+        class="p-3 flex flex-column gap-3 formgrid"
+        (ngSubmit)="postUser()"
+      >
+        <fieldset class="border-none p-0 m-0 field col-12">
+          <legend class="mb-2">
+            <label for="email">Email</label>
+          </legend>
+          <span class="p-input-icon-right w-full">
+            <i class="pi pi-envelope"></i>
+            <input
+              pInputText
+              type="email"
+              placeholder="Digite seu email"
+              id="email"
+              formControlName="email"
+              class="w-full"
+              [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('email') }"
+            />
+          </span>
+          <div *ngIf="inputInvalid('email')">
+            <small
+              class="text-red-600"
+              *ngIf="getInputError('email', 'required')"
+              >Campo obrigatório</small
+            >
+            <small
+              class="text-red-600"
+              *ngIf="getInputError('email', 'email')"
+              >Digite um email válido</small
+            >
+          </div>
+        </fieldset>
 
-      <fieldset class="border-none p-0 m-0 col col-12">
-        <legend class="mb-2">
-          <label for="password">Senha</label>
-        </legend>
-        <p-password
-          placeholder="Digite sua senha"
-          [toggleMask]="true"
-          inputId="password"
-          formControlName="password"
-          [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('password') }"
-          [feedback]="false"
-          [style]="{ width: '100%' }"
-          [inputStyle]="{ width: '100%' }"
+        <fieldset class="border-none p-0 m-0 col col-12">
+          <legend class="mb-2">
+            <label for="password">Senha</label>
+          </legend>
+          <p-password
+            placeholder="Digite sua senha"
+            [toggleMask]="true"
+            inputId="password"
+            formControlName="password"
+            [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('password') }"
+            [feedback]="false"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+          >
+          </p-password>
+          <div *ngIf="inputInvalid('password')">
+            <small
+              class="text-red-600"
+              *ngIf="getInputError('password', 'required')"
+              >Campo obrigatório</small
+            >
+            <small
+              class="text-red-600"
+              *ngIf="getInputError('password', 'pattern')"
+              >A senha deve ter no minimo 6 caracteres<br />
+              sendo 1 maiúsculo</small
+            >
+          </div>
+        </fieldset>
+
+        <div *ngIf="getRequestError()">
+          <small class="text-red-600">{{ getRequestError() }}</small>
+        </div>
+
+        <div
+          class="flex col-12 px-0 pb-0 flex-column-reverse sm:flex-row sm:justify-content-end"
         >
-        </p-password>
-        <div *ngIf="inputInvalid('password')">
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('password', 'required')"
-            >Campo obrigatório</small
-          >
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('password', 'pattern')"
-            >A senha deve ter no minimo 6 caracteres<br />
-            sendo 1 maiúsculo</small
-          >
+          <p-button
+            label="Entrar"
+            type="submit"
+            [disabled]="user.invalid"
+            [loading]="load"
+            styleClass="justify-content-center w-full sm:w-auto"
+          ></p-button>
         </div>
-      </fieldset>
-
-      <div *ngIf="getRequestError()">
-        <small class="text-red-600">{{ getRequestError() }}</small>
-      </div>
-
-      <div
-        class="flex col-12 px-0 pb-0 flex-column-reverse sm:flex-row sm:justify-content-end"
-      >
-        <p-button
-          label="Entrar"
-          type="submit"
-          [disabled]="user.invalid"
-          [loading]="load"
-          styleClass="justify-content-center w-full sm:w-auto"
-        ></p-button>
-      </div>
-      <a
-        class="no-underline hover:underline"
-        routerLink="/register"
-        >Não tenho conta</a
-      >
-    </form>
-  </p-card>
+        <a
+          class="no-underline hover:underline"
+          routerLink="/register"
+          >Não tenho conta</a
+        >
+      </form>
+    </p-card>
+  </div>
 </main>
