@@ -16,3 +16,15 @@
 body {
   margin: 0;
 }
+
+fieldset {
+  border: none;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+
+  legend {
+    label {
+      cursor: pointer;
+    }
+  }
+}

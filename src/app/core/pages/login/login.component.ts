@@ -13,7 +13,7 @@ import { PasswordModule } from 'primeng/password'
 import { CardModule } from 'primeng/card'
 
 import { REGEX_PASSWORD } from '../../constants/regexp'
-import { User } from '../../models/user.model'
+import { User, UserLogin } from '../../models/user.model'
 import { AuthService } from '../../services/auth.service'
 import { LoadingService } from '../../services/loading.service'
 
@@ -33,59 +33,30 @@ import { LoadingService } from '../../services/loading.service'
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private loadingService: LoadingService,
-    private router: Router
-  ) {}
+  protected submitting = false
 
-  ngOnInit() {
-    if (this.authService.getIsAuth()) {
-      this.router.navigate(['/'])
-    }
-  }
-
-  user = this.formBuilder.group({
+  protected account = this.formBuilder.group({
     email: ['', [V.required, V.email]],
     password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
   })
 
-  load = false
-  loading = this.loadingService.loading$.subscribe(
-    isLoading => (this.load = isLoading)
-  )
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {}
 
-  inputInvalid(input: string) {
-    return (
-      this.user.get(input)?.invalid &&
-      (this.user.get(input)?.dirty || this.user.get(input)?.touched)
-    )
+  ngOnInit() {
+    this.authService.ifIsAuthLogin()
   }
 
-  getInputError(input: string, error: string) {
-    return this.user.get(input)?.hasError(error)
-  }
-
-  getRequestError() {
-    return this.authService.messageError
-  }
-
-  postUser() {
-    const user: User = {
-      email: this.user.value.email!,
-      password: this.user.value.password!,
+  onSubmitForm() {
+    if (this.account.valid) {
+      this.submitting = true
+      this.authService.login(this.account.value as UserLogin).subscribe({
+        error: () => {
+          this.submitting = false
+        },
+      })
     }
-    this.authService.login(user).subscribe({
-      next: bearer => {
-        this.authService.setTokenLocalStorage(bearer)
-        this.authService.navigateHome()
-        this.authService.loading(false)
-      },
-      error: err => {
-        this.authService.loading(false)
-        this.authService.handleError(err)
-      },
-    })
   }
 }

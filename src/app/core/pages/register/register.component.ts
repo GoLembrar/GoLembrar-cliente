@@ -44,9 +44,7 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.authService.getIsAuth()) {
-      this.router.navigate(['/'])
-    }
+    this.authService.ifIsAuthLogin()
   }
 
   protected user = this.formBuilder.group(

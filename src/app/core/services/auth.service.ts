@@ -4,8 +4,10 @@ import { Router } from '@angular/router'
 import { MessageService } from 'primeng/api'
 import { Observable, catchError, map, throwError } from 'rxjs'
 import { environment } from 'src/environments/environment.development'
-import { User } from '../models/user.model'
+import { User, UserLogin } from '../models/user.model'
 import { LoadingService } from './loading.service'
+import { Token } from '../models/token'
+
 @Injectable({
   providedIn: 'root',
 })
@@ -25,6 +27,12 @@ export class AuthService {
 
   private isAuth = false
 
+  ifIsAuthLogin() {
+    if (this.isAuth) {
+      this.router.navigate(['/'])
+    }
+  }
+
   getIsAuth() {
     return this.isAuth
   }
@@ -41,13 +49,14 @@ export class AuthService {
     )
   }
 
-  login(body: User): Observable<User> {
+  login(account: UserLogin): Observable<void> {
     this.loading(true)
-    return this.htpp.post<User>(`${environment.apiUrl}/auth`, body).pipe(
+    return this.htpp.post<Token>(`${environment.apiUrl}/auth`, account).pipe(
       catchError(this.handleError.bind(this)),
-      map(success => {
+      map(bearer => {
         this.isAuth = true
-        return success
+        this.router.navigate(['/'])
+        localStorage.setItem('Bearer', bearer.token)
       })
     )
   }
@@ -70,9 +79,8 @@ export class AuthService {
     this.router.navigate([''])
   }
 
-  setTokenLocalStorage(res: any): void {
-    const { token } = res
-    localStorage.setItem('Bearer', token)
+  setTokenLocalStorage(bearer: Token) {
+    localStorage.setItem('Bearer', bearer.token)
   }
 
   setNotAuth() {
