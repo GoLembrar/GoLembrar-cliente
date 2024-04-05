@@ -63,6 +63,11 @@ export class AuthService {
 
   logout() {
     this.setNotAuth()
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Sucesso',
+      detail: 'Saiu na conta',
+    })
   }
 
   loading(value: boolean): void {

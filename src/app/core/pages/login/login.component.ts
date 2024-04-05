@@ -16,6 +16,7 @@ import { REGEX_PASSWORD } from '../../constants/regexp'
 import { UserLogin } from '../../models/user.model'
 import { AuthService } from '../../services/auth.service'
 import { Subscription } from 'rxjs'
+import { MessageService } from 'primeng/api'
 
 @Component({
   selector: 'gl-login',
@@ -43,7 +44,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -54,6 +56,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.account.valid) {
       this.submitting = true
       this.authService.login(this.account.value as UserLogin).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Fez login na conta',
+          })
+        },
         error: () => {
           this.submitting = false
         },
