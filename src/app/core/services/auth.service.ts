@@ -106,9 +106,9 @@ export class AuthService {
     }
     if (error.status === 500) {
       this.messageService.add({
-        severity: 'info',
-        summary: 'Email já cadastrado',
-        detail: 'Via MessageService',
+        severity: 'error',
+        summary: 'Erro de conflito',
+        detail: 'Esse email já foi cadastrado',
       })
     }
     return throwError(() => this.messageError)

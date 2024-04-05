@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
-import { Component, OnInit } from '@angular/core'
-import { Router, RouterModule } from '@angular/router'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { RouterModule } from '@angular/router'
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -13,9 +13,9 @@ import { PasswordModule } from 'primeng/password'
 import { CardModule } from 'primeng/card'
 
 import { REGEX_PASSWORD } from '../../constants/regexp'
-import { User, UserLogin } from '../../models/user.model'
+import { UserLogin } from '../../models/user.model'
 import { AuthService } from '../../services/auth.service'
-import { LoadingService } from '../../services/loading.service'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'gl-login',
@@ -32,8 +32,9 @@ import { LoadingService } from '../../services/loading.service'
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   protected submitting = false
+  private subscription = new Subscription()
 
   protected account = this.formBuilder.group({
     email: ['', [V.required, V.email]],
@@ -58,5 +59,9 @@ export class LoginComponent implements OnInit {
         },
       })
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 }
