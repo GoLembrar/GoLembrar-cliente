@@ -50,6 +50,7 @@
           [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('password') }"
           [style]="{ width: '100%' }"
           [inputStyle]="{ width: '100%' }"
+          promptLabel="Força da senha"
         >
         </p-password>
         <div *ngIf="inputInvalid('password')">
@@ -79,6 +80,7 @@
           [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('confirmPassword') }"
           [style]="{ width: '100%' }"
           [inputStyle]="{ width: '100%' }"
+          promptLabel="Força da senha"
         >
         </p-password>
         <div *ngIf="inputInvalid('confirmPassword')">
@@ -101,15 +103,17 @@
         </legend>
         <span class="p-input-icon-right w-full">
           <i class="pi pi-phone"></i>
-          <input
-            class="w-full"
-            type="text"
-            pInputText
+          <p-inputMask
+            [style.width]="'100%'"
+            styleClass="w-full"
+            inputId="phone"
             formControlName="phone"
-            placeholder="Digite seu telefone"
-            id="phone"
+            mask="(99) 9?999-99999"
+            placeholder="(99) 9?999-99999"
+            [unmask]="true"
+            [autoClear]="false"
             [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('phone') }"
-          />
+          ></p-inputMask>
         </span>
         <div *ngIf="inputInvalid('phone')">
           <small

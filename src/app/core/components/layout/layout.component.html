@@ -54,11 +54,13 @@
   }"
   class="p-2"
 >
-  <header class="flex justify-content-between align-items-center">
+  <header class="flex justify-content-between align-items-center px-2">
     @if(!isMobile){
     <p-button
       (click)="toggleSidebar()"
       icon="pi pi-bars"
+      [outlined]="true"
+      severity="secondary"
     ></p-button>
     } @if(isMobile){
     <p-button

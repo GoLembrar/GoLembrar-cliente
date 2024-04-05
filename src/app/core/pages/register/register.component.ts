@@ -17,6 +17,7 @@ import { Router } from '@angular/router'
 import { MessageService } from 'primeng/api'
 import { Subscription } from 'rxjs'
 import { CardModule } from 'primeng/card'
+import { InputMaskModule } from 'primeng/inputmask'
 
 @Component({
   selector: 'gl-register',
@@ -28,6 +29,7 @@ import { CardModule } from 'primeng/card'
     PasswordModule,
     ButtonModule,
     CardModule,
+    InputMaskModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -53,7 +55,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       email: ['', [V.required, V.email]],
       password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
       confirmPassword: ['', [V.required]],
-      phone: ['', [V.required, V.pattern(REGEX_PHONE)]],
+      phone: ['', [V.required]],
     },
     {
       validators: this.comparatePassword(),
