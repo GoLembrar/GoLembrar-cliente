@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { HttpClientModule } from '@angular/common/http'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import {
   AbstractControl,
   NonNullableFormBuilder,
@@ -8,62 +7,59 @@ import {
   Validators as V,
   ValidatorFn,
 } from '@angular/forms'
-import { MessageService } from 'primeng/api'
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
-import { ToastModule } from 'primeng/toast'
 import { REGEX_PASSWORD, REGEX_PHONE } from '../../constants/regexp'
 import { User } from '../../models/user.model'
 import { AuthService } from '../../services/auth.service'
-import { LoadingService } from '../../services/loading.service'
-import { Router, RouterModule } from '@angular/router'
+import { Router } from '@angular/router'
+import { MessageService } from 'primeng/api'
+import { Subscription } from 'rxjs'
+import { CardModule } from 'primeng/card'
+import { InputMaskModule } from 'primeng/inputmask'
+
 @Component({
   selector: 'gl-register',
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule,
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    HttpClientModule,
-    ToastModule,
+    CardModule,
+    InputMaskModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
+  protected submitting = false
+
+  private subscription = new Subscription()
+
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private authService: AuthService,
-    private loadingService: LoadingService,
     private messageService: MessageService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    if (this.authService.getIsAuth()) {
-      this.router.navigate(['/'])
-    }
+    this.authService.ifIsAuthLogin()
   }
 
-  protected user = this.formBuilder.group(
+  protected account = this.formBuilder.group(
     {
       email: ['', [V.required, V.email]],
       password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
       confirmPassword: ['', [V.required]],
-      phone: ['', [V.required, V.pattern(REGEX_PHONE)]],
+      phone: ['', [V.required]],
     },
     {
       validators: this.comparatePassword(),
     }
-  )
-
-  load = false
-  loading = this.loadingService.loading$.subscribe(
-    isLoading => (this.load = isLoading)
   )
 
   comparatePassword(): ValidatorFn {
@@ -94,13 +90,13 @@ export class RegisterComponent implements OnInit {
 
   inputInvalid(input: string) {
     return (
-      this.user.get(input)?.invalid &&
-      (this.user.get(input)?.dirty || this.user.get(input)?.touched)
+      this.account.get(input)?.invalid &&
+      (this.account.get(input)?.dirty || this.account.get(input)?.touched)
     )
   }
 
   getInputError(input: string, error: string) {
-    return this.user.get(input)?.hasError(error)
+    return this.account.get(input)?.hasError(error)
   }
 
   getRequestError(): string | null {
@@ -108,21 +104,30 @@ export class RegisterComponent implements OnInit {
   }
 
   postUser(): void {
-    this.user.controls.confirmPassword.disable()
-    this.authService.register(this.user.value as User).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Cadastro realizado com sucesso',
-          detail: 'Via MessageService',
-        })
-        this.router.navigate(['/login'])
-        this.loadingService.setLoading(false)
-      },
-      error: err => {
-        this.authService.loading(false)
-        this.authService.handleError(err)
-      },
-    })
+    this.submitting = true
+    this.account.controls.confirmPassword.disable()
+
+    this.subscription = this.authService
+      .register(this.account.value as User)
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Cadastrado com sucesso',
+            detail: 'Faça login na sua conta',
+          })
+          this.router.navigate(['/login'])
+        },
+        error: err => {
+          this.submitting = false
+          this.authService.loading(false)
+          this.authService.handleError(err)
+          this.account.controls.confirmPassword.enable()
+        },
+      })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 }

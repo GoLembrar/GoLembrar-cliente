@@ -16,7 +16,7 @@ export class LayoutService {
       routerLink: '/ajustes/meu-perfil',
     },
     {
-      label: 'Ajustes',
+      label: 'Configurações',
       icon: 'pi pi-cog',
       routerLink: '/ajustes',
     },

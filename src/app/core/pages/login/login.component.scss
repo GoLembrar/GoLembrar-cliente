@@ -1,0 +1,45 @@
+:host {
+  main {
+    display: grid;
+    grid-template-columns: 1fr 45%;
+    gap: 20px;
+
+    .left-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--black-color);
+      min-height: 100vh;
+    }
+    .right-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        display: none;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    main {
+      height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .left-container {
+        display: none;
+      }
+
+      .right-container {
+        flex-direction: column;
+        margin-top: 10px;
+        gap: 60px;
+
+        img {
+          display: block;
+        }
+      }
+    }
+  }
+}

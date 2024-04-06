@@ -1,136 +1,154 @@
-<p-toast></p-toast>
-<section
-  class="flex flex-column justify-content-center align-items-center min-h-screen"
->
-  <form
-    [formGroup]="user"
-    (ngSubmit)="postUser()"
-    class="p-5 flex flex-column gap-3"
-  >
-    <h1 class="m-0 mb-2 text-3xl">Fazer cadastro</h1>
+<main class="min-h-screen pt-8">
+  <p-card styleClass="m-auto w-full md:w-30rem my-0">
+    <ng-template pTemplate="title">
+      <h1 class="m-0 mb-2 text-3xl text-center">Fazer cadastro</h1>
+    </ng-template>
+    <form
+      [formGroup]="account"
+      (ngSubmit)="postUser()"
+      class="p-3 flex flex-column gap-3 formgrid"
+    >
+      <fieldset class="field col-12 m-0 p-0">
+        <legend>
+          <label for="email">Email</label>
+        </legend>
+        <span class="p-input-icon-right w-full">
+          <i class="pi pi-envelope"></i>
+          <input
+            type="email"
+            class="w-full"
+            pInputText
+            formControlName="email"
+            placeholder="Digite seu email"
+            id="email"
+            [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('email') }"
+          />
+        </span>
+        <div *ngIf="inputInvalid('email')">
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('email', 'required')"
+            >Campo obrigatório</small
+          >
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('email', 'email')"
+            >Digite um email válido</small
+          >
+        </div>
+      </fieldset>
 
-    <fieldset class="border-none p-0 m-0">
-      <legend class="mb-2">
-        <label for="email">Email</label>
-      </legend>
-      <span class="p-input-icon-right">
-        <i class="pi pi-envelope"></i>
-        <input
-          type="email"
-          pInputText
-          formControlName="email"
-          placeholder="Digite seu email"
-          id="email"
-          [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('email') }"
-        />
-      </span>
-      <div *ngIf="inputInvalid('email')">
-        <small
-          class="text-red-600"
-          *ngIf="getInputError('email', 'required')"
-          >Campo obrigatório</small
+      <fieldset class="field col-12 m-0 p-0">
+        <legend class="mb-2">
+          <label for="password">Senha</label>
+        </legend>
+        <p-password
+          formControlName="password"
+          placeholder="Digite sua senha"
+          [toggleMask]="true"
+          inputId="password"
+          [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('password') }"
+          [style]="{ width: '100%' }"
+          [inputStyle]="{ width: '100%' }"
+          promptLabel="Força da senha"
         >
-        <small
-          class="text-red-600"
-          *ngIf="getInputError('email', 'email')"
-          >Digite um email válido</small
+        </p-password>
+        <div *ngIf="inputInvalid('password')">
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('password', 'required')"
+            >Campo obrigatório</small
+          >
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('password', 'pattern')"
+            >A senha deve ter no minimo 6 caracteres<br />
+            sendo 1 maiusculo</small
+          >
+        </div>
+      </fieldset>
+
+      <fieldset class="border-none p-0 m-0">
+        <legend class="mb-2">
+          <label for="confirmPassword">Confirmar senha</label>
+        </legend>
+        <p-password
+          formControlName="confirmPassword"
+          placeholder="Confirme sua senha"
+          [toggleMask]="true"
+          inputId="confirmPassword"
+          [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('confirmPassword') }"
+          [style]="{ width: '100%' }"
+          [inputStyle]="{ width: '100%' }"
+          promptLabel="Força da senha"
         >
+        </p-password>
+        <div *ngIf="inputInvalid('confirmPassword')">
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('confirmPassword', 'required')"
+            >Campo obrigatório</small
+          >
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('confirmPassword', 'passwordMismatch')"
+            >As senhas devem ser iguais</small
+          >
+        </div>
+      </fieldset>
+
+      <fieldset class="field col-12 m-0 p-0">
+        <legend class="mb-2">
+          <label for="phone">Telefone</label>
+        </legend>
+        <span class="p-input-icon-right w-full">
+          <i class="pi pi-phone"></i>
+          <p-inputMask
+            [style.width]="'100%'"
+            styleClass="w-full"
+            inputId="phone"
+            formControlName="phone"
+            mask="(99) 9?999-99999"
+            placeholder="(99) 9?999-99999"
+            [unmask]="true"
+            [autoClear]="false"
+            [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('phone') }"
+          ></p-inputMask>
+        </span>
+        <div *ngIf="inputInvalid('phone')">
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('phone', 'required')"
+            >Campo obrigatório</small
+          >
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('phone', 'pattern')"
+            >Digite um telefone válido</small
+          >
+        </div>
+      </fieldset>
+
+      <div *ngIf="getRequestError()">
+        <small class="text-red-600">{{ getRequestError() }}</small>
       </div>
-    </fieldset>
 
-    <fieldset class="border-none p-0 m-0">
-      <legend class="mb-2">
-        <label for="password">Senha</label>
-      </legend>
-      <p-password
-        formControlName="password"
-        placeholder="Digite sua senha"
-        [toggleMask]="true"
-        inputId="password"
-        [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('password') }"
+      <div
+        class="flex col-12 p-0 pt-2 flex-column-reverse sm:flex-row sm:justify-content-end"
       >
-      </p-password>
-      <div *ngIf="inputInvalid('password')">
-        <small
-          class="text-red-600"
-          *ngIf="getInputError('password', 'required')"
-          >Campo obrigatório</small
-        >
-        <small
-          class="text-red-600"
-          *ngIf="getInputError('password', 'pattern')"
-          >A senha deve ter no minimo 6 caracteres<br />
-          sendo 1 maiusculo</small
-        >
+        <p-button
+          label="Criar conta"
+          type="submit"
+          [disabled]="account.invalid || submitting"
+          [loading]="submitting"
+          styleClass="justify-content-center w-full sm:w-auto"
+        ></p-button>
       </div>
-    </fieldset>
-
-    <fieldset class="border-none p-0 m-0">
-      <legend class="mb-2">
-        <label for="confirmPassword">Confirmar senha</label>
-      </legend>
-      <p-password
-        formControlName="confirmPassword"
-        placeholder="Confirme sua senha"
-        [toggleMask]="true"
-        inputId="confirmPassword"
-        [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('confirmPassword') }"
+      <a
+        class="no-underline hover:underline text-blue-700 align-self-start"
+        href="/login"
+        >Já criei minha conta</a
       >
-      </p-password>
-      <div *ngIf="inputInvalid('confirmPassword')">
-        <small
-          class="text-red-600"
-          *ngIf="getInputError('confirmPassword', 'required')"
-          >Campo obrigatório</small
-        >
-        <small
-          class="text-red-600"
-          *ngIf="getInputError('confirmPassword', 'passwordMismatch')"
-          >As senhas devem ser iguais</small
-        >
-      </div>
-    </fieldset>
-
-    <fieldset class="border-none p-0 m-0">
-      <legend class="mb-2">
-        <label for="phone">Telefone</label>
-      </legend>
-      <span class="p-input-icon-right">
-        <i class="pi pi-phone"></i>
-        <input
-          type="text"
-          pInputText
-          formControlName="phone"
-          placeholder="Digite seu telefone"
-          id="phone"
-          [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('phone') }"
-        />
-      </span>
-      <div *ngIf="inputInvalid('phone')">
-        <small
-          class="text-red-600"
-          *ngIf="getInputError('phone', 'required')"
-          >Campo obrigatório</small
-        >
-        <small
-          class="text-red-600"
-          *ngIf="getInputError('phone', 'pattern')"
-          >Digite um telefone válido</small
-        >
-      </div>
-    </fieldset>
-
-    <div *ngIf="getRequestError()">
-      <small class="text-red-600">{{ getRequestError() }}</small>
-    </div>
-
-    <p-button
-      label="Registrar"
-      icon="pi pi-check"
-      type="submit"
-      [loading]="load"
-    ></p-button>
-  </form>
-  <a routerLink="/login">Já tenho conta</a>
-</section>
-
+    </form>
+  </p-card>
+</main>

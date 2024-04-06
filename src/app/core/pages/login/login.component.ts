@@ -1,19 +1,22 @@
 import { CommonModule } from '@angular/common'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { RouterModule } from '@angular/router'
 import {
   FormBuilder,
   ReactiveFormsModule,
   Validators as V,
 } from '@angular/forms'
+
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
-import { ToastModule } from 'primeng/toast'
+import { CardModule } from 'primeng/card'
+
 import { REGEX_PASSWORD } from '../../constants/regexp'
-import { User } from '../../models/user.model'
+import { UserLogin } from '../../models/user.model'
 import { AuthService } from '../../services/auth.service'
-import { LoadingService } from '../../services/loading.service'
-import { Router, RouterModule } from '@angular/router'
+import { Subscription } from 'rxjs'
+import { MessageService } from 'primeng/api'
 
 @Component({
   selector: 'gl-login',
@@ -25,65 +28,49 @@ import { Router, RouterModule } from '@angular/router'
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    ToastModule,
+    CardModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private loadingService: LoadingService,
-    private router: Router
-  ) {}
+export class LoginComponent implements OnInit, OnDestroy {
+  protected submitting = false
+  private subscription = new Subscription()
 
-  ngOnInit() {
-    if (this.authService.getIsAuth()) {
-      this.router.navigate(['/'])
-    }
-  }
-
-  user = this.formBuilder.group({
+  protected account = this.formBuilder.group({
     email: ['', [V.required, V.email]],
     password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
   })
 
-  load = false
-  loading = this.loadingService.loading$.subscribe(
-    isLoading => (this.load = isLoading)
-  )
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private messageService: MessageService
+  ) {}
 
-  inputInvalid(input: string) {
-    return (
-      this.user.get(input)?.invalid &&
-      (this.user.get(input)?.dirty || this.user.get(input)?.touched)
-    )
+  ngOnInit() {
+    this.authService.ifIsAuthLogin()
   }
 
-  getInputError(input: string, error: string) {
-    return this.user.get(input)?.hasError(error)
-  }
-
-  getRequestError() {
-    return this.authService.messageError
-  }
-
-  postUser() {
-    const user: User = {
-      email: this.user.value.email!,
-      password: this.user.value.password!,
+  onSubmitForm() {
+    if (this.account.valid) {
+      this.submitting = true
+      this.authService.login(this.account.value as UserLogin).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Fez login na conta',
+          })
+        },
+        error: () => {
+          this.submitting = false
+        },
+      })
     }
-    this.authService.login(user).subscribe({
-      next: bearer => {
-        this.authService.setTokenLocalStorage(bearer)
-        this.authService.navigateHome()
-        this.authService.loading(false)
-      },
-      error: err => {
-        this.authService.loading(false)
-        this.authService.handleError(err)
-      },
-    })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 }

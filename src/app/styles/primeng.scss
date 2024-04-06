@@ -1,3 +1,7 @@
+.p-card-content {
+  padding: 0;
+}
+
 .p-sidebar {
   height: 17rem;
   .p-sidebar-footer {
@@ -19,6 +23,8 @@
 
     .p-sidebar-footer {
       display: none;
+      padding-left: 34px;
+      padding-right: 34px;
     }
     #action-buttons {
       max-width: 400px;
