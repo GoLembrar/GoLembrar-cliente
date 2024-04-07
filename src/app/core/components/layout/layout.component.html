@@ -10,7 +10,7 @@
   <ng-template pTemplate="header">
     <img
       *ngIf="!isMobile"
-      src="/assets/banner.svg"
+      src="/assets/logo.svg"
       alt="GoLembrar logo"
       width="200"
     />
@@ -58,9 +58,8 @@
     @if(!isMobile){
     <p-button
       (click)="toggleSidebar()"
-      icon="pi pi-bars"
+      [icon]="isSidebarOpen ? 'pi pi-chevron-left' : 'pi pi-chevron-right'"
       [outlined]="true"
-      severity="secondary"
     ></p-button>
     } @if(isMobile){
     <p-button
