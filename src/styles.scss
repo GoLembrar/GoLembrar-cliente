@@ -1,5 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-@import "primeflex/primeflex.css";
-@import "primeicons/primeicons.css";
+@import 'primeng/resources/themes/lara-light-blue/theme.css';
+@import 'primeng/resources/primeng.css';
+@import 'primeflex/primeflex.css';
+@import 'primeicons/primeicons.css';
+
+@import './app/styles/primeng.scss';
+
+:root {
+  --primary-color: #00a6cb;
+  --secondary-color: #53c2b3;
+  --black-color: #1e1e1e;
+  --white-color: #fffbf8;
+}
+
+body {
+  margin: 0;
+}
+
+fieldset {
+  border: none;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+
+  legend {
+    label {
+      cursor: pointer;
+    }
+  }
+}

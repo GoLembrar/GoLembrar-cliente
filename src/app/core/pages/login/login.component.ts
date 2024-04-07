@@ -1,10 +1,22 @@
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
-import { FormBuilder, ReactiveFormsModule, Validators as V } from '@angular/forms'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { RouterModule } from '@angular/router'
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators as V,
+} from '@angular/forms'
+
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
+import { CardModule } from 'primeng/card'
+
 import { REGEX_PASSWORD } from '../../constants/regexp'
+import { UserLogin } from '../../models/user.model'
+import { AuthService } from '../../services/auth.service'
+import { Subscription } from 'rxjs'
+import { MessageService } from 'primeng/api'
 
 @Component({
   selector: 'gl-login',
@@ -12,26 +24,53 @@ import { REGEX_PASSWORD } from '../../constants/regexp'
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     InputTextModule,
     PasswordModule,
     ButtonModule,
+    CardModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
-  user = this.formBuilder.group({
+export class LoginComponent implements OnInit, OnDestroy {
+  protected submitting = false
+  private subscription = new Subscription()
+
+  protected account = this.formBuilder.group({
     email: ['', [V.required, V.email]],
-    password: ['', [V.required, V.pattern(REGEX_PASSWORD)]]
+    password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
   })
 
-  inputInvalid(input: string) {
-    return this.user.get(input)?.invalid && (this.user.get(input)?.dirty || this.user.get(input)?.touched)
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private messageService: MessageService
+  ) {}
+
+  ngOnInit() {
+    this.authService.ifIsAuthLogin()
   }
 
-  getInputError(input: string, error: string) {
-    return this.user.get(input)?.hasError(error)
+  onSubmitForm() {
+    if (this.account.valid) {
+      this.submitting = true
+      this.authService.login(this.account.value as UserLogin).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Fez login na conta',
+          })
+        },
+        error: () => {
+          this.submitting = false
+        },
+      })
+    }
   }
 
-  constructor(private formBuilder: FormBuilder){}
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
 }

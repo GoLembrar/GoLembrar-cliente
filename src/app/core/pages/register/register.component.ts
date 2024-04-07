@@ -1,18 +1,24 @@
 import { CommonModule } from '@angular/common'
-import { HttpClientModule } from '@angular/common/http'
-import { Component } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import {
   AbstractControl,
-  FormBuilder,
+  NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators as V,
-  ValidatorFn
+  ValidatorFn,
 } from '@angular/forms'
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
-import { REGEX_PASSWORD } from '../../constants/regexp'
-import { authService } from '../../services/authService.service'
+import { REGEX_PASSWORD, REGEX_PHONE } from '../../constants/regexp'
+import { User } from '../../models/user.model'
+import { AuthService } from '../../services/auth.service'
+import { Router } from '@angular/router'
+import { MessageService } from 'primeng/api'
+import { Subscription } from 'rxjs'
+import { CardModule } from 'primeng/card'
+import { InputMaskModule } from 'primeng/inputmask'
+
 @Component({
   selector: 'gl-register',
   standalone: true,
@@ -22,63 +28,106 @@ import { authService } from '../../services/authService.service'
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    HttpClientModule,
+    CardModule,
+    InputMaskModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit, OnDestroy {
+  protected submitting = false
+
+  private subscription = new Subscription()
+
   constructor(
-    private formBuilder: FormBuilder, 
-    private service: authService
-    ) {}
+    private formBuilder: NonNullableFormBuilder,
+    private authService: AuthService,
+    private messageService: MessageService,
+    private router: Router
+  ) {}
 
-   user = this.formBuilder.group({
-    email: ['', [V.required, V.email]],
-    password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
-    confirmPassword: ['', [V.required]],
-  }, {
-    validator: this.comparatePassword()
-  })
+  ngOnInit() {
+    this.authService.ifIsAuthLogin()
+  }
 
-  messageError: string | null = null;
+  protected account = this.formBuilder.group(
+    {
+      email: ['', [V.required, V.email]],
+      password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
+      confirmPassword: ['', [V.required]],
+      phone: ['', [V.required]],
+    },
+    {
+      validators: this.comparatePassword(),
+    }
+  )
 
   comparatePassword(): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      const password = control.get('password');
-      const confirmPassword = control.get('confirmPassword');
-   
-      if (confirmPassword?.errors && !confirmPassword.errors['passwordMismatch']) {
-        return null;
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const password = control.get('password')
+      const confirmPassword = control.get('confirmPassword')
+
+      if (
+        confirmPassword?.errors &&
+        !confirmPassword.errors['passwordMismatch']
+      ) {
+        return null
       }
-   
-      if (password && confirmPassword && password.value !== confirmPassword.value) {
-        confirmPassword.setErrors({ passwordMismatch: true });
+
+      if (
+        password &&
+        confirmPassword &&
+        password.value !== confirmPassword.value
+      ) {
+        confirmPassword.setErrors({ passwordMismatch: true })
       } else {
-        confirmPassword?.setErrors(null);
+        confirmPassword?.setErrors(null)
       }
-   
-      return null;
-    };
+
+      return null
+    }
   }
 
   inputInvalid(input: string) {
-    return this.user.get(input)?.invalid && (this.user.get(input)?.dirty || this.user.get(input)?.touched)
+    return (
+      this.account.get(input)?.invalid &&
+      (this.account.get(input)?.dirty || this.account.get(input)?.touched)
+    )
   }
 
   getInputError(input: string, error: string) {
-    return this.user.get(input)?.hasError(error)
+    return this.account.get(input)?.hasError(error)
   }
 
-  postUser() {
-    this.messageError = null;
+  getRequestError(): string | null {
+    return this.authService.messageError
+  }
 
-    this.service.createUser({
-      email: this.user.value.email,
-      password: this.user.value.password,
-    }).subscribe({
-      next: success => alert('Cadastro realizado com sucesso :)'),
-      error: err => this.messageError = err
-    })
+  postUser(): void {
+    this.submitting = true
+    this.account.controls.confirmPassword.disable()
+
+    this.subscription = this.authService
+      .register(this.account.value as User)
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Cadastrado com sucesso',
+            detail: 'Faça login na sua conta',
+          })
+          this.router.navigate(['/login'])
+        },
+        error: err => {
+          this.submitting = false
+          this.authService.loading(false)
+          this.authService.handleError(err)
+          this.account.controls.confirmPassword.enable()
+        },
+      })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 }
