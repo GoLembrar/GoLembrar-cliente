@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { RouterModule } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { fromEvent } from 'rxjs'
 
 import { SidebarModule } from 'primeng/sidebar'
@@ -34,7 +34,7 @@ export class LayoutComponent {
   avatarMenu = this.layoutService.avatarMenu
   actionButtons = this.layoutService.actionsButtons
 
-  constructor(private layoutService: LayoutService) {
+  constructor(private layoutService: LayoutService, private router: Router) {
     if (window.innerWidth > 768) {
       this.isSidebarOpen = true
     } else {
@@ -58,5 +58,9 @@ export class LayoutComponent {
   }
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen
+  }
+
+  navigateMyContactsScreen() {
+    this.router.navigate(["my-contacts"]);
   }
 }
