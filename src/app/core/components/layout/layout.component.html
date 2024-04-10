@@ -23,8 +23,8 @@
       label="Meus contatos"
       icon="pi pi-user"
       severity="info"
-      (click)="navigateMyContactsScreen()"
       styleClass="w-full"
+      routerLink="my-contacts"
     ></p-button>
     @for(actionButton of actionButtons; track actionButton.label) {
     <p-button

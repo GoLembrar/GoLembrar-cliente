@@ -59,8 +59,4 @@ export class LayoutComponent {
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen
   }
-
-  navigateMyContactsScreen() {
-    this.router.navigate(["my-contacts"]);
-  }
 }
