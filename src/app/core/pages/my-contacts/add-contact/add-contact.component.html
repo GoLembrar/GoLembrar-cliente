@@ -1,0 +1,36 @@
+<section>
+  <h2 class="text-3xl text-center">Adicionar novo contato</h2>
+
+  <form [formGroup]="contact" class="flex flex-column gap-3">
+
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label for="name" class="block mb-1">Nome</label>
+      </legend>
+      <span class="p-input-icon-right w-full">
+        <i class="pi pi-user"></i>
+        <input type="text" class="w-full" pInputText formControlName="name" placeholder="Digite o nome do contato" id="name" />
+      </span>
+    </fieldset>
+
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label for="platform" class="block mb-1">Platform</label>
+      </legend>
+      <form [formGroup]="formGroup">
+        <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Selecione a plataforma" id="platform"></p-treeSelect>
+    </form>
+    </fieldset>
+
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label for="phone" class="block mb-1">Phone</label>
+      </legend>
+      <span class="p-input-icon-right w-full">
+        <i class="pi pi-phone"></i>
+        <p-inputMask [style.width]="'100%'" styleClass="w-full" inputId="phone" formControlName="phone" mask="(99) 9999-99999" placeholder="(99) 9999-9999" [unmask]="true" [autoClear]="false"></p-inputMask>
+      </span>
+    </fieldset>
+
+  </form>
+</section>
