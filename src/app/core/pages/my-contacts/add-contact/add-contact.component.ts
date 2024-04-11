@@ -10,7 +10,8 @@ import { TreeSelectModule } from 'primeng/treeselect'
 import { CommonModule } from '@angular/common'
 import { InputMaskModule } from 'primeng/inputmask'
 import { Validators as V } from '@angular/forms'
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext'
+import { REGEX_PHONE } from 'src/app/core/constants/regexp'
 
 @Component({
   selector: 'gl-add-contact',
@@ -20,7 +21,7 @@ import { InputTextModule } from 'primeng/inputtext';
     TreeSelectModule,
     InputMaskModule,
     ReactiveFormsModule,
-    InputTextModule
+    InputTextModule,
   ],
   templateUrl: './add-contact.component.html',
   providers: [NodeService],
@@ -33,8 +34,19 @@ export class AddContactComponent implements OnInit {
   protected contact = this.formBuilder.group({
     name: ['', [V.required]],
     platform: ['', [V.required]],
-    phone: ['', [V.required]],
+    phone: ['', [V.required, V.pattern(REGEX_PHONE)]],
   })
+
+  inputInvalid(input: string) {
+    return (
+      this.contact.get(input)?.invalid &&
+      (this.contact.get(input)?.dirty || this.contact.get(input)?.touched)
+    )
+  }
+
+  getInputError(input: string, error: string) {
+    return this.contact.get(input)?.hasError(error)
+  }
 
   constructor(
     private nodeService: NodeService,

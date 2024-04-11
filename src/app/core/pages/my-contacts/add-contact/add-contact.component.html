@@ -9,8 +9,11 @@
       </legend>
       <span class="p-input-icon-right w-full">
         <i class="pi pi-user"></i>
-        <input type="text" class="w-full" pInputText formControlName="name" placeholder="Digite o nome do contato" id="name" />
+        <input type="text" class="w-full" pInputText formControlName="name" placeholder="Digite o nome do contato" id="name" [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('name') }" />
       </span>
+      <div *ngIf="inputInvalid('name')">
+        <small class="text-red-600" *ngIf="getInputError('name', 'required')">Campo obrigatório</small>
+      </div>
     </fieldset>
 
     <fieldset class="field col-12 m-0 p-0">
@@ -19,7 +22,7 @@
       </legend>
       <form [formGroup]="formGroup">
         <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Selecione a plataforma" id="platform"></p-treeSelect>
-    </form>
+      </form>
     </fieldset>
 
     <fieldset class="field col-12 m-0 p-0">
@@ -28,8 +31,12 @@
       </legend>
       <span class="p-input-icon-right w-full">
         <i class="pi pi-phone"></i>
-        <p-inputMask [style.width]="'100%'" styleClass="w-full" inputId="phone" formControlName="phone" mask="(99) 9999-99999" placeholder="(99) 9999-9999" [unmask]="true" [autoClear]="false"></p-inputMask>
+        <p-inputMask [style.width]="'100%'" styleClass="w-full" inputId="phone" formControlName="phone" mask="(99) 99999-9999" placeholder="(99) 99999-9999" [unmask]="true" [autoClear]="false" [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('phone') }"></p-inputMask>
       </span>
+      <div *ngIf="inputInvalid('phone')">
+        <small class="text-red-600" *ngIf="getInputError('phone', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('phone', 'phone')">Digite um telefone válido</small>
+      </div>
     </fieldset>
 
   </form>
