@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { fromEvent } from 'rxjs'
@@ -9,8 +9,8 @@ import { AvatarModule } from 'primeng/avatar'
 import { AvatarGroupModule } from 'primeng/avatargroup'
 import { MenuModule } from 'primeng/menu'
 
-import { AuthService } from '../../services/auth.service'
 import { LayoutService } from './layout.service'
+import { NoConnectionService } from '../../services/no-connection/no-connection.service'
 
 @Component({
   standalone: true,
@@ -28,13 +28,16 @@ import { LayoutService } from './layout.service'
     MenuModule,
   ],
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit {
   isSidebarOpen = false
   isMobile = false
   avatarMenu = this.layoutService.avatarMenu
   actionButtons = this.layoutService.actionsButtons
 
-  constructor(private layoutService: LayoutService) {
+  constructor(
+    private layoutService: LayoutService,
+    private noConnectionService: NoConnectionService
+  ) {
     if (window.innerWidth > 768) {
       this.isSidebarOpen = true
     } else {
@@ -53,6 +56,11 @@ export class LayoutComponent {
       },
     })
   }
+
+  ngOnInit() {
+    this.noConnectionService.isVerifyConnection()
+  }
+
   onClickMenu() {
     if (this.isMobile) this.isSidebarOpen = false
   }
