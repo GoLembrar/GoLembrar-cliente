@@ -10,7 +10,7 @@ import {
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
-import { REGEX_PASSWORD, REGEX_PHONE } from '../../constants/regexp'
+import { REGEX_PASSWORD } from '../../constants'
 import { User } from '../../models/user.model'
 import { AuthService } from '../../services/auth.service'
 import { Router } from '@angular/router'

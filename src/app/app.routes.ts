@@ -4,15 +4,20 @@ import { RegisterComponent } from './core/pages/register/register.component'
 import { HomeComponent } from './core/pages/home/home.component'
 import { LayoutComponent } from './core/components/layout/layout.component'
 import { authGuard } from './core/guards/auth/auth.guard'
+import { MyProfileComponent } from './core/pages/my-profile/my-profile.component'
 
 export const APP_ROUTES: Route[] = [
   {
     path: '',
     component: LayoutComponent,
     canActivate: [authGuard],
-    children: [{ path: '', component: HomeComponent }],
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'my-profile', component: MyProfileComponent },
+    ],
   },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+
   { path: '**', redirectTo: '' },
 ]
