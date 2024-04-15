@@ -4,6 +4,7 @@ import { RegisterComponent } from './core/pages/register/register.component'
 import { HomeComponent } from './core/pages/home/home.component'
 import { LayoutComponent } from './core/components/layout/layout.component'
 import { authGuard } from './core/guards/auth/auth.guard'
+import { NoConnectionComponent } from './core/pages/no-connection/no-connection.component'
 
 export const APP_ROUTES: Route[] = [
   {
@@ -23,5 +24,6 @@ export const APP_ROUTES: Route[] = [
   },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'no-connection', component: NoConnectionComponent },
   { path: '**', redirectTo: '' },
 ]
