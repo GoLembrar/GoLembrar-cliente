@@ -36,8 +36,13 @@ export class LayoutComponent implements OnInit {
 
   constructor(
     private layoutService: LayoutService,
-    private noConnectionService: NoConnectionService
-  ) {
+    private noConnectionService: NoConnectionService) {
+    if (window.innerWidth > 768) {
+      this.isSidebarOpen = true
+    } else {
+      this.isMobile = true
+    }
+
     fromEvent(window, 'resize').subscribe({
       next: () => {
         if (window.innerWidth < 768) {
