@@ -18,6 +18,20 @@
 
     <fieldset class="field col-12 m-0 p-0">
       <legend>
+        <label for="email" class="block mb-1">Email</label>
+      </legend>
+      <span class="p-input-icon-right w-full">
+        <i class="pi pi-envelope"></i>
+        <input type="text" class="w-full" pInputText formControlName="email" placeholder="Digite o email" id="email" [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('email') }" />
+      </span>
+      <div *ngIf="inputInvalid('email')">
+        <small class="text-red-600" *ngIf="getInputError('email', 'required')">Campo obrigatório</small>
+        <small class="text-red-600" *ngIf="getInputError('email', 'email')">Digite um email válido</small>
+      </div>
+    </fieldset>
+
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
         <label for="platform" class="block mb-1">Plataforma</label>
       </legend>
       <form [formGroup]="formGroup">

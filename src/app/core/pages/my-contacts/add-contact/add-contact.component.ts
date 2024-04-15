@@ -12,6 +12,7 @@ import { InputMaskModule } from 'primeng/inputmask'
 import { Validators as V } from '@angular/forms'
 import { InputTextModule } from 'primeng/inputtext'
 import { REGEX_PHONE } from 'src/app/core/constants/regexp'
+import { TreeNode } from 'primeng/api'
 
 @Component({
   selector: 'gl-add-contact',
@@ -27,12 +28,13 @@ import { REGEX_PHONE } from 'src/app/core/constants/regexp'
   providers: [NodeService],
 })
 export class AddContactComponent implements OnInit {
-  nodes!: any[]
+  nodes!: TreeNode[]
 
   formGroup!: FormGroup
 
   protected contact = this.formBuilder.group({
     name: ['', [V.required]],
+    email: ['', [V.required, V.email]],
     platform: ['', [V.required]],
     phone: ['', [V.required, V.pattern(REGEX_PHONE)]],
   })
