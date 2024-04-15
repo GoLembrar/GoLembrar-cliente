@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { Component } from '@angular/core'
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
+  Validators as V
 } from '@angular/forms'
-import { NodeService } from 'src/app/core/services/node.service'
-import { TreeSelectModule } from 'primeng/treeselect'
-import { CommonModule } from '@angular/common'
+import { MenuItem } from 'primeng/api'
+import { DropdownModule } from 'primeng/dropdown'
 import { InputMaskModule } from 'primeng/inputmask'
-import { Validators as V } from '@angular/forms'
 import { InputTextModule } from 'primeng/inputtext'
+import { TreeSelectModule } from 'primeng/treeselect'
 import { REGEX_PHONE } from 'src/app/core/constants/regexp'
-import { TreeNode } from 'primeng/api'
 
 @Component({
   selector: 'gl-add-contact',
@@ -23,43 +22,35 @@ import { TreeNode } from 'primeng/api'
     InputMaskModule,
     ReactiveFormsModule,
     InputTextModule,
+    DropdownModule,
   ],
   templateUrl: './add-contact.component.html',
-  providers: [NodeService],
 })
-export class AddContactComponent implements OnInit {
-  nodes!: TreeNode[]
-
-  formGroup!: FormGroup
-
-  protected contact = this.formBuilder.group({
+export class AddContactComponent {
+  protected indentifier: FormGroup = this.formBuilder.group({
     name: ['', [V.required]],
-    email: ['', [V.required, V.email]],
     platform: ['', [V.required]],
+    email: ['', [V.required, V.email]],
     phone: ['', [V.required, V.pattern(REGEX_PHONE)]],
   })
 
+  platforms: MenuItem[] = [
+    { name: 'Email', icon: 'pi pi-envelope' },
+    { name: 'WhatsApp', icon: 'pi pi-whatsapp', disabled: true },
+    { name: 'Discord', icon: 'pi pi-discord', disabled: true },
+  ]
+
   inputInvalid(input: string) {
     return (
-      this.contact.get(input)?.invalid &&
-      (this.contact.get(input)?.dirty || this.contact.get(input)?.touched)
+      this.indentifier.get(input)?.invalid &&
+      (this.indentifier.get(input)?.dirty ||
+        this.indentifier.get(input)?.touched)
     )
   }
 
   getInputError(input: string, error: string) {
-    return this.contact.get(input)?.hasError(error)
+    return this.indentifier.get(input)?.hasError(error)
   }
 
-  constructor(
-    private nodeService: NodeService,
-    private formBuilder: FormBuilder
-  ) {
-    this.nodeService.getFiles().then(files => (this.nodes = files))
-  }
-
-  ngOnInit() {
-    this.formGroup = new FormGroup({
-      selectedNodes: new FormControl(),
-    })
-  }
+  constructor(private formBuilder: FormBuilder) {}
 }
