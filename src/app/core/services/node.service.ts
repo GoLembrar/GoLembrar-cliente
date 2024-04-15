@@ -6,13 +6,23 @@ export class NodeService {
         return [
             {
                 key: '0',
-                label: 'WhatsApp',
-                icon: 'pi pi-whatsapp',
+                label: 'Email',
+                icon: 'pi pi-envelope',
+                selectable: true
             },
             {
                 key: '1',
                 label: 'Discord',
                 icon: 'pi pi-discord',
+                selectable: false,
+                styleClass: 'opacity-50'
+            },
+            {
+                key: '2',
+                label: 'WhatsApp',
+                icon: 'pi pi-whatsapp',
+                selectable: false,
+                styleClass: 'opacity-50'
             },
         ];
     }
