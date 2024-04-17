@@ -13,7 +13,7 @@ export class LayoutService {
     {
       label: 'Meu perfil',
       icon: 'pi pi-user',
-      routerLink: '/ajustes/meu-perfil',
+      routerLink: 'my-profile',
     },
     {
       label: 'Configurações',

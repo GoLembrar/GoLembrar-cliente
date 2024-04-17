@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import {
   FormBuilder,
@@ -9,7 +9,7 @@ import { InputTextModule } from 'primeng/inputtext'
 import { ButtonModule } from 'primeng/button'
 import { REGEX_PHONE } from '../../constants'
 import { PhoneMaskDirective } from '../../directives'
-import { NgxMaskDirective, provideNgxMask } from 'ngx-mask'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'gl-my-profile',
@@ -20,11 +20,9 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask'
     InputTextModule,
     ButtonModule,
     PhoneMaskDirective,
-    NgxMaskDirective,
   ],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss',
-  providers: [provideNgxMask({})],
 })
 export class MyProfileComponent {
   public loading = false
@@ -35,9 +33,15 @@ export class MyProfileComponent {
     telefone: ['', [V.required, V.pattern(REGEX_PHONE)]],
   })
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
-  public handleSubmit() {
-    console.log(this.profile.value.telefone)
+  public handleSubmit() {}
+
+  public goToChangePassword() {
+    this.router.navigate(['../change-password'], { relativeTo: this.route })
   }
 }

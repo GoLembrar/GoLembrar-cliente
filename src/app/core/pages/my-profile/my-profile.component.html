@@ -57,10 +57,13 @@
       label="Trocar senha"
       [text]="true"
       styleClass="w-full md:w-auto"
+      icon="pi pi-lock"
+      (click)="goToChangePassword()"
     ></p-button>
     <p-button
       label="Salvar"
       styleClass="w-full md:w-auto"
+      icon="pi pi-save"
       (onClick)="handleSubmit()"
     ></p-button>
   </div>

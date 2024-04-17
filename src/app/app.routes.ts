@@ -5,6 +5,7 @@ import { HomeComponent } from './core/pages/home/home.component'
 import { LayoutComponent } from './core/components/layout/layout.component'
 import { authGuard } from './core/guards/auth/auth.guard'
 import { MyProfileComponent } from './core/pages/my-profile/my-profile.component'
+import { ChangePasswordComponent } from './core/pages/change-password/change-password.component'
 
 export const APP_ROUTES: Route[] = [
   {
@@ -14,10 +15,10 @@ export const APP_ROUTES: Route[] = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'my-profile', component: MyProfileComponent },
+      { path: 'change-password', component: ChangePasswordComponent },
     ],
   },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-
   { path: '**', redirectTo: '' },
 ]
