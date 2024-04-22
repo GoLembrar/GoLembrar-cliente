@@ -4,14 +4,15 @@ import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  Validators as V
+  Validators as V,
 } from '@angular/forms'
 import { MenuItem } from 'primeng/api'
+import { ButtonModule } from 'primeng/button'
 import { DropdownModule } from 'primeng/dropdown'
 import { InputMaskModule } from 'primeng/inputmask'
 import { InputTextModule } from 'primeng/inputtext'
 import { TreeSelectModule } from 'primeng/treeselect'
-import { REGEX_PHONE } from 'src/app/core/constants/regexp'
+import { AddContactService } from 'src/app/core/services/add-contact/add-contact.service'
 
 @Component({
   selector: 'gl-add-contact',
@@ -23,6 +24,7 @@ import { REGEX_PHONE } from 'src/app/core/constants/regexp'
     ReactiveFormsModule,
     InputTextModule,
     DropdownModule,
+    ButtonModule,
   ],
   templateUrl: './add-contact.component.html',
 })
@@ -30,8 +32,7 @@ export class AddContactComponent {
   protected indentifier: FormGroup = this.formBuilder.group({
     name: ['', [V.required]],
     platform: ['', [V.required]],
-    email: ['', [V.required, V.email]],
-    phone: ['', [V.required, V.pattern(REGEX_PHONE)]],
+    identifiy: ['', [V.required]],
   })
 
   platforms: MenuItem[] = [
@@ -52,5 +53,19 @@ export class AddContactComponent {
     return this.indentifier.get(input)?.hasError(error)
   }
 
-  constructor(private formBuilder: FormBuilder) {}
+  onSubmit(): void {
+    this.contact.createContact(this.indentifier.value).subscribe({
+      next: value => {
+        console.log(value)
+      },
+      error: err => {
+        console.error(err)
+      },
+    })
+  }
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private contact: AddContactService
+  ) {}
 }
