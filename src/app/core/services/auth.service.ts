@@ -1,8 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { MessageService } from 'primeng/api'
-import { Observable, catchError, map, throwError } from 'rxjs'
+import { Observable, map } from 'rxjs'
 import { environment } from 'src/environments/environment.development'
 import { User, UserLogin } from '../models/user.model'
 import { LoadingService } from './loading.service'
@@ -17,7 +17,7 @@ export class AuthService {
   private isAuth = false
 
   constructor(
-    private htpp: HttpClient,
+    private http: HttpClient,
     private router: Router,
     private messageService: MessageService,
     private loadingService: LoadingService
@@ -47,16 +47,12 @@ export class AuthService {
 
   register(body: User): Observable<User> {
     this.loading(true)
-    return this.htpp.post<User>(`${environment.apiUrl}/user`, body).pipe(
-      catchError(this.handleError.bind(this)),
-      map(success => success)
-    )
+    return this.http.post<User>(`${environment.apiUrl}/user`, body)
   }
 
   login(account: UserLogin): Observable<void> {
     this.loading(true)
-    return this.htpp.post<Token>(`${environment.apiUrl}/auth`, account).pipe(
-      catchError(this.handleError.bind(this)),
+    return this.http.post<Token>(`${environment.apiUrl}/auth`, account).pipe(
       map(bearer => {
         this.isAuth = true
         this.router.navigate(['/'])
@@ -96,30 +92,5 @@ export class AuthService {
     this.isAuth = false
     localStorage.clear()
     this.router.navigate(['/login'])
-  }
-
-  handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Erro inesperado. Tente novamente mais tarde',
-        detail: 'Via MessageService',
-      })
-    }
-    if (error.status === 401) {
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Dados incorretos',
-        detail: 'Via MessageService',
-      })
-    }
-    if (error.status === 500) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Erro de conflito',
-        detail: 'Esse email já foi cadastrado',
-      })
-    }
-    return throwError(() => this.messageError)
   }
 }

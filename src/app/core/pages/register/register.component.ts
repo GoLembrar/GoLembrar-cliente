@@ -118,10 +118,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
           })
           this.router.navigate(['/login'])
         },
-        error: err => {
+        error: () => {
           this.submitting = false
           this.authService.loading(false)
-          this.authService.handleError(err)
           this.account.controls.confirmPassword.enable()
         },
       })
