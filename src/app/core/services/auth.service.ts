@@ -12,20 +12,24 @@ import { Token } from '../models/token'
   providedIn: 'root',
 })
 export class AuthService {
+  messageError: string | null = null
+
+  private isAuth = false
+
   constructor(
     private htpp: HttpClient,
     private router: Router,
     private messageService: MessageService,
     private loadingService: LoadingService
   ) {
+    this.verifyToken()
+  }
+
+  verifyToken() {
     if (localStorage.getItem('Bearer')) {
       this.loginWithToken()
     }
   }
-
-  messageError: string | null = null
-
-  private isAuth = false
 
   ifIsAuthLogin() {
     if (this.isAuth) {
