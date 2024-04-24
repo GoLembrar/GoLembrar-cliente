@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { ButtonModule } from 'primeng/button'
 import { ChipModule } from 'primeng/chip'
+import { Contact } from '../../models/contact'
 import { AddContactService } from '../../services/add-contact/add-contact.service'
 
 @Component({
@@ -15,7 +16,7 @@ import { AddContactService } from '../../services/add-contact/add-contact.servic
 export class MyContactsComponent implements OnInit {
   constructor(private contact: AddContactService) {}
 
-  myContacts: any = []
+  myContacts: Contact[] = []
 
   ngOnInit(): void {
     this.contact.getContacts().subscribe({
