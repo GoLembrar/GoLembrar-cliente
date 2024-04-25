@@ -11,7 +11,16 @@ export const APP_ROUTES: Route[] = [
     path: '',
     component: LayoutComponent,
     canActivate: [authGuard],
-    children: [{ path: '', component: HomeComponent }],
+    children: [
+      { path: '', component: HomeComponent },
+      {
+        path: 'reminders',
+        loadChildren: () =>
+          import('./core/pages/reminders/reminders.routes').then(
+            r => r.REMINDERS_ROUTES
+          ),
+      },
+    ],
   },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },

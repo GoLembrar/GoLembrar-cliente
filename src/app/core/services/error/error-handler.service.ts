@@ -11,13 +11,6 @@ export class ErrorHandlerService implements ErrorHandler {
 
   public handleError(response: HttpErrorResponse) {
     switch (response.status) {
-      case 0:
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Erro 0',
-          detail: 'Sem conexão com o servidor',
-        })
-        break
       case 409:
         this.messageService.add({
           severity: 'error',
@@ -43,6 +36,13 @@ export class ErrorHandlerService implements ErrorHandler {
           severity: 'error',
           summary: 'Credenciais inválidas',
           detail: 'Email ou senha incorretos',
+        })
+        break
+      case 0:
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Erro 0',
+          detail: 'Sem conexão com o servidor',
         })
         break
     }
