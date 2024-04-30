@@ -1,5 +1,19 @@
 [
-  { "name": "maria", "platform": "email", "identify": "maria@gmail.com" },
-  { "name": "pedro", "platform": "email", "identify": "pedro@gmail.com" },
-  { "name": "ana", "platform": "email", "identify": "ana@gmail.com" }
+  {
+    "id": "1",
+    "name": "maria",
+    "platform": "email",
+    "identify": "maria@gmail.com"
+  },
+  {
+    "id": "2",
+    "name": "pedro",
+    "platform": "email",
+    "identify": "pedro@gmail.com"
+  },
+  { "id": "3", 
+    "name": "ana", 
+    "platform": "email", 
+    "identify": "ana@gmail.com" 
+  }
 ]
