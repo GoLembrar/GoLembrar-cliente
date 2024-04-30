@@ -14,8 +14,7 @@
             </div>
           </div>
           <div class="flex gap-2">
-            <p-button icon="pi pi-user-edit" class="w-2rem" [rounded]="true" [text]="true" severity="info "></p-button>
-            <p-button icon="pi pi-times" class="w-2rem" [rounded]="true" [text]="true" severity="danger "></p-button>
+            <p-button icon="pi pi-chevron-right" class="w-2rem" [rounded]="true" [text]="true" severity="info" (onClick)="editContact(contact)"></p-button>
           </div>
         </p-chip>
       </li>
