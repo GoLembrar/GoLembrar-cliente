@@ -44,7 +44,7 @@
     </fieldset>
 
     <div class="card flex justify-content-center gap-3">
-      <p-button type="submit" class="w-full" label="Adicionar contato"></p-button>
+      <p-button type="submit" class="w-full" label="Adicionar contato" [disabled]="indentifier.invalid || loading" [loading]="loading"></p-button>
     </div>
 
   </form>

@@ -6,12 +6,13 @@ import {
   ReactiveFormsModule,
   Validators as V,
 } from '@angular/forms'
-import { MenuItem } from 'primeng/api'
+import { MenuItem, MessageService } from 'primeng/api'
 import { ButtonModule } from 'primeng/button'
 import { DropdownModule } from 'primeng/dropdown'
 import { InputMaskModule } from 'primeng/inputmask'
 import { InputTextModule } from 'primeng/inputtext'
 import { TreeSelectModule } from 'primeng/treeselect'
+import { Contact } from 'src/app/core/models/contact'
 import { AddContactService } from 'src/app/core/services/add-contact/add-contact.service'
 
 @Component({
@@ -29,6 +30,8 @@ import { AddContactService } from 'src/app/core/services/add-contact/add-contact
   templateUrl: './add-contact.component.html',
 })
 export class AddContactComponent {
+  protected loading: boolean = false
+
   protected indentifier: FormGroup = this.formBuilder.group({
     name: ['', [V.required]],
     platform: ['', [V.required]],
@@ -39,6 +42,7 @@ export class AddContactComponent {
     { name: 'Email', icon: 'pi pi-envelope' },
     { name: 'WhatsApp', icon: 'pi pi-whatsapp', disabled: true },
     { name: 'Discord', icon: 'pi pi-discord', disabled: true },
+    { name: 'Telegram', icon: 'pi pi-telegram', disabled: true },
   ]
 
   inputInvalid(input: string) {
@@ -54,18 +58,28 @@ export class AddContactComponent {
   }
 
   onSubmit(): void {
-    this.contact.createContact(this.indentifier.value).subscribe({
-      next: value => {
-        console.log(value)
-      },
-      error: err => {
-        console.error(err)
-      },
-    })
+    if (this.indentifier.valid) {
+      this.loading = true
+      this.contact.createContact(this.indentifier.value as Contact).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Contato adicionado',
+          })
+          this.indentifier.reset()
+          this.loading = false
+        },
+        error: err => {
+          this.loading = false
+        },
+      })
+    }
   }
 
   constructor(
     private formBuilder: FormBuilder,
-    private contact: AddContactService
+    private contact: AddContactService,
+    private messageService: MessageService
   ) {}
 }
