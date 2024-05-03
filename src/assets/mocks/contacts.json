@@ -3,17 +3,17 @@
     "id": "1",
     "name": "maria",
     "platform": "email",
-    "identify": "maria@gmail.com"
+    "identifiy": "maria@gmail.com"
   },
   {
     "id": "2",
     "name": "pedro",
     "platform": "email",
-    "identify": "pedro@gmail.com"
+    "identifiy": "pedro@gmail.com"
   },
   { "id": "3", 
     "name": "ana", 
     "platform": "email", 
-    "identify": "ana@gmail.com" 
+    "identifiy": "ana@gmail.com" 
   }
 ]
