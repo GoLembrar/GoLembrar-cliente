@@ -13,6 +13,18 @@ export class AddContactService {
     return this.http.post<Contact>('../../assets/mocks/contacts.json', body)
   }
 
+  editContact(body: Contact, id: string): Observable<Contact> {
+    // return this.http.put<Contact>(`../../assets/mocks/contacts.json`, body)
+    return new Observable(observer => {
+      observer.next(body)
+      observer.complete()
+    })
+  }
+
+  deleteContact(id: string) {
+    return this.http.delete('../../assets/mocks/contacts.json')
+  }
+
   getContacts(): Observable<Contact[]> {
     return this.http.get<Contact[]>('../../assets/mocks/contacts.json')
   }
