@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button'
 import { REGEX_PHONE } from '../../constants'
 import { PhoneMaskDirective } from '../../directives'
 import { ActivatedRoute, Router } from '@angular/router'
+import { UserService } from '../../services/user.service'
 
 @Component({
   selector: 'gl-my-profile',
@@ -29,19 +30,38 @@ export class MyProfileComponent {
 
   protected profile = this.formBuilder.group({
     email: ['', [V.required, V.email]],
-    nome: ['', [V.required]],
-    telefone: ['', [V.required, V.pattern(REGEX_PHONE)]],
+    name: ['', [V.required]],
+    phone: ['', [V.required, V.pattern(REGEX_PHONE)]],
   })
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: UserService
   ) {}
+
+  ngOnInit() {
+    this.getUserInfo()
+  }
 
   public handleSubmit() {}
 
   public goToChangePassword() {
     this.router.navigate(['../change-password'], { relativeTo: this.route })
+  }
+
+  public getUserInfo() {
+    this.loading = true
+    this.userService.getUserInfo().subscribe({
+      next: user => {
+        this.profile.patchValue(user)
+        this.loading = false
+      },
+      error: err => {
+        this.loading = false
+        console.error(err)
+      },
+    })
   }
 }
