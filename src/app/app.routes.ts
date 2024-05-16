@@ -1,10 +1,10 @@
 import { Route } from '@angular/router'
-import { LoginComponent } from './core/pages/login/login.component'
-import { RegisterComponent } from './core/pages/register/register.component'
-import { HomeComponent } from './core/pages/home/home.component'
 import { LayoutComponent } from './core/components/layout/layout.component'
 import { authGuard } from './core/guards/auth/auth.guard'
+import { HomeComponent } from './core/pages/home/home.component'
 import { NoConnectionComponent } from './core/pages/no-connection/no-connection.component'
+import { LoginComponent } from './core/pages/user-account/login/login.component'
+import { RegisterComponent } from './core/pages/user-account/register/register.component'
 
 export const APP_ROUTES: Route[] = [
   {
@@ -18,6 +18,13 @@ export const APP_ROUTES: Route[] = [
         loadChildren: () =>
           import('./core/pages/my-contacts/my-contacts.routes').then(
             r => r.MY_CONTACTS_ROUTES
+          ),
+      },
+      {
+        path: 'reminders',
+        loadChildren: () =>
+          import('./core/pages/reminders/reminders.routes').then(
+            r => r.REMINDERS_ROUTES
           ),
       },
     ],

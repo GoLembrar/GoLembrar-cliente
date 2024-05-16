@@ -32,14 +32,14 @@
 
     <fieldset class="field col-12 m-0 p-0">
       <legend>
-        <label for="identifiy" class="block mb-1">Identificador</label>
+        <label for="identify" class="block mb-1">Identificador</label>
       </legend>
       <span class="p-input-icon-right w-full">
         <i class="pi pi-envelope"></i>
-        <input type="text" class="w-full" pInputText formControlName="identifiy" placeholder="Digite o identificador" id="identifiy" [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('identifiy') }" />
+        <input type="text" class="w-full" pInputText formControlName="identify" placeholder="Digite o identificador" id="identify" [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('identify') }" />
       </span>
-      <div *ngIf="inputInvalid('identifiy')">
-        <small class="text-red-600" *ngIf="getInputError('identifiy', 'required')">Campo obrigatório</small>
+      <div *ngIf="inputInvalid('identify')">
+        <small class="text-red-600" *ngIf="getInputError('identify', 'required')">Campo obrigatório</small>
       </div>
     </fieldset>
 

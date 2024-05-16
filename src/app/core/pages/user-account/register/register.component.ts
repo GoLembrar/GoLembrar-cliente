@@ -10,9 +10,9 @@ import {
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
-import { REGEX_PASSWORD, REGEX_PHONE } from '../../constants/regexp'
-import { User } from '../../models/user.model'
-import { AuthService } from '../../services/auth.service'
+import { REGEX_PASSWORD } from 'src/app/core/constants/regexp'
+import { User } from 'src/app/core/models/user.model'
+import { AuthService } from 'src/app/core/services/auth.service'
 import { Router } from '@angular/router'
 import { MessageService } from 'primeng/api'
 import { Subscription } from 'rxjs'
@@ -118,10 +118,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
           })
           this.router.navigate(['/login'])
         },
-        error: err => {
+        error: () => {
           this.submitting = false
           this.authService.loading(false)
-          this.authService.handleError(err)
           this.account.controls.confirmPassword.enable()
         },
       })

@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button'
 import { DropdownModule } from 'primeng/dropdown'
 import { InputTextModule } from 'primeng/inputtext'
 import { Contact } from 'src/app/core/models/contact'
-import { AddContactService } from 'src/app/core/services/add-contact/add-contact.service'
+import { AddContactService } from 'src/app/core/services/contact/contact.service'
 
 @Component({
   selector: 'gl-contact',
@@ -41,15 +41,24 @@ export class ContactComponent {
   protected indentifier: FormGroup = this.formBuilder.group({
     name: [this.contact.name],
     platform: ['Email'],
-    identifiy: [this.contact.identifiy],
+    identify: [this.contact.identify],
   })
 
   edit() {
     this.contactService
-      .editContact(this.indentifier.value, this.contact.id)
+      .editContact(this.indentifier.value as Contact, this.contact.userId)
       .subscribe({
         next: value => console.log(value),
-        error: err => console.log(err),
+        error: err => {
+          console.log(err)
+        },
       })
+  }
+
+  delete() {
+    this.contactService.deleteContact(this.contact.userId).subscribe({
+      next: value => console.log(value),
+      error: err => console.log(err),
+    })
   }
 }

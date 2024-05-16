@@ -3,25 +3,26 @@
 
   <div>
     <ul class="p-2 flex flex-column gap-2">
-      @for (contact of myContacts; track $index) {
-      <li>
-        <p-chip styleClass="pl-0 pr-3 py-2 w-full pl-2 flex justify-content-between">
-          <div class="flex gap-1">
-            <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center uppercase font-bold">{{contact.name[0]}}</span>
-            <div class="flex flex-column">
-              <span class="ml-2 font-medium text-lg capitalize">{{contact.name}}</span>
-              <span class="ml-2 text-base opacity-80">{{contact.identifiy}}</span>
-            </div>
-          </div>
-          <div class="flex gap-2">
-            <p-button icon="pi pi-chevron-right" class="w-2rem" [rounded]="true" [text]="true" severity="info" (onClick)="editContact(contact)"></p-button>
-          </div>
-        </p-chip>
-      </li>
+      @if((myContacts$ | async)?.length !== 0) {
+        @for (contact of myContacts$ | async; track $index) {
+          <li>
+            <p-chip styleClass="pl-0 pr-3 py-2 w-full pl-2 flex justify-content-between">
+              <div class="flex gap-1">
+                <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center uppercase font-bold">{{contact.name[0]}}</span>
+                <div class="flex flex-column">
+                  <span class="ml-2 font-medium text-lg capitalize">{{contact.name}}</span>
+                  <span class="ml-2 text-base opacity-80">{{contact.identify}}</span>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <p-button icon="pi pi-chevron-right" class="w-2rem" [rounded]="true" [text]="true" severity="info" (onClick)="editContact(contact)"></p-button>
+              </div>
+            </p-chip>
+          </li>
+          }
+      } @else {
+        <p class="font-medium text-center text-lg">Nenhum contato, <a routerLink="/my-contacts/add" class="text-blue-800">clique aqui</a> para criar um novo contato</p>
       }
     </ul>
-    @if (myContacts.length == 0) {
-    <p class="font-medium text-center text-lg">Nenhum contato, <a routerLink="/my-contacts/add" class="text-blue-800">clique aqui</a> para criar um novo contato</p>
-    }
   </div>
 </section>

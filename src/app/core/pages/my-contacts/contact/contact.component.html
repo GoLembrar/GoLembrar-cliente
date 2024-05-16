@@ -33,12 +33,13 @@
       </legend>
       <span class="p-input-icon-right w-full">
         <i class="pi pi-envelope"></i>
-        <input type="text" class="w-full" pInputText formControlName="identifiy" placeholder="Digite o identificador" id="identifiy"/>
+        <input type="text" class="w-full" pInputText formControlName="identify" placeholder="Digite o identificador" id="identify"/>
       </span>
     </fieldset>
 
     <div class="card flex justify-content-center gap-3">
       <p-button type="submit" class="w-full" label="Editar contato"></p-button>
+      <p-button (onClick)="delete()" class="w-full" label="Excluir contato" severity="danger"></p-button>
     </div>
 
   </form>

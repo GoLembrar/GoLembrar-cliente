@@ -13,7 +13,7 @@ import { InputMaskModule } from 'primeng/inputmask'
 import { InputTextModule } from 'primeng/inputtext'
 import { TreeSelectModule } from 'primeng/treeselect'
 import { Contact } from 'src/app/core/models/contact'
-import { AddContactService } from 'src/app/core/services/add-contact/add-contact.service'
+import { AddContactService } from 'src/app/core/services/contact/contact.service'
 
 @Component({
   selector: 'gl-add-contact',
@@ -35,7 +35,7 @@ export class AddContactComponent {
   protected indentifier: FormGroup = this.formBuilder.group({
     name: ['', [V.required]],
     platform: ['', [V.required]],
-    identifiy: ['', [V.required]],
+    identify: ['', [V.required, V.email]],
   })
 
   platforms: MenuItem[] = [
