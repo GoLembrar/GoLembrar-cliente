@@ -1,5 +1,5 @@
 export interface Contact {
-  userId: string;
+  id: string;
   name: string;
   platform: string;
   identify: string;
