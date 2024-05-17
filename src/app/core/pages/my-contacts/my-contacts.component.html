@@ -1,6 +1,8 @@
 <section>
-  <h1 class="text-center text-3xl">Meus Contatos</h1>
-
+  <div class="flex gap-4 align-items-center justify-content-between">
+    <h1 class="text-3xl">Meus Contatos</h1>
+    <p-button icon="pi pi-plus" (onClick)="addContact()" />
+  </div>
   <div>
     <ul class="p-2 flex flex-column gap-2">
       @if((myContacts$ | async)?.length !== 0) {

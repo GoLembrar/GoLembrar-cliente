@@ -21,6 +21,10 @@ export class MyContactsComponent {
 
   myContacts$ = this.contactService.getContacts()
 
+  addContact() {
+    this.router.navigate(['/my-contacts/add'])
+  }
+
   editContact(contact: Contact) {
     this.router.navigateByUrl(`/my-contacts/contact/${contact.id}/edit`, {
       state: contact,

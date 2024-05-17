@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { MenuItem } from 'primeng/api'
+import { Router } from '@angular/router'
+import { MenuItem, MessageService } from 'primeng/api'
 import { ButtonModule } from 'primeng/button'
 import { DropdownModule } from 'primeng/dropdown'
 import { InputTextModule } from 'primeng/inputtext'
@@ -24,7 +25,9 @@ import { AddContactService } from 'src/app/core/services/contact/contact.service
 export class ContactComponent {
   constructor(
     private contactService: AddContactService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService: MessageService,
+    private router: Router
   ) {
     this.contact = history.state
   }
@@ -46,19 +49,43 @@ export class ContactComponent {
 
   edit() {
     this.contactService
-      .editContact(this.indentifier.value as Contact, this.contact.userId)
+      .editContact(this.indentifier.value as Contact, this.contact.id)
       .subscribe({
-        next: value => console.log(value),
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Contato atualizado',
+          })
+          this.router.navigate(['/my-contacts'])
+        },
         error: err => {
-          console.log(err)
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Erro ao editar contato',
+          })
         },
       })
   }
 
   delete() {
-    this.contactService.deleteContact(this.contact.userId).subscribe({
-      next: value => console.log(value),
-      error: err => console.log(err),
+    this.contactService.deleteContact(this.contact.id).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Contato excluido',
+        })
+        this.router.navigate(['/my-contacts'])
+      },
+      error: err => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Erro ao excluir contato',
+        })
+      },
     })
   }
 }
