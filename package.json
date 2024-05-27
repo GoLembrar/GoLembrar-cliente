@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "start:host": "nx serve --host=0.0.0.0 --disable-host-check",
     "build": "nx build",
     "lint": "nx lint",
     "lint:fix": "nx lint --fix",

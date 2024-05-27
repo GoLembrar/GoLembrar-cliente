@@ -14,6 +14,10 @@
   }
 }
 
+ul {
+  list-style: none;
+}
+
 @media (min-width: 375px) {
   .p-sidebar {
     height: 17rem;

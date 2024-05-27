@@ -10,7 +10,7 @@
   <ng-template pTemplate="header">
     <img
       *ngIf="!isMobile"
-      src="/assets/banner.svg"
+      src="/assets/logo.svg"
       alt="GoLembrar logo"
       width="200"
     />
@@ -23,8 +23,8 @@
       label="Meus contatos"
       icon="pi pi-user"
       severity="info"
-      (click)="onClickMenu()"
       styleClass="w-full"
+      routerLink="my-contacts"
     ></p-button>
     @for(actionButton of actionButtons; track actionButton.label) {
     <p-button
@@ -58,9 +58,8 @@
     @if(!isMobile){
     <p-button
       (click)="toggleSidebar()"
-      icon="pi pi-bars"
+      [icon]="isSidebarOpen ? 'pi pi-chevron-left' : 'pi pi-chevron-right'"
       [outlined]="true"
-      severity="secondary"
     ></p-button>
     } @if(isMobile){
     <p-button
@@ -92,7 +91,7 @@
     </div>
   </header>
 
-  <main>
+  <main class="px-2 pt-3">
     <router-outlet></router-outlet>
   </main>
 </div>

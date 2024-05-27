@@ -12,9 +12,9 @@ import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 import { CardModule } from 'primeng/card'
 
-import { REGEX_PASSWORD } from '../../constants/regexp'
-import { UserLogin } from '../../models/user.model'
-import { AuthService } from '../../services/auth.service'
+import { REGEX_PASSWORD } from 'src/app/core/constants/regexp'
+import { UserLogin } from 'src/app/core/models/user.model'
+import { AuthService } from 'src/app/core/services/auth.service'
 import { Subscription } from 'rxjs'
 import { MessageService } from 'primeng/api'
 
