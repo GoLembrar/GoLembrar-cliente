@@ -1,6 +1,7 @@
 export interface Contact {
-  id: string;
-  name: string;
-  platform: string;
-  identify: string;
+  id: string
+  name: string
+  platform: string
+  identify: string
 }
+

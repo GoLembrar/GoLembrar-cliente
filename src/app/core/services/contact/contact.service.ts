@@ -24,7 +24,7 @@ export class AddContactService {
     )
   }
 
-  deleteContact(userId: string) {
-    return this.http.delete(`${environment.apiUrl}/contact/${userId}`)
+  deleteContact(contactId: string) {
+    return this.http.delete(`${environment.apiUrl}/contact/${contactId}`)
   }
 }

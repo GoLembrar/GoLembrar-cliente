@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { Router, RouterModule } from '@angular/router'
-import { fromEvent } from 'rxjs'
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { fromEvent } from 'rxjs';
 
-import { SidebarModule } from 'primeng/sidebar'
-import { ButtonModule } from 'primeng/button'
-import { AvatarModule } from 'primeng/avatar'
-import { AvatarGroupModule } from 'primeng/avatargroup'
-import { MenuModule } from 'primeng/menu'
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
+import { SidebarModule } from 'primeng/sidebar';
 
-import { LayoutService } from './layout.service'
-import { NoConnectionService } from '../../services/no-connection/no-connection.service'
+import { NoConnectionService } from '../../services/no-connection/no-connection.service';
+import { LayoutService } from './layout.service';
 
 @Component({
   standalone: true,
@@ -36,7 +36,8 @@ export class LayoutComponent implements OnInit {
 
   constructor(
     private layoutService: LayoutService,
-    private noConnectionService: NoConnectionService) {
+    private noConnectionService: NoConnectionService
+  ) {
     if (window.innerWidth > 768) {
       this.isSidebarOpen = true
     } else {
@@ -60,7 +61,7 @@ export class LayoutComponent implements OnInit {
     this.noConnectionService.isVerifyConnection()
   }
 
-  onClickMenu() {
+  onClickMenuOption() {
     if (this.isMobile) this.isSidebarOpen = false
   }
   toggleSidebar() {

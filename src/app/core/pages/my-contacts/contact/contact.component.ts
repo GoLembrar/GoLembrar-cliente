@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
 import { MenuItem, MessageService } from 'primeng/api'
 import { ButtonModule } from 'primeng/button'
 import { DropdownModule } from 'primeng/dropdown'
 import { InputTextModule } from 'primeng/inputtext'
+import { contactPlatforms } from 'src/app/core/constants/contact-platforms'
 import { Contact } from 'src/app/core/models/contact'
 import { AddContactService } from 'src/app/core/services/contact/contact.service'
 
@@ -22,24 +23,21 @@ import { AddContactService } from 'src/app/core/services/contact/contact.service
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit {
+  contact = {} as Contact
+
   constructor(
     private contactService: AddContactService,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.contact = history.state
   }
 
-  contact: Contact = history.state
-
-  platforms: MenuItem[] = [
-    { name: 'Email', icon: 'pi pi-envelope' },
-    { name: 'WhatsApp', icon: 'pi pi-whatsapp', disabled: true },
-    { name: 'Discord', icon: 'pi pi-discord', disabled: true },
-    { name: 'Telegram', icon: 'pi pi-telegram', disabled: true },
-  ]
+  platforms = contactPlatforms
 
   protected indentifier: FormGroup = this.formBuilder.group({
     name: [this.contact.name],
@@ -47,11 +45,11 @@ export class ContactComponent {
     identify: [this.contact.identify],
   })
 
-  edit() {
+  public edit(): void {
     this.contactService
       .editContact(this.indentifier.value as Contact, this.contact.id)
       .subscribe({
-        next: () => {
+        next: (): void => {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -59,7 +57,7 @@ export class ContactComponent {
           })
           this.router.navigate(['/my-contacts'])
         },
-        error: err => {
+        error: (): void => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
@@ -69,17 +67,17 @@ export class ContactComponent {
       })
   }
 
-  delete() {
+  delete(): void {
     this.contactService.deleteContact(this.contact.id).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: 'Contato excluido',
+          detail: 'Contato excluído',
         })
         this.router.navigate(['/my-contacts'])
       },
-      error: err => {
+      error: (): void => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
