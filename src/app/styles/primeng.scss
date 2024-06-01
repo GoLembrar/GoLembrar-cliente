@@ -10,11 +10,13 @@ ul {
   padding-top: 32px;
   width: 340px;
   background-color: var(--dark-color);
+
   p-button {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+
     button {
       display: block;
       text-align: start;
@@ -25,30 +27,34 @@ ul {
       min-width: 216px;
     }
   }
-  .p-sidebar-header {
-  padding-bottom: 10px;
 
+  .p-sidebar-header {
+    padding-bottom: 10px;
     display: inline-grid;
     gap: 20px;
     border-bottom: 2px solid var(--primary-color);
     cursor: pointer;
+
     img {
       margin: auto;
-      padding-bottom: 30px;
+      padding-bottom: 56px;
     }
   }
 
-  .p-sidebar-content{
+  .p-sidebar-content {
     padding-left: 0;
     padding-right: 0;
-    p-button:first-child{
+
+    p-button:first-child {
       margin-top: 25px;
     }
+
     p-button {
       justify-content: start;
       margin-bottom: 26px;
       border-bottom: 2px solid var(--primary-color);
-      button{
+
+      button {
         margin-left: 62px;
         margin-bottom: 10px;
       }

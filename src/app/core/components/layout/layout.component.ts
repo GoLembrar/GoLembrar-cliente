@@ -32,7 +32,6 @@ export class LayoutComponent implements OnInit {
   isSidebarOpen = false
   isMobile = false
   avatarMenu = this.layoutService.avatarMenu
-  actionButtons = this.layoutService.actionsButtons
 
   constructor(
     private layoutService: LayoutService,
