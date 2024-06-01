@@ -1,22 +1,21 @@
-import { CommonModule } from '@angular/common'
-import { Component, OnDestroy, OnInit } from '@angular/core'
-import { RouterModule } from '@angular/router'
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
   Validators as V,
-} from '@angular/forms'
+} from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
-import { ButtonModule } from 'primeng/button'
-import { InputTextModule } from 'primeng/inputtext'
-import { PasswordModule } from 'primeng/password'
-import { CardModule } from 'primeng/card'
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 
-import { REGEX_PASSWORD } from 'src/app/core/constants/regexp'
-import { UserLogin } from 'src/app/core/models/user.model'
-import { AuthService } from 'src/app/core/services/auth.service'
-import { Subscription } from 'rxjs'
-import { MessageService } from 'primeng/api'
+import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
+import { UserLogin } from 'src/app/core/models/user.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'gl-login',
@@ -39,7 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   protected account = this.formBuilder.group({
     email: ['', [V.required, V.email]],
-    password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
+    password: ['', [V.required, V.minLength(6)]],
   })
 
   constructor(
