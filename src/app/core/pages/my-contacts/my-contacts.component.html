@@ -1,31 +1,78 @@
 <section>
   <div class="flex gap-4 align-items-center justify-content-between">
-    <h1 class="text-3xl font-normal">
-      <strong class="text-cyan-600">Meus</strong>
-      Contatos</h1>
-    <p-button icon="pi pi-plus" (onClick)="addContact()" />
+    <h2 class="text-3xl font-normal">
+      <strong class="text-cyan-600">Meus </strong>Contatos
+    </h2>
+  </div>
+  <div class="flex justify-content-between align-items-center px-2">
+    <p-button
+      icon="pi pi-plus"
+      label="Novo contato"
+      size="small"
+      routerLink="/my-contacts/add"
+    ></p-button>
+
+    <div>
+      <p-tieredMenu
+        #menu
+        [model]="avatarMenu"
+        [popup]="true"
+        styleClass="mt-3"
+      ></p-tieredMenu>
+      <p-button
+        styleClass="bg-white px-4"
+        icon="pi pi-filter"
+        label="Filtrar canais"
+        size="small"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="menu.toggle($event)"
+      >
+      </p-button>
+    </div>
   </div>
   <div>
+    @if((myContacts$ | async)?.length == 0) {
+    <p class="text-center block mt-4">Nenhum contato cadastrado</p>
+    }
     <ul class="p-2 flex flex-column gap-2">
-      @if((myContacts$ | async)?.length !== 0) {
-        @for (contact of myContacts$ | async; track $index) {
-          <li>
-            <p-chip styleClass="pl-0 pr-3 py-2 w-full pl-2 flex justify-content-between">
-              <div class="flex gap-1">
-                <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center uppercase font-bold">{{contact.name[0]}}</span>
-                <div class="flex flex-column">
-                  <span class="ml-2 font-medium text-lg capitalize">{{contact.name}}</span>
-                  <span class="ml-2 text-base opacity-80">{{contact.identify}}</span>
-                </div>
-              </div>
-              <div class="flex gap-2">
-                <p-button icon="pi pi-chevron-right" class="w-2rem" [rounded]="true" [text]="true" severity="info" (onClick)="editContact(contact)"></p-button>
-              </div>
-            </p-chip>
-          </li>
-          }
-      } @else {
-        <p class="font-medium text-center text-lg">Nenhum contato, <a routerLink="/my-contacts/add" class="text-blue-800">clique aqui</a> para criar um novo contato</p>
+      @for (contact of myContacts$ | async; track $index) {
+      <li class="flex justify-content-between align-items-center">
+        <div class="flex align-items-center gap-1">
+          <p-avatar
+            [label]="contact.name[0]"
+            shape="circle"
+          />
+          <div class="flex flex-column">
+            <span class="ml-2 font-medium text-lg capitalize">{{
+              contact.name
+            }}</span>
+            <span class="ml-2 text-base opacity-80">{{
+              contact.identify
+            }}</span>
+          </div>
+        </div>
+
+        <div class="text-cyan-600">
+          @switch (contact.platform) { @case ("EMAIL") {
+          <i class="pi pi-envelope"></i>
+          } @case ("WHATSAPP") {
+          <i class="pi pi-whatsapp"></i>
+          } @case ("TELEGRAM") {
+          <i class="pi pi-telegram"></i>
+          } @case ("DISCORD") {
+          <i class="pi pi-discord"></i>
+          } }
+        </div>
+        <p-button
+          icon="pi pi-chevron-right"
+          class="w-2rem justify-content-end"
+          [rounded]="true"
+          [text]="true"
+          severity="info"
+          (onClick)="editContact(contact)"
+        ></p-button>
+      </li>
       }
     </ul>
   </div>

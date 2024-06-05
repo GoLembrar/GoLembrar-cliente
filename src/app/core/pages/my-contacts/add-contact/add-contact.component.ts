@@ -1,19 +1,19 @@
-import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators as V,
-} from '@angular/forms'
-import { MenuItem, MessageService } from 'primeng/api'
-import { ButtonModule } from 'primeng/button'
-import { DropdownModule } from 'primeng/dropdown'
-import { InputMaskModule } from 'primeng/inputmask'
-import { InputTextModule } from 'primeng/inputtext'
-import { TreeSelectModule } from 'primeng/treeselect'
-import { Contact } from 'src/app/core/models/contact'
-import { AddContactService } from 'src/app/core/services/contact/contact.service'
+} from '@angular/forms';
+import { MenuItem, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { Contact } from 'src/app/core/models/contact';
+import { ContactService } from 'src/app/core/services/contact/contact.service';
 
 @Component({
   selector: 'gl-add-contact',
@@ -39,10 +39,10 @@ export class AddContactComponent {
   })
 
   platforms: MenuItem[] = [
-    { name: 'Email', icon: 'pi pi-envelope' },
-    { name: 'WhatsApp', icon: 'pi pi-whatsapp', disabled: true },
-    { name: 'Discord', icon: 'pi pi-discord', disabled: true },
-    { name: 'Telegram', icon: 'pi pi-telegram', disabled: true },
+    { name: 'Email', value: 'EMAIL', icon: 'pi pi-envelope' },
+    { name: 'WhatsApp', value: 'WHATSAPP', icon: 'pi pi-whatsapp', disabled: true },
+    { name: 'Discord', value: 'DISCORD', icon: 'pi pi-discord', disabled: true },
+    { name: 'Telegram', value: 'TELEGRAM', icon: 'pi pi-telegram', disabled: true },
   ]
 
   inputInvalid(input: string) {
@@ -79,7 +79,7 @@ export class AddContactComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private contact: AddContactService,
+    private contact: ContactService,
     private messageService: MessageService
   ) {}
 }

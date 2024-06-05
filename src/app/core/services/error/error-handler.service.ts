@@ -1,7 +1,7 @@
-import { ErrorHandler, Injectable } from '@angular/core'
 import { HttpErrorResponse } from '@angular/common/http'
-import { throwError } from 'rxjs'
+import { ErrorHandler, Injectable } from '@angular/core'
 import { MessageService } from 'primeng/api'
+import { throwError } from 'rxjs'
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +19,8 @@ export class ErrorHandlerService implements ErrorHandler {
         })
         break
       case 404:
-        localStorage.clear()
-        location.reload()
+        // localStorage.clear()
+        // location.reload()
         break
       case 403:
         this.messageService.add({

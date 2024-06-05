@@ -6,7 +6,7 @@ import { Contact } from '../../models/contact'
 @Injectable({
   providedIn: 'root',
 })
-export class AddContactService {
+export class ContactService {
   constructor(private http: HttpClient) {}
 
   getContacts() {

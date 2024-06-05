@@ -20,7 +20,7 @@
       <legend>
         <label for="platform" class="block mb-1">Plataforma</label>
       </legend>
-      <p-dropdown styleClass="flex" formControlName="platform" [options]="platforms" optionLabel="name" optionValue="name" placeholder="Selecione a plataforma">
+      <p-dropdown styleClass="flex" formControlName="platform" [options]="platforms" optionLabel="name" optionValue="value" placeholder="Selecione a plataforma">
         <ng-template let-platform pTemplate="item">
           <div class="flex align-items-center gap-2">
             <span class=""><i [class]="platform.icon"></i></span>

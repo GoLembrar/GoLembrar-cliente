@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
-import { MenuItem, MessageService } from 'primeng/api'
+import { MessageService } from 'primeng/api'
 import { ButtonModule } from 'primeng/button'
 import { DropdownModule } from 'primeng/dropdown'
 import { InputTextModule } from 'primeng/inputtext'
 import { contactPlatforms } from 'src/app/core/constants/contact-platforms'
 import { Contact } from 'src/app/core/models/contact'
-import { AddContactService } from 'src/app/core/services/contact/contact.service'
+import { ContactService } from 'src/app/core/services/contact/contact.service'
 
 @Component({
   selector: 'gl-contact',
@@ -27,7 +27,7 @@ export class ContactComponent implements OnInit {
   contact = {} as Contact
 
   constructor(
-    private contactService: AddContactService,
+    private contactService: ContactService,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private router: Router
