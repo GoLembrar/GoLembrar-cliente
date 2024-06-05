@@ -2,24 +2,24 @@ import { MenuItem } from 'primeng/api'
 
 export const contactPlatforms: MenuItem[] = [
   {
-    name: 'Email',
+    label: 'Email',
     value: 'EMAIL',
     icon: 'pi pi-envelope',
   },
   {
-    name: 'WhatsApp (EM BREVE)',
+    label: 'WhatsApp (EM BREVE)',
     value: 'WHATSAPP',
     icon: 'pi pi-whatsapp',
     disabled: true,
   },
   {
-    name: 'Discord (EM BREVE)',
+    label: 'Discord (EM BREVE)',
     value: 'DISCORD',
     icon: 'pi pi-discord',
     disabled: true,
   },
   {
-    name: 'Telegram (EM BREVE)',
+    label: 'Telegram (EM BREVE)',
     value: 'TELEGRAM',
     icon: 'pi pi-telegram',
     disabled: true,

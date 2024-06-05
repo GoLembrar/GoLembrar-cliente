@@ -11,6 +11,7 @@ import { DropdownModule } from 'primeng/dropdown'
 import { InputMaskModule } from 'primeng/inputmask'
 import { InputTextModule } from 'primeng/inputtext'
 import { TreeSelectModule } from 'primeng/treeselect'
+import { TitleComponent } from 'src/app/core/components/title/title.component'
 import { contactPlatforms } from 'src/app/core/constants/contact-platforms'
 import { Contact } from 'src/app/core/models/contact'
 import { ContactService } from 'src/app/core/services/contact/contact.service'
@@ -27,6 +28,7 @@ import { getInputError, inputInvalid } from 'src/app/core/utils/input'
     InputTextModule,
     DropdownModule,
     ButtonModule,
+    TitleComponent,
   ],
   templateUrl: './add-contact.component.html',
 })
@@ -41,7 +43,7 @@ export class AddContactComponent {
 
   protected contact = this.formBuilder.group({
     name: ['', [V.required]],
-    platform: ['', [V.required]],
+    platform: ['EMAIL', [V.required]],
     identify: ['', [V.required, V.email]],
   })
 

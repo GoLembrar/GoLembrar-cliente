@@ -1,9 +1,9 @@
-<div class="flex gap-4 align-items-center justify-content-between">
-  <h2 class="text-3xl font-normal">
-    <strong class="text-cyan-600">Meus </strong>Contatos
-  </h2>
-</div>
-<div class="flex justify-content-between align-items-center">
+<gl-title
+  label1="Meus"
+  label2="contatos"
+></gl-title>
+
+<div class="flex justify-content-between align-items-center pt-4">
   <p-button
     icon="pi pi-plus"
     label="Novo contato"
@@ -12,12 +12,12 @@
   ></p-button>
 
   <div>
-    <p-tieredMenu
+    <p-menu
       #menu
-      [model]="avatarMenu"
+      [model]="platforms"
       [popup]="true"
       styleClass="mt-3"
-    ></p-tieredMenu>
+    ></p-menu>
     <p-button
       styleClass="bg-white px-4"
       icon="pi pi-filter"
@@ -31,11 +31,11 @@
   </div>
 </div>
 <div>
-  @if((myContacts$ | async)?.length == 0) {
+  @if((contacts$ | async)?.length == 0) {
   <p class="text-center block mt-4">Nenhum contato cadastrado</p>
   }
   <ul class="px-0 flex flex-column gap-2">
-    @for (contact of myContacts$ | async; track $index) {
+    @for (contact of contacts$ | async; track contact.id) {
     <li
       class="flex justify-content-between align-items-center pl-3 pr-5 py-2 bg-white shadow-1 border-round-xl"
     >
@@ -69,7 +69,7 @@
         [rounded]="true"
         [text]="true"
         severity="info"
-        (onClick)="editContact(contact)"
+        (onClick)="onEdit(contact.id)"
       ></p-button>
     </li>
     }

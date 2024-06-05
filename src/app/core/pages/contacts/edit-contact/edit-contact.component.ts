@@ -1,11 +1,17 @@
 import { CommonModule } from '@angular/common'
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { Component } from '@angular/core'
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators as V,
+} from '@angular/forms'
 import { Router } from '@angular/router'
 import { MessageService } from 'primeng/api'
 import { ButtonModule } from 'primeng/button'
 import { DropdownModule } from 'primeng/dropdown'
 import { InputTextModule } from 'primeng/inputtext'
+import { TitleComponent } from 'src/app/core/components/title/title.component'
 import { contactPlatforms } from 'src/app/core/constants/contact-platforms'
 import { Contact } from 'src/app/core/models/contact'
 import { ContactService } from 'src/app/core/services/contact/contact.service'
@@ -19,10 +25,11 @@ import { ContactService } from 'src/app/core/services/contact/contact.service'
     DropdownModule,
     InputTextModule,
     ReactiveFormsModule,
+    TitleComponent,
   ],
   templateUrl: './edit-contact.component.html',
 })
-export class EditContactComponent implements OnInit {
+export class EditContactComponent {
   contact = {} as Contact
 
   constructor(
@@ -32,21 +39,17 @@ export class EditContactComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.contact = history.state
-  }
-
   platforms = contactPlatforms
 
-  protected indentifier: FormGroup = this.formBuilder.group({
-    name: [this.contact.name],
-    platform: ['Email'],
-    identify: [this.contact.identify],
+  protected contactToEdit: FormGroup = this.formBuilder.group({
+    name: ['', [V.required, V.min(2), V.max(255)]],
+    platform: ['EMAIL', V.required],
+    identify: ['', [V.required, V.email, V.min(2), V.max(255)]],
   })
 
   public edit(): void {
     this.contactService
-      .editContact(this.indentifier.value as Contact, this.contact.id)
+      .editContact(this.contactToEdit.value as Contact, this.contact.id)
       .subscribe({
         next: (): void => {
           this.messageService.add({

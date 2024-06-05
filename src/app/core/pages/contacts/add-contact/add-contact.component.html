@@ -1,8 +1,7 @@
-<div class="flex gap-4 align-items-center justify-content-between">
-  <h2 class="text-3xl font-normal">
-    <strong class="text-cyan-600">Novo </strong>Contato
-  </h2>
-</div>
+<gl-title
+  label1="Novo"
+  label2="contato"
+></gl-title>
 
 <form
   [formGroup]="contact"
@@ -50,7 +49,7 @@
       styleClass="flex"
       formControlName="platform"
       [options]="platforms"
-      optionLabel="name"
+      optionLabel="label"
       optionValue="value"
       placeholder="Selecione uma plataforma"
     >
@@ -60,7 +59,7 @@
       >
         <div class="flex align-items-center gap-2">
           <span class=""><i [class]="platform.icon"></i></span>
-          <div>{{ platform.name }}</div>
+          <div>{{ platform.label }}</div>
         </div>
       </ng-template>
     </p-dropdown>
