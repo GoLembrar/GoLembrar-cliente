@@ -20,10 +20,9 @@ import { ContactService } from 'src/app/core/services/contact/contact.service'
     InputTextModule,
     ReactiveFormsModule,
   ],
-  templateUrl: './contact.component.html',
-  styleUrl: './contact.component.scss',
+  templateUrl: './edit-contact.component.html',
 })
-export class ContactComponent implements OnInit {
+export class EditContactComponent implements OnInit {
   contact = {} as Contact
 
   constructor(

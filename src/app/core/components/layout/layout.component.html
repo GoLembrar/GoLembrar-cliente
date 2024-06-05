@@ -10,7 +10,7 @@
       src="/assets/logo.svg"
       alt="GoLembrar logo"
       width="180"
-      routerLink="/"
+      routerLink=""
       (click)="onClickMenuOption()"
     />
 
@@ -18,7 +18,7 @@
       label="Novo lembrete"
       icon="pi pi-plus-circle"
       [outlined]="true"
-      routerLink="/reminders/new"
+      routerLink="reminders/new"
       (click)="onClickMenuOption()"
     ></p-button>
   </ng-template>
@@ -29,21 +29,21 @@
       label="Hoje"
       icon="pi pi-calendar"
       [outlined]="true"
-      routerLink="/reminders/new"
+      routerLink="#"
       (click)="onClickMenuOption()"
     ></p-button>
     <p-button
       label="Agendados"
       icon="pi pi-clock"
       [outlined]="true"
-      routerLink="/reminders/new"
+      routerLink="#"
       (click)="onClickMenuOption()"
     ></p-button>
     <p-button
       label="Meus contatos"
       icon="pi pi-users"
       [outlined]="true"
-      routerLink="/my-contacts"
+      routerLink="contacts"
       (click)="onClickMenuOption()"
     ></p-button>
   </ng-template>

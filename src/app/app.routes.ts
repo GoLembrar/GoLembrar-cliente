@@ -14,9 +14,9 @@ export const APP_ROUTES: Route[] = [
     children: [
       { path: '', component: HomeComponent },
       {
-        path: 'my-contacts',
+        path: 'contacts',
         loadChildren: () =>
-          import('./core/pages/my-contacts/my-contacts.routes').then(
+          import('./core/pages/contacts/contacts.routes').then(
             r => r.MY_CONTACTS_ROUTES
           ),
       },

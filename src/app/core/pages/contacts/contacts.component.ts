@@ -22,10 +22,9 @@ import { ContactService } from '../../services/contact/contact.service'
     TieredMenuModule,
     AvatarModule,
   ],
-  templateUrl: './my-contacts.component.html',
-  styleUrl: './my-contacts.component.scss',
+  templateUrl: './contacts.component.html',
 })
-export class MyContactsComponent {
+export class ContactsComponent {
   constructor(private contactService: ContactService, private router: Router) {}
 
   myContacts$ = this.contactService.getContacts()
