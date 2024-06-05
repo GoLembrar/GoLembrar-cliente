@@ -1,19 +1,20 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'
+import { Component } from '@angular/core'
 import {
   FormBuilder,
-  FormGroup,
   ReactiveFormsModule,
   Validators as V,
-} from '@angular/forms';
-import { MenuItem, MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputTextModule } from 'primeng/inputtext';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { Contact } from 'src/app/core/models/contact';
-import { ContactService } from 'src/app/core/services/contact/contact.service';
+} from '@angular/forms'
+import { MessageService } from 'primeng/api'
+import { ButtonModule } from 'primeng/button'
+import { DropdownModule } from 'primeng/dropdown'
+import { InputMaskModule } from 'primeng/inputmask'
+import { InputTextModule } from 'primeng/inputtext'
+import { TreeSelectModule } from 'primeng/treeselect'
+import { contactPlatforms } from 'src/app/core/constants/contact-platforms'
+import { Contact } from 'src/app/core/models/contact'
+import { ContactService } from 'src/app/core/services/contact/contact.service'
+import { getInputError, inputInvalid } from 'src/app/core/utils/input'
 
 @Component({
   selector: 'gl-add-contact',
@@ -32,54 +33,46 @@ import { ContactService } from 'src/app/core/services/contact/contact.service';
 export class AddContactComponent {
   protected loading: boolean = false
 
-  protected indentifier: FormGroup = this.formBuilder.group({
+  constructor(
+    private formBuilder: FormBuilder,
+    private contactService: ContactService,
+    private messageService: MessageService
+  ) {}
+
+  protected contact = this.formBuilder.group({
     name: ['', [V.required]],
     platform: ['', [V.required]],
     identify: ['', [V.required, V.email]],
   })
 
-  platforms: MenuItem[] = [
-    { name: 'Email', value: 'EMAIL', icon: 'pi pi-envelope' },
-    { name: 'WhatsApp', value: 'WHATSAPP', icon: 'pi pi-whatsapp', disabled: true },
-    { name: 'Discord', value: 'DISCORD', icon: 'pi pi-discord', disabled: true },
-    { name: 'Telegram', value: 'TELEGRAM', icon: 'pi pi-telegram', disabled: true },
-  ]
+  platforms = contactPlatforms
 
-  inputInvalid(input: string) {
-    return (
-      this.indentifier.get(input)?.invalid &&
-      (this.indentifier.get(input)?.dirty ||
-        this.indentifier.get(input)?.touched)
-    )
+  inputInvalid(input: string): boolean {
+    return inputInvalid(input, this.contact)
   }
-
-  getInputError(input: string, error: string) {
-    return this.indentifier.get(input)?.hasError(error)
+  getInputError(input: string, error: string): boolean {
+    return getInputError(input, error, this.contact)
   }
 
   onSubmit(): void {
-    if (this.indentifier.valid) {
+    if (this.contact.valid) {
       this.loading = true
-      this.contact.createContact(this.indentifier.value as Contact).subscribe({
-        next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sucesso',
-            detail: 'Contato adicionado',
-          })
-          this.indentifier.reset()
-          this.loading = false
-        },
-        error: err => {
-          this.loading = false
-        },
-      })
+      this.contactService
+        .createContact(this.contact.value as Contact)
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Contato adicionado',
+            })
+            this.contact.reset()
+            this.loading = false
+          },
+          error: () => {
+            this.loading = false
+          },
+        })
     }
   }
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private contact: ContactService,
-    private messageService: MessageService
-  ) {}
 }
