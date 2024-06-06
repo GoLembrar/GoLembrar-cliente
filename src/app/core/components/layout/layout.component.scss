@@ -2,6 +2,14 @@
   .space-left-content {
     margin-left: 0;
   }
+  header {
+    max-width: 1500px;
+    margin: auto;
+  }
+  main {
+    max-width: 1200px;
+    margin: auto;
+  }
 }
 @media (min-width: 768px) {
   :host {

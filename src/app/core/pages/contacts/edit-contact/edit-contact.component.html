@@ -39,19 +39,25 @@
     </legend>
     <p-dropdown
       styleClass="flex"
-      formControlName="platform"
+      [disabled]="true"
       [options]="platforms"
       optionLabel="label"
       optionValue="value"
       placeholder="Selecione a plataforma"
     >
+      <ng-template pTemplate="selectedItem">
+        <div class="flex align-items-center gap-2">
+          <i class="pi pi-envelope"></i>
+          <span>Email</span>
+        </div>
+      </ng-template>
       <ng-template
         let-platform
         pTemplate="item"
       >
         <div class="flex align-items-center gap-2">
-          <span class=""><i [class]="platform.icon"></i></span>
-          <div>{{ platform.label }}</div>
+          <i [class]="platform.icon"></i>
+          <span>{{ platform.label }}</span>
         </div>
       </ng-template>
     </p-dropdown>

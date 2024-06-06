@@ -5,15 +5,18 @@ import { Router, RouterModule } from '@angular/router'
 import { AvatarModule } from 'primeng/avatar'
 import { ButtonModule } from 'primeng/button'
 import { ChipModule } from 'primeng/chip'
-
+import { DialogModule } from 'primeng/dialog'
 import { MenuModule } from 'primeng/menu'
+
 import { TitleComponent } from '../../components/title/title.component'
 import { contactPlatforms } from '../../constants/contact-platforms'
 import { ContactService } from '../../services/contact/contact.service'
 
 @Component({
-  selector: 'gl-my-contacts',
   standalone: true,
+  selector: 'gl-my-contacts',
+  templateUrl: './contacts.component.html',
+  styleUrl: './contacts.component.scss',
   imports: [
     CommonModule,
     RouterModule,
@@ -22,17 +25,20 @@ import { ContactService } from '../../services/contact/contact.service'
     MenuModule,
     AvatarModule,
     TitleComponent,
+    DialogModule,
   ],
-  templateUrl: './contacts.component.html',
 })
 export class ContactsComponent {
-  constructor(private contactService: ContactService, private router: Router) {}
+  showEditContact = true
 
   contacts$ = this.contactService.getContacts()
 
   platforms = contactPlatforms
 
+  constructor(private contactService: ContactService, private router: Router) {}
+
   onEdit(id: string) {
-    this.router.navigateByUrl(`contacts/edit/${id}`)
+    // this.router.navigateByUrl(`contacts/edit/${id}`)
+    this.showEditContact = true
   }
 }
