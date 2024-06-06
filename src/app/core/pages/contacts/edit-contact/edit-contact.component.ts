@@ -48,25 +48,25 @@ export class EditContactComponent {
   })
 
   public edit(): void {
-    this.contactService
-      .editContact(this.contactToEdit.value as Contact, this.contact.id)
-      .subscribe({
-        next: (): void => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Contato atualizado',
-          })
-          this.router.navigate(['/my-contacts'])
-        },
-        error: (): void => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Erro ao editar contato',
-          })
-        },
-      })
+    // this.contactService
+    //   .editContact(this.contactToEdit.value as Contact)
+    //   .subscribe({
+    //     next: (): void => {
+    //       this.messageService.add({
+    //         severity: 'success',
+    //         summary: 'Success',
+    //         detail: 'Contato atualizado',
+    //       })
+    //       this.router.navigate(['/my-contacts'])
+    //     },
+    //     error: (): void => {
+    //       this.messageService.add({
+    //         severity: 'error',
+    //         summary: 'Error',
+    //         detail: 'Erro ao editar contato',
+    //       })
+    //     },
+    //   })
   }
 
   delete(): void {

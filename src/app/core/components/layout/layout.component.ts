@@ -1,23 +1,25 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { fromEvent } from 'rxjs';
+import { CommonModule } from '@angular/common'
+import { Component, OnInit } from '@angular/core'
+import { RouterModule } from '@angular/router'
+import { fromEvent } from 'rxjs'
 
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
-import { ButtonModule } from 'primeng/button';
-import { MenuModule } from 'primeng/menu';
-import { SidebarModule } from 'primeng/sidebar';
+import { ConfirmationService } from 'primeng/api'
+import { AvatarModule } from 'primeng/avatar'
+import { AvatarGroupModule } from 'primeng/avatargroup'
+import { ButtonModule } from 'primeng/button'
+import { ConfirmDialogModule } from 'primeng/confirmdialog'
+import { MenuModule } from 'primeng/menu'
+import { SidebarModule } from 'primeng/sidebar'
 
-import { NoConnectionService } from '../../services/no-connection/no-connection.service';
-import { LayoutService } from './layout.service';
+import { NoConnectionService } from '../../services/no-connection/no-connection.service'
+import { LayoutService } from './layout.service'
 
 @Component({
   standalone: true,
   selector: 'gl-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
-  providers: [LayoutService],
+  providers: [LayoutService, ConfirmationService],
   imports: [
     CommonModule,
     RouterModule,
@@ -26,6 +28,7 @@ import { LayoutService } from './layout.service';
     AvatarModule,
     AvatarGroupModule,
     MenuModule,
+    ConfirmDialogModule,
   ],
 })
 export class LayoutComponent implements OnInit {

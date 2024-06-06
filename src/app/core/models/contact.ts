@@ -5,3 +5,8 @@ export interface Contact {
   identify: string
 }
 
+export interface EditContact {
+  name: string
+  platform: string
+  identify: string
+}
