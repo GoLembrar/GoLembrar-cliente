@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
-import { Router, RouterModule } from '@angular/router'
+import {
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators as V,
+} from '@angular/forms'
+import { RouterModule } from '@angular/router'
 
 import { AvatarModule } from 'primeng/avatar'
 import { ButtonModule } from 'primeng/button'
@@ -8,8 +13,10 @@ import { ChipModule } from 'primeng/chip'
 import { DialogModule } from 'primeng/dialog'
 import { MenuModule } from 'primeng/menu'
 
+import { InputTextModule } from 'primeng/inputtext'
 import { TitleComponent } from '../../components/title/title.component'
 import { contactPlatforms } from '../../constants/contact-platforms'
+import { Contact } from '../../models/contact'
 import { ContactService } from '../../services/contact/contact.service'
 
 @Component({
@@ -20,8 +27,10 @@ import { ContactService } from '../../services/contact/contact.service'
   imports: [
     CommonModule,
     RouterModule,
+    ReactiveFormsModule,
     ChipModule,
     ButtonModule,
+    InputTextModule,
     MenuModule,
     AvatarModule,
     TitleComponent,
@@ -29,16 +38,36 @@ import { ContactService } from '../../services/contact/contact.service'
   ],
 })
 export class ContactsComponent {
-  showEditContact = true
+  showEditContact = false
+  savingEdition = false
+
+  contactToEdit = {} as Contact
 
   contacts$ = this.contactService.getContacts()
 
   platforms = contactPlatforms
 
-  constructor(private contactService: ContactService, private router: Router) {}
+  constructor(
+    private contactService: ContactService,
+    private formBuilder: NonNullableFormBuilder
+  ) {}
 
-  onEdit(id: string) {
-    // this.router.navigateByUrl(`contacts/edit/${id}`)
+  protected contactToEditForm = this.formBuilder.group({
+    name: ['', [V.required, V.min(2), V.max(255)]],
+    identify: ['', [V.required, V.email, V.min(2), V.max(255)]],
+  })
+
+  onEdit(contact: Contact) {
     this.showEditContact = true
+    this.contactToEdit = contact
+
+    this.contactToEditForm.setValue({
+      name: this.contactToEdit.name,
+      identify: this.contactToEdit.identify,
+    })
+  }
+  onSaveEdition() {
+    console.log(this.contactToEdit)
+    this.showEditContact = false
   }
 }

@@ -1,7 +1,6 @@
 <p-dialog
   [(visible)]="showEditContact"
   [modal]="true"
-  [style]="{ maxWidth: '800px' }"
   [draggable]="false"
   [resizable]="false"
 >
@@ -12,15 +11,72 @@
     ></gl-title>
   </ng-template>
   <ng-template pTemplate="content">
-    <p class="m-0">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.
-    </p>
+    <form
+      [formGroup]="contactToEditForm"
+      class="formgrid grid justify-content-center align-items-center gap-3"
+    >
+      <p-avatar
+        label="A"
+        size="xlarge"
+        shape="circle"
+        styleClass="cursor-pointer"
+        [style]="{
+          width: '220px',
+          height: '220px'
+        }"
+      />
+      <fieldset class="field col-12 m-0 p-0">
+        <legend>
+          <label
+            for="name"
+            class="block mb-1"
+            >Nome</label
+          >
+        </legend>
+        <span class="p-input-icon-right w-full">
+          <i class="pi pi-user"></i>
+          <input
+            type="text"
+            class="w-full"
+            pInputText
+            formControlName="name"
+            id="name"
+          />
+        </span>
+      </fieldset>
+
+      <fieldset class="field col-12 m-0 p-0">
+        <legend>
+          <label
+            for="identify"
+            class="block mb-1"
+            >Identificador</label
+          >
+        </legend>
+        <span class="p-input-icon-right w-full">
+          <i class="pi pi-envelope"></i>
+          <input
+            type="text"
+            class="w-full"
+            pInputText
+            formControlName="identify"
+            id="identify"
+          />
+        </span>
+      </fieldset>
+      <div class="flex col-12 gap-3 justify-content-end p-0 mt-1">
+        <p-button
+          label="Salvar"
+          styleClass="justify-content-center"
+          icon="pi pi-check"
+          size="small"
+          [link]="true"
+          [loading]="savingEdition"
+          [disabled]="contactToEditForm.invalid || savingEdition"
+          (click)="onSaveEdition()"
+        ></p-button>
+      </div>
+    </form>
   </ng-template>
 </p-dialog>
 
@@ -42,7 +98,7 @@
       #menu
       [model]="platforms"
       [popup]="true"
-      styleClass="mt-3 w-2"
+      styleClass="mt-3"
     ></p-menu>
     <p-button
       styleClass="bg-white px-4"
@@ -96,7 +152,7 @@
         [rounded]="true"
         [text]="true"
         severity="info"
-        (onClick)="onEdit(contact.id)"
+        (onClick)="onEdit(contact)"
       ></p-button>
     </li>
     }
