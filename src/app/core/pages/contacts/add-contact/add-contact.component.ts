@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common'
+import { CommonModule, Location } from '@angular/common'
 import { Component } from '@angular/core'
 import {
   FormBuilder,
@@ -12,6 +12,7 @@ import { DropdownModule } from 'primeng/dropdown'
 import { InputMaskModule } from 'primeng/inputmask'
 import { InputTextModule } from 'primeng/inputtext'
 import { TreeSelectModule } from 'primeng/treeselect'
+import { BackButtonComponent } from 'src/app/core/components/back-button/back-button.component'
 import { TitleComponent } from 'src/app/core/components/title/title.component'
 import { contactPlatforms } from 'src/app/core/constants/contact-platforms'
 import { Contact } from 'src/app/core/models/contact'
@@ -31,6 +32,7 @@ import { getInputError, inputInvalid } from 'src/app/core/utils/input'
     ButtonModule,
     TitleComponent,
     AvatarModule,
+    BackButtonComponent,
   ],
   templateUrl: './add-contact.component.html',
   styleUrl: './add-contact.component.scss',
@@ -41,10 +43,11 @@ export class AddContactComponent {
   constructor(
     private formBuilder: FormBuilder,
     private contactService: ContactService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public location: Location
   ) {}
 
-  protected contact = this.formBuilder.group({
+  protected newContact = this.formBuilder.group({
     name: ['', [V.required]],
     platform: ['EMAIL', [V.required]],
     identify: ['', [V.required, V.email]],
@@ -53,31 +56,29 @@ export class AddContactComponent {
   platforms = contactPlatforms
 
   inputInvalid(input: string): boolean {
-    return inputInvalid(input, this.contact)
+    return inputInvalid(input, this.newContact)
   }
   getInputError(input: string, error: string): boolean {
-    return getInputError(input, error, this.contact)
+    return getInputError(input, error, this.newContact)
   }
 
   onSubmit(): void {
-    if (this.contact.valid) {
-      this.loading = true
-      this.contactService
-        .createContact(this.contact.value as Contact)
-        .subscribe({
-          next: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Sucesso',
-              detail: 'Contato adicionado',
-            })
-            this.contact.reset()
-            this.loading = false
-          },
-          error: () => {
-            this.loading = false
-          },
-        })
-    }
+    this.loading = true
+    this.contactService
+      .createContact(this.newContact.value as Contact)
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Contato adicionado',
+          })
+          this.newContact.reset()
+          this.loading = false
+        },
+        error: () => {
+          this.loading = false
+        },
+      })
   }
 }

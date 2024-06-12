@@ -1,12 +1,14 @@
 <gl-title
   label1="Novo"
   label2="contato"
-></gl-title>
+/>
+
+<gl-back-button />
 
 <form
-  [formGroup]="contact"
+  [formGroup]="newContact"
   (ngSubmit)="onSubmit()"
-  class="flex flex-column md:flex-row align-items-top justify-content-center gap-4 w-full pt-4 md:mt-8"
+  class="flex flex-column md:flex-row align-items-top justify-content-center gap-4 w-full pt-4 md:mt-4"
 >
   <div class="flex justify-content-center mt-2">
     <p-avatar
@@ -101,7 +103,7 @@
           class="w-full"
           pInputText
           formControlName="identify"
-          placeholder="email@email.com | (99) 9999-9999 | @golembrar"
+          placeholder="email@email.com"
           id="identify"
           [ngClass]="{
             'ng-invalid ng-dirty': inputInvalid('identify')
@@ -121,7 +123,7 @@
       <p-button
         type="submit"
         label="Salvar contato"
-        [disabled]="contact.invalid || loading"
+        [disabled]="newContact.invalid || loading"
         [loading]="loading"
       ></p-button>
     </div>
