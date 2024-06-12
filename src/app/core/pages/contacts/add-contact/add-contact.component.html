@@ -6,110 +6,124 @@
 <form
   [formGroup]="contact"
   (ngSubmit)="onSubmit()"
-  class="flex flex-column justify-content-center gap-3 w-full pt-4"
+  class="flex flex-column md:flex-row align-items-top justify-content-center gap-4 w-full pt-4 md:mt-8"
 >
-  <fieldset class="field col-12 m-0 p-0">
-    <legend>
-      <label
-        for="name"
-        class="block mb-1"
-        >Nome</label
-      >
-    </legend>
-    <span class="p-input-icon-right w-full">
-      <i class="pi pi-user"></i>
-      <input
-        type="text"
-        class="w-full"
-        pInputText
-        formControlName="name"
-        placeholder="Digite o nome do contato"
-        id="name"
-        [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('name') }"
-      />
-    </span>
-    <div *ngIf="inputInvalid('name')">
-      <small
-        class="text-red-600"
-        *ngIf="getInputError('name', 'required')"
-        >Campo obrigatório</small
-      >
-    </div>
-  </fieldset>
+  <div class="flex justify-content-center mt-2">
+    <p-avatar
+      label="A"
+      size="xlarge"
+      shape="circle"
+      styleClass="cursor-pointer"
+      [style]="{
+        width: '220px',
+        height: '220px'
+      }"
+    />
+  </div>
 
-  <fieldset class="field col-12 m-0 p-0">
-    <legend>
-      <label
-        for="platform"
-        class="block mb-1"
-        >Canal</label
-      >
-    </legend>
-    <p-dropdown
-      styleClass="flex"
-      formControlName="platform"
-      [options]="platforms"
-      optionLabel="label"
-      optionValue="value"
-      placeholder="Selecione uma plataforma"
-    >
-      <ng-template
-        let-platform
-        pTemplate="item"
-      >
-        <div class="flex align-items-center gap-2">
-          <span class=""><i [class]="platform.icon"></i></span>
-          <div>{{ platform.label }}</div>
-        </div>
-      </ng-template>
-    </p-dropdown>
-    <div *ngIf="inputInvalid('platform')">
-      <small
-        class="text-red-600"
-        *ngIf="getInputError('platform', 'required')"
-        >Campo obrigatório</small
-      >
-    </div>
-  </fieldset>
+  <div class="formgrid grid gap-2 mx-1">
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label
+          for="name"
+          class="block mb-1"
+          >Nome</label
+        >
+      </legend>
+      <span class="p-input-icon-right w-full">
+        <i class="pi pi-user"></i>
+        <input
+          type="text"
+          class="w-full"
+          pInputText
+          formControlName="name"
+          placeholder="Digite o nome do contato"
+          id="name"
+          [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('name') }"
+        />
+      </span>
+      <div *ngIf="inputInvalid('name')">
+        <small
+          class="text-red-600"
+          *ngIf="getInputError('name', 'required')"
+          >Campo obrigatório</small
+        >
+      </div>
+    </fieldset>
 
-  <fieldset class="field col-12 m-0 p-0">
-    <legend>
-      <label
-        for="identify"
-        class="block mb-1"
-        >Identificador</label
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label
+          for="platform"
+          class="block mb-1"
+          >Canal</label
+        >
+      </legend>
+      <p-dropdown
+        styleClass="flex"
+        formControlName="platform"
+        [options]="platforms"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Selecione uma plataforma"
       >
-    </legend>
-    <span class="p-input-icon-right w-full">
-      <i class="pi pi-book"></i>
-      <input
-        type="text"
-        class="w-full"
-        pInputText
-        formControlName="identify"
-        placeholder="email@email.com | (99) 9999-9999 | @golembrar"
-        id="identify"
-        [ngClass]="{
-          'ng-invalid ng-dirty': inputInvalid('identify')
-        }"
-      />
-    </span>
-    <div *ngIf="inputInvalid('identify')">
-      <small
-        class="text-red-600"
-        *ngIf="getInputError('identify', 'required')"
-        >Campo obrigatório</small
-      >
-    </div>
-  </fieldset>
+        <ng-template
+          let-platform
+          pTemplate="item"
+        >
+          <div class="flex align-items-center gap-2">
+            <span class=""><i [class]="platform.icon"></i></span>
+            <div>{{ platform.label }}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+      <div *ngIf="inputInvalid('platform')">
+        <small
+          class="text-red-600"
+          *ngIf="getInputError('platform', 'required')"
+          >Campo obrigatório</small
+        >
+      </div>
+    </fieldset>
 
-  <div class="card flex justify-content-center gap-3">
-    <p-button
-      type="submit"
-      class="w-full"
-      label="Adicionar contato"
-      [disabled]="contact.invalid || loading"
-      [loading]="loading"
-    ></p-button>
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label
+          for="identify"
+          class="block mb-1"
+          >Identificador</label
+        >
+      </legend>
+      <span class="p-input-icon-right w-full">
+        <i class="pi pi-book"></i>
+        <input
+          type="text"
+          class="w-full"
+          pInputText
+          formControlName="identify"
+          placeholder="email@email.com | (99) 9999-9999 | @golembrar"
+          id="identify"
+          [ngClass]="{
+            'ng-invalid ng-dirty': inputInvalid('identify')
+          }"
+        />
+      </span>
+      <div *ngIf="inputInvalid('identify')">
+        <small
+          class="text-red-600"
+          *ngIf="getInputError('identify', 'required')"
+          >Campo obrigatório</small
+        >
+      </div>
+    </fieldset>
+
+    <div class="card flex col-12 gap-3 justify-content-end p-0 mt-2">
+      <p-button
+        type="submit"
+        label="Salvar contato"
+        [disabled]="contact.invalid || loading"
+        [loading]="loading"
+      ></p-button>
+    </div>
   </div>
 </form>

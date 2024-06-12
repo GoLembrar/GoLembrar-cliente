@@ -1,23 +1,23 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import {
   AbstractControl,
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators as V,
   ValidatorFn,
-} from '@angular/forms';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
-import { Subscription } from 'rxjs';
-import { REGEX_PASSWORD } from 'src/app/core/constants/regexp';
-import { User } from 'src/app/core/models/user.model';
-import { AuthService } from 'src/app/core/services/auth.service';
+} from '@angular/forms'
+import { Router } from '@angular/router'
+import { MessageService } from 'primeng/api'
+import { ButtonModule } from 'primeng/button'
+import { CardModule } from 'primeng/card'
+import { InputMaskModule } from 'primeng/inputmask'
+import { InputTextModule } from 'primeng/inputtext'
+import { PasswordModule } from 'primeng/password'
+import { Subscription } from 'rxjs'
+import { REGEX_PASSWORD } from 'src/app/core/constants/regexp'
+import { User } from 'src/app/core/models/user.model'
+import { AuthService } from 'src/app/core/services/auth.service'
 
 @Component({
   selector: 'gl-register',

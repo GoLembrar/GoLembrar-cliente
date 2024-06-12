@@ -6,6 +6,7 @@ import {
   Validators as V,
 } from '@angular/forms'
 import { MessageService } from 'primeng/api'
+import { AvatarModule } from 'primeng/avatar'
 import { ButtonModule } from 'primeng/button'
 import { DropdownModule } from 'primeng/dropdown'
 import { InputMaskModule } from 'primeng/inputmask'
@@ -29,8 +30,10 @@ import { getInputError, inputInvalid } from 'src/app/core/utils/input'
     DropdownModule,
     ButtonModule,
     TitleComponent,
+    AvatarModule,
   ],
   templateUrl: './add-contact.component.html',
+  styleUrl: './add-contact.component.scss',
 })
 export class AddContactComponent {
   protected loading: boolean = false
