@@ -4,9 +4,10 @@ import { Router } from '@angular/router'
 import { MessageService } from 'primeng/api'
 import { Observable, map } from 'rxjs'
 import { environment } from 'src/environments/environment.development'
+import { JwtPayload } from '../models/jwt-payload'
+import { Token } from '../models/token'
 import { User, UserLogin } from '../models/user.model'
 import { LoadingService } from './loading.service'
-import { Token } from '../models/token'
 
 @Injectable({
   providedIn: 'root',
@@ -92,5 +93,12 @@ export class AuthService {
     this.isAuth = false
     localStorage.clear()
     this.router.navigate(['/login'])
+  }
+
+  getJwtPayload() {
+    const bearer = localStorage.getItem('Bearer')?.split('.')[1] || ''
+    const jwtPayload = window.atob(bearer)
+    const parsedPayload: JwtPayload = JSON.parse(jwtPayload)
+    return parsedPayload
   }
 }

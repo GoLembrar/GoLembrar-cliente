@@ -1,26 +1,27 @@
 import { MenuItem } from 'primeng/api'
+import { Platform } from '../models/enums/plataform'
 
 export const contactPlatforms: MenuItem[] = [
   {
     label: 'Email',
-    value: 'EMAIL',
+    value: Platform.EMAIL,
     icon: 'pi pi-envelope',
   },
   {
     label: 'WhatsApp (EM BREVE)',
-    value: 'WHATSAPP',
+    value: Platform.WHATSAPP,
     icon: 'pi pi-whatsapp',
     disabled: true,
   },
   {
     label: 'Discord (EM BREVE)',
-    value: 'DISCORD',
+    value: Platform.DISCORD,
     icon: 'pi pi-discord',
     disabled: true,
   },
   {
     label: 'Telegram (EM BREVE)',
-    value: 'TELEGRAM',
+    value: Platform.TELEGRAM,
     icon: 'pi pi-telegram',
     disabled: true,
   },

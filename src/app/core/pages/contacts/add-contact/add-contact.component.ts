@@ -1,4 +1,4 @@
-import { CommonModule, Location } from '@angular/common'
+import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import {
   FormBuilder,
@@ -43,8 +43,7 @@ export class AddContactComponent {
   constructor(
     private formBuilder: FormBuilder,
     private contactService: ContactService,
-    private messageService: MessageService,
-    public location: Location
+    private messageService: MessageService
   ) {}
 
   protected newContact = this.formBuilder.group({
