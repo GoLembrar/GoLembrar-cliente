@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { MyContactsComponent } from './my-contacts.component'
+import { BackButtonComponent } from './back-button.component'
 
-describe('MyContactsComponent', () => {
-  let component: MyContactsComponent
-  let fixture: ComponentFixture<MyContactsComponent>
+describe('BackButtonComponent', () => {
+  let component: BackButtonComponent
+  let fixture: ComponentFixture<BackButtonComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MyContactsComponent],
+      imports: [BackButtonComponent],
     }).compileComponents()
 
-    fixture = TestBed.createComponent(MyContactsComponent)
+    fixture = TestBed.createComponent(BackButtonComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

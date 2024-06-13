@@ -1,4 +1,4 @@
-<main class="min-h-screen pt-8">
+<main class="min-h-screen pt-8 px-4">
   <p-card styleClass="m-auto w-full md:w-30rem my-0">
     <ng-template pTemplate="title">
       <h1 class="m-0 mb-2 text-3xl text-center">Fazer cadastro</h1>
@@ -8,6 +8,20 @@
       (ngSubmit)="postUser()"
       class="p-3 flex flex-column gap-3 formgrid"
     >
+      <fieldset class="field col-12 mb-0 px-0">
+        <legend>
+          <label for="name">Nome</label>
+        </legend>
+        <input
+          pInputText
+          type="name"
+          placeholder="Digite seu nome"
+          id="name"
+          formControlName="name"
+          class="w-full"
+        />
+      </fieldset>
+
       <fieldset class="field col-12 m-0 p-0">
         <legend>
           <label for="email">Email</label>
@@ -108,7 +122,7 @@
             styleClass="w-full"
             inputId="phone"
             formControlName="phone"
-            mask="(99) 9999-9999"
+            mask="(99) 9999-9999?9"
             placeholder="(99) 9999-9999"
             [unmask]="true"
             [autoClear]="false"

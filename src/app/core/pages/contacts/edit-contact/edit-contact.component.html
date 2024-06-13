@@ -1,0 +1,100 @@
+<gl-title
+  label1="Editar"
+  label2="contato"
+></gl-title>
+
+<form
+  [formGroup]="contactToEdit"
+  (ngSubmit)="edit()"
+  class="flex flex-column justify-content-center gap-3 w-full pt-4"
+>
+  <fieldset class="field col-12 m-0 p-0">
+    <legend>
+      <label
+        for="name"
+        class="block mb-1"
+        >Nome</label
+      >
+    </legend>
+    <span class="p-input-icon-right w-full">
+      <i class="pi pi-user"></i>
+      <input
+        type="text"
+        class="w-full"
+        pInputText
+        formControlName="name"
+        placeholder="Digite o nome do contato"
+        id="name"
+      />
+    </span>
+  </fieldset>
+
+  <fieldset class="field col-12 m-0 p-0">
+    <legend>
+      <label
+        for="platform"
+        class="block mb-1"
+        >Canal</label
+      >
+    </legend>
+    <p-dropdown
+      styleClass="flex"
+      [disabled]="true"
+      [options]="platforms"
+      optionLabel="label"
+      optionValue="value"
+      placeholder="Selecione a plataforma"
+    >
+      <ng-template pTemplate="selectedItem">
+        <div class="flex align-items-center gap-2">
+          <i class="pi pi-envelope"></i>
+          <span>Email</span>
+        </div>
+      </ng-template>
+      <ng-template
+        let-platform
+        pTemplate="item"
+      >
+        <div class="flex align-items-center gap-2">
+          <i [class]="platform.icon"></i>
+          <span>{{ platform.label }}</span>
+        </div>
+      </ng-template>
+    </p-dropdown>
+  </fieldset>
+
+  <fieldset class="field col-12 m-0 p-0">
+    <legend>
+      <label
+        for="identifiy"
+        class="block mb-1"
+        >Identificador</label
+      >
+    </legend>
+    <span class="p-input-icon-right w-full">
+      <i class="pi pi-envelope"></i>
+      <input
+        type="text"
+        class="w-full"
+        pInputText
+        formControlName="identify"
+        placeholder="email@email.com | (99) 9999-9999 | @golembrar"
+        id="identify"
+      />
+    </span>
+  </fieldset>
+
+  <div class="card flex justify-content-center gap-3">
+    <p-button
+      type="submit"
+      class="w-full"
+      label="Editar contato"
+    ></p-button>
+    <p-button
+      (onClick)="delete()"
+      class="w-full"
+      label="Excluir contato"
+      severity="danger"
+    ></p-button>
+  </div>
+</form>

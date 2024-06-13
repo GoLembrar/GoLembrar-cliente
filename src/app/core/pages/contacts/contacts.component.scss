@@ -1,0 +1,10 @@
+:host {
+  .contact-name {
+    p {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 180px;
+      white-space: nowrap;
+    }
+  }
+}

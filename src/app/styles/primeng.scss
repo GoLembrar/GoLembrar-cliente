@@ -2,58 +2,86 @@
   padding: 0;
 }
 
-.p-sidebar {
-  height: 17rem;
-  .p-sidebar-footer {
-    display: none;
-  }
-  #action-buttons {
-    & p-button:first-child {
-      width: 100%;
-    }
-  }
-}
-
 ul {
   list-style: none;
 }
 
-@media (min-width: 375px) {
-  .p-sidebar {
-    height: 17rem;
-    .p-sidebar-content {
-      margin: 0 auto;
+.p-sidebar {
+  padding-top: 32px;
+  width: 340px;
+  background-color: var(--dark-color);
+
+  p-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      display: block;
+      text-align: start;
+      padding: 12px 26px;
+      color: #e8e8e8;
+      border: none;
+      text-transform: uppercase;
+      min-width: 216px;
+    }
+  }
+
+  .p-sidebar-header {
+    padding-bottom: 10px;
+    display: inline-grid;
+    gap: 20px;
+    border-bottom: 2px solid var(--primary-color);
+    cursor: pointer;
+
+    img {
+      margin: auto;
+      padding-bottom: 56px;
+    }
+  }
+
+  .p-sidebar-content {
+    padding-left: 0;
+    padding-right: 0;
+
+    p-button:first-child {
+      margin-top: 25px;
     }
 
-    .p-sidebar-footer {
-      display: none;
-      padding-left: 34px;
-      padding-right: 34px;
-    }
-    #action-buttons {
-      max-width: 400px;
-      max-width: 328px;
-      & p-button:first-child {
-        width: 100%;
+    p-button {
+      justify-content: start;
+      margin-bottom: 26px;
+      border-bottom: 2px solid var(--primary-color);
+
+      button {
+        margin-left: 62px;
+        margin-bottom: 10px;
       }
     }
   }
 }
-@media (min-width: 768px) {
-  .p-sidebar {
-    padding-top: 30px;
-    height: 100%;
-    width: 400px;
-    .p-sidebar-header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .p-sidebar-footer {
-      display: initial;
-    }
-    #action-buttons {
-      padding-top: 30px;
+
+.p-dialog {
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-bottom: 52px;
+  max-width: 520px;
+
+  .p-dialog-content {
+    padding: 24px;
+    padding-top: 0;
+
+    fieldset {
+      max-width: 400px;
     }
   }
+
+  .p-button .p-button-label {
+    text-decoration: none;
+  }
+}
+
+.p-avatar {
+  background-color: #e4f3f7;
 }

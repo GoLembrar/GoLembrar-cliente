@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { Router, RouterModule } from '@angular/router'
+import { Component, OnInit } from '@angular/core'
+import { RouterModule } from '@angular/router'
 import { fromEvent } from 'rxjs'
 
-import { SidebarModule } from 'primeng/sidebar'
-import { ButtonModule } from 'primeng/button'
+import { ConfirmationService } from 'primeng/api'
 import { AvatarModule } from 'primeng/avatar'
 import { AvatarGroupModule } from 'primeng/avatargroup'
+import { ButtonModule } from 'primeng/button'
+import { ConfirmDialogModule } from 'primeng/confirmdialog'
 import { MenuModule } from 'primeng/menu'
+import { SidebarModule } from 'primeng/sidebar'
 
-import { LayoutService } from './layout.service'
 import { NoConnectionService } from '../../services/no-connection/no-connection.service'
+import { LayoutService } from './layout.service'
 
 @Component({
   standalone: true,
   selector: 'gl-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
-  providers: [LayoutService],
+  providers: [LayoutService, ConfirmationService],
   imports: [
     CommonModule,
     RouterModule,
@@ -26,17 +28,18 @@ import { NoConnectionService } from '../../services/no-connection/no-connection.
     AvatarModule,
     AvatarGroupModule,
     MenuModule,
+    ConfirmDialogModule,
   ],
 })
 export class LayoutComponent implements OnInit {
   isSidebarOpen = false
   isMobile = false
   avatarMenu = this.layoutService.avatarMenu
-  actionButtons = this.layoutService.actionsButtons
 
   constructor(
     private layoutService: LayoutService,
-    private noConnectionService: NoConnectionService) {
+    private noConnectionService: NoConnectionService
+  ) {
     if (window.innerWidth > 768) {
       this.isSidebarOpen = true
     } else {
@@ -60,7 +63,7 @@ export class LayoutComponent implements OnInit {
     this.noConnectionService.isVerifyConnection()
   }
 
-  onClickMenu() {
+  onClickMenuOption() {
     if (this.isMobile) this.isSidebarOpen = false
   }
   toggleSidebar() {

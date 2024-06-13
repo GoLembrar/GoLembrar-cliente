@@ -1,0 +1,161 @@
+<p-dialog
+  [(visible)]="showEditContact"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <ng-template pTemplate="header">
+    <gl-title
+      label1="Editar"
+      label2="contato"
+    ></gl-title>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <form
+      [formGroup]="contactToEditForm"
+      class="formgrid grid justify-content-center align-items-center gap-3"
+    >
+      <p-avatar
+        label="A"
+        size="xlarge"
+        shape="circle"
+        styleClass="cursor-pointer"
+        [style]="{
+          width: '220px',
+          height: '220px'
+        }"
+      />
+      <fieldset class="field col-12 m-0 p-0">
+        <legend>
+          <label
+            for="name"
+            class="block mb-1"
+            >Nome</label
+          >
+        </legend>
+        <span class="p-input-icon-right w-full">
+          <i class="pi pi-user"></i>
+          <input
+            type="text"
+            class="w-full"
+            pInputText
+            formControlName="name"
+            id="name"
+          />
+        </span>
+      </fieldset>
+
+      <fieldset class="field col-12 m-0 p-0">
+        <legend>
+          <label
+            for="identify"
+            class="block mb-1"
+            >Identificador</label
+          >
+        </legend>
+        <span class="p-input-icon-right w-full">
+          <i class="pi pi-envelope"></i>
+          <input
+            type="text"
+            class="w-full"
+            pInputText
+            formControlName="identify"
+            id="identify"
+          />
+        </span>
+      </fieldset>
+      <div class="flex col-12 gap-3 justify-content-end p-0 mt-1">
+        <p-button
+          label="Salvar"
+          styleClass="justify-content-center"
+          icon="pi pi-check"
+          size="small"
+          [link]="true"
+          [loading]="savingEdition"
+          [disabled]="contactToEditForm.invalid || savingEdition"
+          (click)="onSaveEdition()"
+        ></p-button>
+      </div>
+    </form>
+  </ng-template>
+</p-dialog>
+
+<gl-title
+  label1="Meus"
+  label2="contatos"
+></gl-title>
+
+<div class="flex justify-content-between align-items-center pt-4">
+  <p-button
+    icon="pi pi-plus"
+    label="Novo contato"
+    size="small"
+    routerLink="add"
+  ></p-button>
+
+  <div>
+    <p-menu
+      #menu
+      [model]="platforms"
+      [popup]="true"
+      styleClass="mt-3"
+    ></p-menu>
+    <p-button
+      styleClass="bg-white px-4"
+      icon="pi pi-filter"
+      label="Filtrar canais"
+      size="small"
+      severity="secondary"
+      [outlined]="true"
+      (onClick)="menu.toggle($event)"
+    >
+    </p-button>
+  </div>
+</div>
+
+<div>
+  @if((contacts$ | async)?.length == 0) {
+  <p class="text-center block mt-4">Nenhum contato cadastrado</p>
+  }
+  <ul class="px-0 pt-2 flex flex-column gap-3">
+    @for (contact of contacts$ | async; track $index) {
+    <li
+      class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-1 border-round-xl"
+    >
+      <div class="flex align-items-center gap-1">
+        <p-avatar
+          [label]="contact.name[0]"
+          shape="circle"
+          styleClass="mr-2"
+        />
+        <div class="contact-name">
+          <p class="font-medium text-lg capitalize">
+            {{ contact.name }}
+          </p>
+        </div>
+      </div>
+
+      <div class="text-cyan-600 lg:mr-8 lg:pr-8">
+        <div class="lg:mr-3">
+          @switch (contact.platform) { @case ("EMAIL") {
+          <i class="pi pi-envelope"></i>
+          } @case ("WHATSAPP") {
+          <i class="pi pi-whatsapp"></i>
+          } @case ("TELEGRAM") {
+          <i class="pi pi-telegram"></i>
+          } @case ("DISCORD") {
+          <i class="pi pi-discord"></i>
+          } }
+        </div>
+      </div>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        severity="info"
+        (onClick)="onEdit(contact)"
+      ></p-button>
+    </li>
+    }
+  </ul>
+</div>
