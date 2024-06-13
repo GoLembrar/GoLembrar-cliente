@@ -21,7 +21,7 @@ export class ContactService {
     return this.http.patch(`${environment.apiUrl}/contact/${id}`, contact)
   }
 
-  deleteContact(contactId: string) {
-    return this.http.delete(`${environment.apiUrl}/contact/${contactId}`)
+  delete(id: string) {
+    return this.http.delete(`${environment.apiUrl}/contact/${id}`)
   }
 }

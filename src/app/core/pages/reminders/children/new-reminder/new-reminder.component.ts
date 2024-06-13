@@ -5,6 +5,7 @@ import {
   ReactiveFormsModule,
   Validators as V,
 } from '@angular/forms'
+import { MessageService } from 'primeng/api'
 
 import { ButtonModule } from 'primeng/button'
 import { CalendarModule } from 'primeng/calendar'
@@ -43,12 +44,14 @@ import { ReminderService } from 'src/app/core/services/reminder/reminder.service
 export class NewReminderComponent {
   ownerId = this.authService.getJwtPayload().id
   contacts$ = this.contactService.getContacts()
+  loading = false
 
   constructor(
     private reminderService: ReminderService,
     private contactService: ContactService,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService
   ) {}
 
   protected newReminder = this.formBuilder.group<ControlConfigMap<Reminder>>({
@@ -62,8 +65,24 @@ export class NewReminderComponent {
   })
 
   onSubmit() {
-    this.reminderService
-      .create(this.newReminder.value as Reminder)
-      .subscribe({})
+    this.loading = true
+    this.reminderService.create(this.newReminder.value as Reminder).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Lembrete foi cadastrado',
+        })
+        this.loading = false
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao cadastrar lembrete',
+        })
+        this.loading = false
+      },
+    })
   }
 }

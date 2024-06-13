@@ -66,10 +66,7 @@
     />
   </fieldset>
 
-  <fieldset
-    class="max-w-full field col-12 m-0 p-0"
-    *ngIf="contacts$ | async as contacts"
-  >
+  <fieldset class="max-w-full field col-12 m-0 p-0">
     <legend>
       <label
         for="usersToReminder"
@@ -79,6 +76,7 @@
       </label>
     </legend>
     <p-multiSelect
+      *ngIf="contacts$ | async as contacts"
       inputId="usersToReminder"
       optionLabel="name"
       placeholder="Selecione"
@@ -132,6 +130,8 @@
       icon="pi pi-check"
       label="Salvar"
       (onClick)="onSubmit()"
+      [disabled]="newReminder.invalid || loading"
+      [loading]="loading"
     ></p-button>
   </div>
 </form>

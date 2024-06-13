@@ -18,6 +18,7 @@ import { InputTextModule } from 'primeng/inputtext'
 import { TitleComponent } from '../../components/title/title.component'
 import { contactPlatforms } from '../../constants/contact-platforms'
 import { Contact, EditContact } from '../../models/contact'
+import { Platform } from '../../models/enums/plataform'
 import { ContactService } from '../../services/contact/contact.service'
 
 @Component({
@@ -40,7 +41,7 @@ import { ContactService } from '../../services/contact/contact.service'
 })
 export class ContactsComponent {
   showEditContact = false
-  savingEdition = false
+  loading = false
 
   contactToEdit = {} as Contact
 
@@ -57,7 +58,7 @@ export class ContactsComponent {
 
   protected contactToEditForm = this.formBuilder.group({
     name: ['', [V.required, V.min(2), V.max(255)]],
-    platform: ['EMAIL'],
+    platform: [Platform.EMAIL],
     identify: ['', [V.required, V.email, V.min(2), V.max(255)]],
   })
 
@@ -71,7 +72,7 @@ export class ContactsComponent {
     })
   }
 
-  onSaveEdition() {
+  onSave() {
     this.confirmationService.confirm({
       header: 'Salvar edição?',
       message: 'Confirmar edição de contato?',
@@ -91,7 +92,7 @@ export class ContactsComponent {
           return
         }
 
-        this.savingEdition = true
+        this.loading = true
 
         this.contactService
           .edit(
@@ -107,10 +108,10 @@ export class ContactsComponent {
                 detail: 'Contato foi atualizado',
               })
               this.showEditContact = false
-              this.savingEdition = false
+              this.loading = false
             },
             error: () => {
-              this.savingEdition = false
+              this.loading = false
               this.messageService.add({
                 severity: 'error',
                 summary: 'Erro',
@@ -118,6 +119,36 @@ export class ContactsComponent {
               })
             },
           })
+      },
+    })
+  }
+  onDelete() {
+    console.log(this.contactToEdit)
+
+    this.confirmationService.confirm({
+      header: 'Apagar esse contato?',
+      message: 'Não será possível desfazer essa ação.',
+      accept: () => {
+        this.contactService.delete(this.contactToEdit.id).subscribe({
+          next: () => {
+            this.contacts$ = this.contactService.getContacts()
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Feito',
+              detail: 'Contato foi apagado',
+            })
+            this.showEditContact = false
+            this.loading = false
+          },
+          error: () => {
+            this.loading = false
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: 'Erro ao apagar contato',
+            })
+          },
+        })
       },
     })
   }

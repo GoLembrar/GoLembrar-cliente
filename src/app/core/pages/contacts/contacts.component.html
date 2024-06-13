@@ -64,16 +64,28 @@
           />
         </span>
       </fieldset>
-      <div class="flex col-12 gap-3 justify-content-end p-0 mt-1">
+      <div class="flex col-12 gap-3 justify-content-between py-0 px-2 mt-1">
+        <p-button
+          label="Apagar"
+          styleClass="justify-content-center text-red-600"
+          icon="pi pi-times"
+          size="small"
+          severity="danger"
+          [link]="true"
+          [loading]="loading"
+          [disabled]="contactToEditForm.invalid || loading"
+          (click)="onDelete()"
+        ></p-button>
+
         <p-button
           label="Salvar"
           styleClass="justify-content-center"
           icon="pi pi-check"
           size="small"
           [link]="true"
-          [loading]="savingEdition"
-          [disabled]="contactToEditForm.invalid || savingEdition"
-          (click)="onSaveEdition()"
+          [loading]="loading"
+          [disabled]="contactToEditForm.invalid || loading"
+          (click)="onSave()"
         ></p-button>
       </div>
     </form>
