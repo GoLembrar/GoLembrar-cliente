@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common'
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import {
-  NonNullableFormBuilder,
+  FormBuilder,
   ReactiveFormsModule,
   Validators as V,
 } from '@angular/forms'
@@ -15,8 +15,9 @@ import { TagModule } from 'primeng/tag'
 
 import { BackButtonComponent } from 'src/app/core/components/back-button/back-button.component'
 import { TitleComponent } from 'src/app/core/components/title/title.component'
-import { Contact } from 'src/app/core/models/contact'
 import { Platform } from 'src/app/core/models/enums/plataform'
+import { Reminder } from 'src/app/core/models/reminder'
+import { ControlConfigMap } from 'src/app/core/models/types/control-config-map'
 import { AuthService } from 'src/app/core/services/auth.service'
 import { ContactService } from 'src/app/core/services/contact/contact.service'
 import { ReminderService } from 'src/app/core/services/reminder/reminder.service'
@@ -39,27 +40,18 @@ import { ReminderService } from 'src/app/core/services/reminder/reminder.service
     TagModule,
   ],
 })
-export class NewReminderComponent implements OnInit {
+export class NewReminderComponent {
   ownerId = this.authService.getJwtPayload().id
-
-  contacts: Contact[] = []
+  contacts$ = this.contactService.getContacts()
 
   constructor(
     private reminderService: ReminderService,
     private contactService: ContactService,
-    private formBuilder: NonNullableFormBuilder,
+    private formBuilder: FormBuilder,
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
-    this.contactService.getContacts().subscribe({
-      next: contacts => {
-        this.contacts = contacts
-      },
-    })
-  }
-
-  protected newReminder = this.formBuilder.group({
+  protected newReminder = this.formBuilder.group<ControlConfigMap<Reminder>>({
     title: ['', [V.required, V.min(3)]],
     description: ['', [V.required, V.min(3)]],
     platform: [Platform.EMAIL, V.required],
@@ -70,7 +62,8 @@ export class NewReminderComponent implements OnInit {
   })
 
   onSubmit() {
-    // console.log(this.newReminder.value)
-    console.log(this.contacts)
+    this.reminderService
+      .create(this.newReminder.value as Reminder)
+      .subscribe({})
   }
 }

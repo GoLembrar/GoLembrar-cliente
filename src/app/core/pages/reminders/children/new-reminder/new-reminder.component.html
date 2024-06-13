@@ -39,7 +39,7 @@
     </legend>
 
     <textarea
-      rows="5"
+      rows="6"
       class="w-full"
       pInputTextarea
       id="description"
@@ -66,7 +66,10 @@
     />
   </fieldset>
 
-  <fieldset class="max-w-full field col-12 m-0 p-0">
+  <fieldset
+    class="max-w-full field col-12 m-0 p-0"
+    *ngIf="contacts$ | async as contacts"
+  >
     <legend>
       <label
         for="usersToReminder"
@@ -88,8 +91,6 @@
       [options]="contacts"
       optionValue="id"
       optionLabel="name"
-      [maxSelectedLabels]="2"
-      selectedItemsLabel="{} selecionados"
     >
       <ng-template
         let-value
