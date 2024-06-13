@@ -45,6 +45,7 @@ export class NewReminderComponent {
   ownerId = this.authService.getJwtPayload().id
   contacts$ = this.contactService.getContacts()
   loading = false
+  newDate = new Date()
 
   constructor(
     private reminderService: ReminderService,
