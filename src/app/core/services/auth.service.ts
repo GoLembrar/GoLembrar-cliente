@@ -96,9 +96,9 @@ export class AuthService {
   }
 
   getJwtPayload() {
-    const bearer = localStorage.getItem('Bearer')?.split('.')[1] || ''
-    const jwtPayload = window.atob(bearer)
-    const parsedPayload: JwtPayload = JSON.parse(jwtPayload)
-    return parsedPayload
+    const jwtPayload = window.atob(
+      localStorage.getItem('Bearer')?.split('.')[1] || ''
+    )
+    return JSON.parse(jwtPayload) as JwtPayload
   }
 }

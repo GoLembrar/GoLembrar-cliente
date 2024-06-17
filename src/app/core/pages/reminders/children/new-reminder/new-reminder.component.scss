@@ -1,11 +1,6 @@
 :host {
   form {
-    max-width: 820px;
+    max-width: 900px;
     margin: 0 auto;
   }
-}
-
-::ng-deep .container > div:first-child {
-  /* Your styles for the first child */
-  border-color: red; /* Example style */
 }

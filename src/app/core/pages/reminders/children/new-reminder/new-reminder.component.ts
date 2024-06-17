@@ -66,24 +66,28 @@ export class NewReminderComponent {
   })
 
   onSubmit() {
-    this.loading = true
-    this.reminderService.create(this.newReminder.value as Reminder).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Sucesso',
-          detail: 'Lembrete foi cadastrado',
+    if (this.newReminder.valid) {
+      this.loading = true
+      this.reminderService
+        .create(this.newReminder.value as Reminder)
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Lembrete foi cadastrado',
+            })
+            this.loading = false
+          },
+          error: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: 'Erro ao cadastrar lembrete',
+            })
+            this.loading = false
+          },
         })
-        this.loading = false
-      },
-      error: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Erro',
-          detail: 'Erro ao cadastrar lembrete',
-        })
-        this.loading = false
-      },
-    })
+    }
   }
 }
