@@ -1,9 +1,9 @@
-import { Platform } from './enums/plataform'
+import { Channel } from './enums/channels'
 
 export interface Reminder {
   title: string
   description: string
-  platform: Platform
+  channel: Channel
   usersToReminder: string[]
   scheduled: Date
   ownerId: string

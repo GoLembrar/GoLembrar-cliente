@@ -108,7 +108,7 @@
   <div>
     <p-menu
       #menu
-      [model]="platforms"
+      [model]="channels"
       [popup]="true"
       styleClass="mt-3"
     ></p-menu>
@@ -149,7 +149,7 @@
 
       <div class="text-cyan-600 lg:mr-8 lg:pr-8">
         <div class="lg:mr-3">
-          @switch (contact.platform) { @case ("EMAIL") {
+          @switch (contact.channel) { @case ("EMAIL") {
           <i class="pi pi-envelope"></i>
           } @case ("WHATSAPP") {
           <i class="pi pi-whatsapp"></i>

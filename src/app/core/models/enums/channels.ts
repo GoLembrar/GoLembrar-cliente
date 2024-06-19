@@ -1,4 +1,4 @@
-export enum Platform {
+export enum Channel {
   EMAIL = 'EMAIL',
   WHATSAPP = 'WHATSAPP',
   DISCORD = 'DISCORD',

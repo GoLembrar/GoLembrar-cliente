@@ -16,9 +16,9 @@ import { MenuModule } from 'primeng/menu'
 import { ConfirmationService, MessageService } from 'primeng/api'
 import { InputTextModule } from 'primeng/inputtext'
 import { TitleComponent } from '../../components/title/title.component'
-import { contactPlatforms } from '../../constants/contact-platforms'
+import { contactChannels } from '../../constants/contact-platforms'
 import { Contact, EditContact } from '../../models/contact'
-import { Platform } from '../../models/enums/plataform'
+import { Channel } from '../../models/enums/channels'
 import { ContactService } from '../../services/contact/contact.service'
 
 @Component({
@@ -47,7 +47,7 @@ export class ContactsComponent {
 
   contacts$ = this.contactService.getContacts()
 
-  platforms = contactPlatforms
+  channels = contactChannels
 
   constructor(
     private contactService: ContactService,
@@ -58,7 +58,7 @@ export class ContactsComponent {
 
   protected contactToEditForm = this.formBuilder.group({
     name: ['', [V.required, V.min(2), V.max(255)]],
-    platform: [Platform.EMAIL],
+    channel: [Channel.EMAIL],
     identify: ['', [V.required, V.email, V.min(2), V.max(255)]],
   })
 

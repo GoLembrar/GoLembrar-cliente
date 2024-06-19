@@ -14,7 +14,7 @@ import { InputTextModule } from 'primeng/inputtext'
 import { TreeSelectModule } from 'primeng/treeselect'
 import { BackButtonComponent } from 'src/app/core/components/back-button/back-button.component'
 import { TitleComponent } from 'src/app/core/components/title/title.component'
-import { contactPlatforms } from 'src/app/core/constants/contact-platforms'
+import { contactChannels } from 'src/app/core/constants/contact-platforms'
 import { Contact } from 'src/app/core/models/contact'
 import { ContactService } from 'src/app/core/services/contact/contact.service'
 import { getInputError, inputInvalid } from 'src/app/core/utils/input'
@@ -52,7 +52,7 @@ export class AddContactComponent {
     identify: ['', [V.required, V.email]],
   })
 
-  platforms = contactPlatforms
+  channels = contactChannels
 
   inputInvalid(input: string): boolean {
     return inputInvalid(input, this.newContact)

@@ -16,7 +16,7 @@ import { TagModule } from 'primeng/tag'
 
 import { BackButtonComponent } from 'src/app/core/components/back-button/back-button.component'
 import { TitleComponent } from 'src/app/core/components/title/title.component'
-import { Platform } from 'src/app/core/models/enums/plataform'
+import { Channel } from 'src/app/core/models/enums/channels'
 import { Reminder } from 'src/app/core/models/reminder'
 import { ControlConfigMap } from 'src/app/core/models/types/control-config-map'
 import { AuthService } from 'src/app/core/services/auth.service'
@@ -45,7 +45,7 @@ export class NewReminderComponent {
   ownerId = this.authService.getJwtPayload().id
   contacts$ = this.contactService.getContacts()
   loading = false
-  newDate = new Date()
+  readonly minDate = new Date(new Date().getTime() + 30 * 60000)
 
   constructor(
     private reminderService: ReminderService,
@@ -58,9 +58,9 @@ export class NewReminderComponent {
   protected newReminder = this.formBuilder.group<ControlConfigMap<Reminder>>({
     title: ['', [V.required, V.min(3)]],
     description: ['', [V.required, V.min(3)]],
-    platform: [Platform.EMAIL, V.required],
+    channel: [Channel.EMAIL, V.required],
     usersToReminder: [[], [V.required, V.minLength(1)]],
-    scheduled: [new Date(), V.required],
+    scheduled: [this.minDate, V.required],
     ownerId: [this.ownerId, V.required],
     categoryId: [1, V.required],
   })
