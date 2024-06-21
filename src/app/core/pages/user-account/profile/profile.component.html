@@ -1,0 +1,72 @@
+<gl-title
+  label1="Editar"
+  label2="perfil"
+/>
+
+<gl-back-button />
+
+<form
+  [formGroup]="profile"
+  class="flex flex-column md:flex-row align-items-top justify-content-center gap-4 w-full pt-4 md:mt-4"
+>
+  <div class="flex justify-content-center mt-2">
+    <p-avatar
+      label="A"
+      size="xlarge"
+      shape="circle"
+      styleClass="cursor-pointer"
+      [style]="{
+        width: '220px',
+        height: '220px'
+      }"
+    />
+  </div>
+
+  <div class="formgrid grid gap-2 mx-1">
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label
+          for="name"
+          class="block mb-1"
+        >
+          Nome
+        </label>
+      </legend>
+      <input
+        id="name"
+        class="w-full"
+        pInputText
+        formControlName="name"
+        placeholder="Digite o nome do contato"
+      />
+    </fieldset>
+
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label
+          for="email"
+          class="block mb-1"
+        >
+          Email
+        </label
+        >
+      </legend>
+      <input
+        id="email"
+        class="w-full"
+        pInputText
+        formControlName="email"
+        placeholder="contato@golembrar.com"
+      />
+    </fieldset>
+
+    <div class="card flex col-12 gap-3 justify-content-end p-0 mt-2">
+      <p-button
+        type="submit"
+        icon="pi pi-check"
+        label="Editar perfil"
+        (onClick)="onSubmit()"
+      ></p-button>
+    </div>
+  </div>
+</form>

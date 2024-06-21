@@ -1,10 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
-import {
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators as V,
-} from '@angular/forms'
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators as V } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 
 import { AvatarModule } from 'primeng/avatar'
@@ -36,8 +32,8 @@ import { ContactService } from '../../services/contact/contact.service'
     MenuModule,
     AvatarModule,
     TitleComponent,
-    DialogModule,
-  ],
+    DialogModule
+  ]
 })
 export class ContactsComponent {
   showEditContact = false
@@ -54,12 +50,13 @@ export class ContactsComponent {
     private formBuilder: NonNullableFormBuilder,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
-  ) {}
+  ) {
+  }
 
   protected contactToEditForm = this.formBuilder.group({
     name: ['', [V.required, V.min(2), V.max(255)]],
     channel: [Channel.EMAIL],
-    identify: ['', [V.required, V.email, V.min(2), V.max(255)]],
+    identify: ['', [V.required, V.email, V.min(2), V.max(255)]]
   })
 
   onEdit(contact: Contact) {
@@ -68,7 +65,7 @@ export class ContactsComponent {
 
     this.contactToEditForm.patchValue({
       name: this.contactToEdit.name,
-      identify: this.contactToEdit.identify,
+      identify: this.contactToEdit.identify
     })
   }
 
@@ -79,14 +76,14 @@ export class ContactsComponent {
       accept: () => {
         if (
           this.contactToEdit.name ===
-            this.contactToEditForm.controls.name.value &&
+          this.contactToEditForm.controls.name.value &&
           this.contactToEdit.identify ===
-            this.contactToEditForm.controls.identify.value
+          this.contactToEditForm.controls.identify.value
         ) {
           this.messageService.add({
             severity: 'success',
             summary: 'Sucesso',
-            detail: 'Contato foi atualizado',
+            detail: 'Contato foi atualizado'
           })
           this.showEditContact = false
           return
@@ -105,7 +102,7 @@ export class ContactsComponent {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Sucesso',
-                detail: 'Contato foi atualizado',
+                detail: 'Contato foi atualizado'
               })
               this.showEditContact = false
               this.loading = false
@@ -115,13 +112,14 @@ export class ContactsComponent {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Erro',
-                detail: 'Erro ao atualizar contato',
+                detail: 'Erro ao atualizar contato'
               })
-            },
+            }
           })
-      },
+      }
     })
   }
+
   onDelete() {
     console.log(this.contactToEdit)
 
@@ -135,7 +133,7 @@ export class ContactsComponent {
             this.messageService.add({
               severity: 'info',
               summary: 'Feito',
-              detail: 'Contato foi apagado',
+              detail: 'Contato foi apagado'
             })
             this.showEditContact = false
             this.loading = false
@@ -145,11 +143,11 @@ export class ContactsComponent {
             this.messageService.add({
               severity: 'error',
               summary: 'Erro',
-              detail: 'Erro ao apagar contato',
+              detail: 'Erro ao apagar contato'
             })
-          },
+          }
         })
-      },
+      }
     })
   }
 }

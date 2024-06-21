@@ -13,6 +13,8 @@ import { SidebarModule } from 'primeng/sidebar'
 
 import { NoConnectionService } from '../../services/no-connection/no-connection.service'
 import { LayoutService } from './layout.service'
+import { AuthService } from '../../services/auth.service'
+import { NameAbbreviationPipe } from '../../utils/pipes/name-abbreviation/name-abbreviation.pipe'
 
 @Component({
   standalone: true,
@@ -29,17 +31,21 @@ import { LayoutService } from './layout.service'
     AvatarGroupModule,
     MenuModule,
     ConfirmDialogModule,
+    NameAbbreviationPipe
   ],
 })
 export class LayoutComponent implements OnInit {
   isSidebarOpen = false
   isMobile = false
   avatarMenu = this.layoutService.avatarMenu
+  readonly userInfo$ = this.authService.getUserInfo()
 
   constructor(
     private layoutService: LayoutService,
-    private noConnectionService: NoConnectionService
+    private noConnectionService: NoConnectionService,
+    private authService: AuthService
   ) {
+
     if (window.innerWidth > 768) {
       this.isSidebarOpen = true
     } else {

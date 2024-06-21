@@ -35,7 +35,6 @@
 
   <ng-template pTemplate="content">
     <p-button
-      cla
       label="Hoje"
       icon="pi pi-calendar"
       [outlined]="true"
@@ -90,7 +89,9 @@
         class="flex align-items-center gap-2"
         (click)="menu.toggle($event)"
       >
-        <h4 class="font-medium text-sm">Andrew D.</h4>
+        <h4
+          *ngIf="userInfo$ | async as userInfo"
+          class="font-medium text-sm">{{ userInfo.name | nameAbbreviation }}</h4>
         <p-avatar
           icon="pi pi-user"
           shape="circle"

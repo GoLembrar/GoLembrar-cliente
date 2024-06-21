@@ -20,7 +20,7 @@ import { ContactService } from 'src/app/core/services/contact/contact.service'
 import { getInputError, inputInvalid } from 'src/app/core/utils/input'
 
 @Component({
-  selector: 'gl-add-contact',
+  selector: 'gl-profile',
   standalone: true,
   imports: [
     CommonModule,

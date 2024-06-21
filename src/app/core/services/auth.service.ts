@@ -2,15 +2,15 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { MessageService } from 'primeng/api'
-import { Observable, map } from 'rxjs'
+import { map, Observable } from 'rxjs'
 import { environment } from 'src/environments/environment.development'
 import { JwtPayload } from '../models/jwt-payload'
 import { Token } from '../models/token'
-import { User, UserLogin } from '../models/user.model'
+import { User, UserInfo, UserLogin } from '../models/user.model'
 import { LoadingService } from './loading.service'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
   messageError: string | null = null
@@ -24,6 +24,10 @@ export class AuthService {
     private loadingService: LoadingService
   ) {
     this.verifyToken()
+  }
+
+  getUserInfo() {
+    return this.http.get<UserInfo>(`${environment.apiUrl}/user`)
   }
 
   verifyToken() {
@@ -67,7 +71,7 @@ export class AuthService {
     this.messageService.add({
       severity: 'info',
       summary: 'Sucesso',
-      detail: 'Saiu na conta',
+      detail: 'Saiu na conta'
     })
   }
 
@@ -97,7 +101,7 @@ export class AuthService {
 
   getJwtPayload() {
     const jwtPayload = window.atob(
-      localStorage.getItem('Bearer')?.split('.')[1] || ''
+      localStorage.getItem('Bearer')?.split('.')[1] ?? ''
     )
     return JSON.parse(jwtPayload) as JwtPayload
   }

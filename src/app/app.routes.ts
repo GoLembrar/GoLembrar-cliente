@@ -27,6 +27,12 @@ export const APP_ROUTES: Route[] = [
             r => r.REMINDERS_ROUTES
           ),
       },
+      {
+        path: 'profile',
+        loadComponent: () => import('./core/pages/user-account/profile/profile.component').then(
+          c => c.ProfileComponent
+        )
+      }
     ],
   },
   { path: 'register', component: RegisterComponent },

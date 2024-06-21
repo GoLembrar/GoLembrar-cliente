@@ -8,3 +8,16 @@ export interface User {
   password: string
   phone: string
 }
+
+export interface UserEdit {
+  name: string
+  email: string
+  password: string
+}
+
+export interface UserInfo extends User {
+  name: string,
+  phone: string,
+  createdAt: Date,
+  updatedAt: Date,
+}
