@@ -15,6 +15,11 @@ export interface UserEdit {
   password: string
 }
 
+export interface UserUpadatePassword {
+  password: string,
+  newPassword: string,
+}
+
 export interface UserInfo extends User {
   name: string,
   phone: string,

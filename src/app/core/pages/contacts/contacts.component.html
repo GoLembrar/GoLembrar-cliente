@@ -30,7 +30,7 @@
           <label
             for="name"
             class="block mb-1"
-            >Nome</label
+          >Nome</label
           >
         </legend>
         <span class="p-input-icon-right w-full">
@@ -50,17 +50,17 @@
           <label
             for="identify"
             class="block mb-1"
-            >Identificador</label
+          >Identificador</label
           >
         </legend>
         <span class="p-input-icon-right w-full">
           <i class="pi pi-envelope"></i>
           <input
+            id="identify"
             type="text"
             class="w-full"
             pInputText
             formControlName="identify"
-            id="identify"
           />
         </span>
       </fieldset>
@@ -126,48 +126,53 @@
 </div>
 
 <div>
-  @if((contacts$ | async)?.length == 0) {
-  <p class="text-center block mt-4">Nenhum contato cadastrado</p>
+  @if ((contacts$ | async)?.length == 0) {
+    <p class="text-center block mt-4">Nenhum contato cadastrado</p>
   }
   <ul class="px-0 pt-2 flex flex-column gap-3">
     @for (contact of contacts$ | async; track $index) {
-    <li
-      class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-1 border-round-xl"
-    >
-      <div class="flex align-items-center gap-1">
-        <p-avatar
-          [label]="contact.name[0]"
-          shape="circle"
-          styleClass="mr-2"
-        />
-        <div class="contact-name">
-          <p class="font-medium text-lg capitalize">
-            {{ contact.name }}
-          </p>
+      <li
+        class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-1 border-round-xl"
+      >
+        <div class="flex align-items-center gap-1">
+          <p-avatar
+            [label]="contact.name[0]"
+            shape="circle"
+            styleClass="mr-2"
+          />
+          <div class="contact-name">
+            <p class="font-medium text-lg capitalize">
+              {{ contact.name }}
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div class="text-cyan-600 lg:mr-8 lg:pr-8">
-        <div class="lg:mr-3">
-          @switch (contact.channel) { @case ("EMAIL") {
-          <i class="pi pi-envelope"></i>
-          } @case ("WHATSAPP") {
-          <i class="pi pi-whatsapp"></i>
-          } @case ("TELEGRAM") {
-          <i class="pi pi-telegram"></i>
-          } @case ("DISCORD") {
-          <i class="pi pi-discord"></i>
-          } }
+        <div class="text-cyan-600 lg:mr-8 lg:pr-8">
+          <div class="lg:mr-3">
+            @switch (contact.channel) {
+              @case ("EMAIL") {
+                <i class="pi pi-envelope"></i>
+              }
+              @case ("WHATSAPP") {
+                <i class="pi pi-whatsapp"></i>
+              }
+              @case ("TELEGRAM") {
+                <i class="pi pi-telegram"></i>
+              }
+              @case ("DISCORD") {
+                <i class="pi pi-discord"></i>
+              }
+            }
+          </div>
         </div>
-      </div>
-      <p-button
-        icon="pi pi-pencil"
-        [rounded]="true"
-        [text]="true"
-        severity="info"
-        (onClick)="onEdit(contact)"
-      ></p-button>
-    </li>
+        <p-button
+          icon="pi pi-pencil"
+          [rounded]="true"
+          [text]="true"
+          severity="info"
+          (onClick)="onEdit(contact)"
+        ></p-button>
+      </li>
     }
   </ul>
 </div>

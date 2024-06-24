@@ -4,8 +4,8 @@ import {
   AbstractControl,
   NonNullableFormBuilder,
   ReactiveFormsModule,
-  Validators as V,
   ValidatorFn,
+  Validators as V
 } from '@angular/forms'
 import { Router } from '@angular/router'
 import { MessageService } from 'primeng/api'
@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs'
 import { REGEX_PASSWORD } from 'src/app/core/constants/regexp'
 import { User } from 'src/app/core/models/user.model'
 import { AuthService } from 'src/app/core/services/auth.service'
+import { getInputError, inputInvalid } from 'src/app/core/utils/input'
 
 @Component({
   selector: 'gl-register',
@@ -29,10 +30,10 @@ import { AuthService } from 'src/app/core/services/auth.service'
     PasswordModule,
     ButtonModule,
     CardModule,
-    InputMaskModule,
+    InputMaskModule
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
+  styleUrl: './register.component.scss'
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   protected submitting = false
@@ -44,7 +45,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private messageService: MessageService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.authService.ifIsAuthLogin()
@@ -56,10 +58,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
       email: ['', [V.required, V.email]],
       password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
       confirmPassword: ['', [V.required]],
-      phone: ['', [V.required]],
+      phone: ['', [V.required]]
     },
     {
-      validators: this.comparatePassword(),
+      validators: this.comparatePassword()
     }
   )
 
@@ -90,14 +92,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   inputInvalid(input: string) {
-    return (
-      this.account.get(input)?.invalid &&
-      (this.account.get(input)?.dirty || this.account.get(input)?.touched)
-    )
+    return inputInvalid(input, this.account)
   }
 
   getInputError(input: string, error: string) {
-    return this.account.get(input)?.hasError(error)
+    return getInputError(input, error, this.account)
   }
 
   getRequestError(): string | null {
@@ -115,7 +114,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'success',
             summary: 'Cadastrado com sucesso',
-            detail: 'Faça login na sua conta',
+            detail: 'Faça login na sua conta'
           })
           this.router.navigate(['/login'])
         },
@@ -123,7 +122,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           this.submitting = false
           this.authService.loading(false)
           this.account.controls.confirmPassword.enable()
-        },
+        }
       })
   }
 
