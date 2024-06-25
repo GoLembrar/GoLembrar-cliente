@@ -111,38 +111,6 @@
         </div>
       </fieldset>
 
-      <fieldset class="field col-12 m-0 p-0">
-        <legend class="mb-2">
-          <label for="phone">Telefone</label>
-        </legend>
-        <span class="p-input-icon-right w-full">
-          <i class="pi pi-phone"></i>
-          <p-inputMask
-            [style.width]="'100%'"
-            styleClass="w-full"
-            inputId="phone"
-            formControlName="phone"
-            mask="(99) 9999-9999?9"
-            placeholder="(99) 9999-9999"
-            [unmask]="true"
-            [autoClear]="false"
-            [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('phone') }"
-          ></p-inputMask>
-        </span>
-        <div *ngIf="inputInvalid('phone')">
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('phone', 'required')"
-            >Campo obrigatório</small
-          >
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('phone', 'pattern')"
-            >Digite um telefone válido</small
-          >
-        </div>
-      </fieldset>
-
       <div *ngIf="getRequestError()">
         <small class="text-red-600">{{ getRequestError() }}</small>
       </div>

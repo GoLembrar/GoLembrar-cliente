@@ -6,7 +6,6 @@ export interface UserLogin {
 export interface User {
   email: string
   password: string
-  phone: string
 }
 
 export interface UserEdit {
@@ -16,13 +15,12 @@ export interface UserEdit {
 }
 
 export interface UserUpadatePassword {
-  password: string,
-  newPassword: string,
+  password: string
+  newPassword: string
 }
 
 export interface UserInfo extends User {
-  name: string,
-  phone: string,
-  createdAt: Date,
-  updatedAt: Date,
+  name: string
+  createdAt: Date
+  updatedAt: Date
 }
