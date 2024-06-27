@@ -43,7 +43,7 @@ import { ReminderService } from 'src/app/core/services/reminder/reminder.service
 })
 export class NewReminderComponent {
   ownerId = this.authService.getJwtPayload().id
-  contacts$ = this.contactService.getContacts()
+  contacts = this.contactService.getContacts()
   loading = false
   readonly minDate = new Date(new Date().getTime() + 30 * 60000)
 

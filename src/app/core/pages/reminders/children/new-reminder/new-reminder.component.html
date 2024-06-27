@@ -59,7 +59,6 @@
         </label>
       </legend>
       <p-multiSelect
-        *ngIf="contacts$ | async as contacts"
         inputId="usersToReminder"
         optionLabel="name"
         placeholder="Selecione"
@@ -69,7 +68,7 @@
         [showToggleAll]="false"
         emptyMessage="Nenhum contato cadastrado"
         emptyFilterMessage="Nenhum contato encontrado"
-        [options]="contacts"
+        [options]="contacts().data"
         optionValue="id"
         optionLabel="name"
       >

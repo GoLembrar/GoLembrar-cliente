@@ -45,7 +45,7 @@ export class ContactsComponent {
 
   contactToEdit = {} as Contact
 
-  contacts$ = this.contactService.getContacts()
+  contacts = this.contactService.getContacts()
 
   channels = contactChannels
 
@@ -58,7 +58,7 @@ export class ContactsComponent {
 
   protected contactToEditForm = this.formBuilder.group({
     name: ['', [V.required, V.min(2), V.max(255)]],
-    channel: [Channel.EMAIL],
+    platform: [Channel.EMAIL],
     identify: ['', [V.required, V.email, V.min(2), V.max(255)]],
   })
 
@@ -101,7 +101,6 @@ export class ContactsComponent {
           )
           .subscribe({
             next: () => {
-              this.contacts$ = this.contactService.getContacts()
               this.messageService.add({
                 severity: 'success',
                 summary: 'Sucesso',
@@ -109,6 +108,7 @@ export class ContactsComponent {
               })
               this.showEditContact = false
               this.loading = false
+              this.contacts().refetch()
             },
             error: () => {
               this.loading = false
@@ -132,7 +132,6 @@ export class ContactsComponent {
       accept: () => {
         this.contactService.delete(this.contactToEdit.id).subscribe({
           next: () => {
-            this.contacts$ = this.contactService.getContacts()
             this.messageService.add({
               severity: 'info',
               summary: 'Feito',
@@ -140,6 +139,7 @@ export class ContactsComponent {
             })
             this.showEditContact = false
             this.loading = false
+            this.contacts().refetch()
           },
           error: () => {
             this.loading = false

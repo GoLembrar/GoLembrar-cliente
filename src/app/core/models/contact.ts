@@ -1,7 +1,7 @@
 export interface Contact {
   id: string
   name: string
-  channel: string
+  platform: string
   identify: string
 }
 
