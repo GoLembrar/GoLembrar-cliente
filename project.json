@@ -7,20 +7,18 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/go-lembrar-client",
         "index": "./src/index.html",
-        "browser": "./src/main.ts",
+        "main": "./src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "./tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["./src/favicon.ico", "./src/assets"],
         "styles": ["./src/styles.scss"],
-        "scripts": [],
-        "prerender": false,
-        "ssr": false
+        "scripts": []
       },
       "configurations": {
         "production": {
@@ -52,6 +50,7 @@
           ]
         },
         "development": {
+          "buildOptimizer": false,
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true,
