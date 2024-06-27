@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button'
 import { ChipModule } from 'primeng/chip'
 import { DialogModule } from 'primeng/dialog'
 import { MenuModule } from 'primeng/menu'
+import { ProgressSpinnerModule } from 'primeng/progressspinner'
 
 import { ConfirmationService, MessageService } from 'primeng/api'
 import { InputTextModule } from 'primeng/inputtext'
@@ -37,6 +38,7 @@ import { ContactService } from '../../services/contact/contact.service'
     AvatarModule,
     TitleComponent,
     DialogModule,
+    ProgressSpinnerModule,
   ],
 })
 export class ContactsComponent {
@@ -111,12 +113,12 @@ export class ContactsComponent {
               this.contacts().refetch()
             },
             error: () => {
-              this.loading = false
               this.messageService.add({
                 severity: 'error',
                 summary: 'Erro',
                 detail: 'Erro ao atualizar contato',
               })
+              this.loading = false
             },
           })
       },

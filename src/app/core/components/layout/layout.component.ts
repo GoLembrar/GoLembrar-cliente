@@ -11,17 +11,17 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog'
 import { MenuModule } from 'primeng/menu'
 import { SidebarModule } from 'primeng/sidebar'
 
-import { NoConnectionService } from '../../services/no-connection/no-connection.service'
-import { LayoutService } from './layout.service'
 import { AuthService } from '../../services/auth.service'
+import { NoConnectionService } from '../../services/no-connection/no-connection.service'
 import { NameAbbreviationPipe } from '../../utils/pipes/name-abbreviation/name-abbreviation.pipe'
+import { LayoutService } from './layout.service'
 
 @Component({
   standalone: true,
   selector: 'gl-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
-  providers: [LayoutService, ConfirmationService],
+  providers: [ConfirmationService, LayoutService],
   imports: [
     CommonModule,
     RouterModule,
@@ -31,21 +31,20 @@ import { NameAbbreviationPipe } from '../../utils/pipes/name-abbreviation/name-a
     AvatarGroupModule,
     MenuModule,
     ConfirmDialogModule,
-    NameAbbreviationPipe
+    NameAbbreviationPipe,
   ],
 })
 export class LayoutComponent implements OnInit {
   isSidebarOpen = false
   isMobile = false
   avatarMenu = this.layoutService.avatarMenu
-  readonly userInfo$ = this.authService.getUserInfo()
+  readonly userInfo = this.authService.getUserInfo()
 
   constructor(
-    private layoutService: LayoutService,
     private noConnectionService: NoConnectionService,
-    private authService: AuthService
+    private authService: AuthService,
+    private layoutService: LayoutService
   ) {
-
     if (window.innerWidth > 768) {
       this.isSidebarOpen = true
     } else {

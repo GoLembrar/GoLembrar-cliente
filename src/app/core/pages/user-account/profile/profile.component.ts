@@ -54,25 +54,7 @@ export class ProfileComponent {
   protected loading: boolean = false
   showDialog = false
 
-  constructor(
-    private formBuilder: NonNullableFormBuilder,
-    private authService: AuthService,
-    private confirmationService: ConfirmationService,
-    private userService: UserService,
-    private messageService: MessageService,
-    private router: Router
-  ) {
-    this.authService.getUserInfo().subscribe({
-      next: res => {
-        this.updateProfile.patchValue({
-          name: res.name,
-          email: res.email,
-        })
-      },
-    })
-
-    this.updatePassword.setValidators(comparatePassword(this.updatePassword))
-  }
+  readonly userInfo = this.authService.getUserInfo()
 
   protected updateProfile = this.formBuilder.group({
     name: ['', [V.required]],
@@ -84,6 +66,22 @@ export class ProfileComponent {
     newPassword: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
     confirmNewPassword: ['', [V.required]],
   })
+
+  constructor(
+    private formBuilder: NonNullableFormBuilder,
+    private authService: AuthService,
+    private confirmationService: ConfirmationService,
+    private userService: UserService,
+    private messageService: MessageService,
+    private router: Router
+  ) {
+    this.updateProfile.patchValue({
+      name: this.userInfo().data!.name,
+      email: this.userInfo().data!.email,
+    })
+
+    this.updatePassword.setValidators(comparatePassword(this.updatePassword))
+  }
 
   inputInvalid(input: string) {
     return inputInvalid(input, this.updatePassword)
@@ -110,7 +108,8 @@ export class ProfileComponent {
                 summary: 'Sucesso',
                 detail: 'Perfil foi atualizado',
               })
-              this.router.navigateByUrl('').then(() => location.reload())
+              this.router.navigateByUrl('')
+              this.userInfo().refetch()
             },
           })
       },
@@ -140,7 +139,11 @@ export class ProfileComponent {
               this.authService.logout()
             },
             error: () => {
-              console.log()
+              this.messageService.add({
+                severity: 'danger',
+                summary: 'Erro',
+                detail: 'Erro ao trocar senha',
+              })
             },
           })
       },

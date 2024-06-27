@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
+import { injectQuery } from '@ngneat/query'
 import { MessageService } from 'primeng/api'
 import { map, Observable } from 'rxjs'
 import { environment } from 'src/environments/environment.development'
@@ -10,12 +11,13 @@ import { User, UserInfo, UserLogin } from '../models/user.model'
 import { LoadingService } from './loading.service'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   messageError: string | null = null
 
   private isAuth = false
+  private query = injectQuery()
 
   constructor(
     private http: HttpClient,
@@ -27,7 +29,10 @@ export class AuthService {
   }
 
   getUserInfo() {
-    return this.http.get<UserInfo>(`${environment.apiUrl}/user`)
+    return this.query({
+      queryKey: ['userInfo'],
+      queryFn: () => this.http.get<UserInfo>(`${environment.apiUrl}/user`),
+    }).result
   }
 
   verifyToken() {
@@ -71,7 +76,7 @@ export class AuthService {
     this.messageService.add({
       severity: 'info',
       summary: 'Sucesso',
-      detail: 'Saiu na conta'
+      detail: 'Saiu na conta',
     })
   }
 

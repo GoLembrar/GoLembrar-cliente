@@ -90,11 +90,8 @@
         class="flex align-items-center gap-2"
         (click)="menu.toggle($event)"
       >
-        <h4
-          *ngIf="userInfo$ | async as userInfo"
-          class="font-medium text-sm"
-        >
-          {{ userInfo.name | nameAbbreviation }}
+        <h4 class="font-medium text-sm">
+          {{ userInfo().data!.name | nameAbbreviation }}
         </h4>
         <p-avatar
           icon="pi pi-user"
