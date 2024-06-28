@@ -21,6 +21,7 @@ import { contactChannels } from '../../constants/contact-channels'
 import { Contact, EditContact } from '../../models/contact'
 import { Channel } from '../../models/enums/channels'
 import { ContactService } from '../../services/contact/contact.service'
+import { LoadingComponent } from './loading/loading.component'
 
 @Component({
   standalone: true,
@@ -39,6 +40,7 @@ import { ContactService } from '../../services/contact/contact.service'
     TitleComponent,
     DialogModule,
     ProgressSpinnerModule,
+    LoadingComponent,
   ],
 })
 export class ContactsComponent {
