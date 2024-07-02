@@ -1,7 +1,6 @@
 import { Route } from '@angular/router'
 import { LayoutComponent } from './core/components/layout/layout.component'
 import { authGuard } from './core/guards/auth/auth.guard'
-import { HomeComponent } from './core/pages/home/home.component'
 import { NoConnectionComponent } from './core/pages/no-connection/no-connection.component'
 import { LoginComponent } from './core/pages/user-account/login/login.component'
 import { RegisterComponent } from './core/pages/user-account/register/register.component'
@@ -12,7 +11,13 @@ export const APP_ROUTES: Route[] = [
     component: LayoutComponent,
     canActivate: [authGuard],
     children: [
-      { path: '', component: HomeComponent },
+      {
+        path: '',
+        loadChildren: () =>
+          import('./core/pages/reminders/reminders.routes').then(
+            r => r.REMINDERS_ROUTES
+          ),
+      },
       {
         path: 'contacts',
         loadChildren: () =>
@@ -21,18 +26,12 @@ export const APP_ROUTES: Route[] = [
           ),
       },
       {
-        path: 'reminders',
-        loadChildren: () =>
-          import('./core/pages/reminders/reminders.routes').then(
-            r => r.REMINDERS_ROUTES
+        path: 'profile',
+        loadComponent: () =>
+          import('./core/pages/user-account/profile/profile.component').then(
+            c => c.ProfileComponent
           ),
       },
-      {
-        path: 'profile',
-        loadComponent: () => import('./core/pages/user-account/profile/profile.component').then(
-          c => c.ProfileComponent
-        )
-      }
     ],
   },
   { path: 'register', component: RegisterComponent },

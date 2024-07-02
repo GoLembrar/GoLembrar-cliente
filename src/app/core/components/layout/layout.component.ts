@@ -45,11 +45,8 @@ export class LayoutComponent implements OnInit {
     private authService: AuthService,
     private layoutService: LayoutService
   ) {
-    if (window.innerWidth > 768) {
-      this.isSidebarOpen = true
-    } else {
-      this.isMobile = true
-    }
+    if (window.innerWidth > 768) this.isSidebarOpen = true
+    else this.isMobile = true
 
     fromEvent(window, 'resize').subscribe({
       next: () => {
