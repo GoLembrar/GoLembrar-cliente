@@ -61,13 +61,8 @@ export class ErrorHandlerService implements ErrorHandler {
     const handler = this.errorHandlers[response.status]
 
     if (handler) handler(response)
-    else
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Erro',
-        detail: 'Ocorreu um erro inesperado',
-      })
-
+    else {
+    }
     return throwError(() => new Error())
   }
 }

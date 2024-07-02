@@ -91,7 +91,9 @@
         (click)="menu.toggle($event)"
       >
         <h4 class="font-medium text-sm">
+          @if (!userInfo().isLoading) {
           {{ userInfo().data!.name | nameAbbreviation }}
+          }
         </h4>
         <p-avatar
           icon="pi pi-user"

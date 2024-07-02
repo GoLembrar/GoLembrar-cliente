@@ -16,9 +16,7 @@ import { TagModule } from 'primeng/tag'
 
 import { BackButtonComponent } from 'src/app/core/components/back-button/back-button.component'
 import { TitleComponent } from 'src/app/core/components/title/title.component'
-import { Channel } from 'src/app/core/models/enums/channels'
 import { Reminder } from 'src/app/core/models/reminder'
-import { ControlConfigMap } from 'src/app/core/models/types/control-config-map'
 import { AuthService } from 'src/app/core/services/auth.service'
 import { ContactService } from 'src/app/core/services/contact/contact.service'
 import { ReminderService } from 'src/app/core/services/reminder/reminder.service'
@@ -55,12 +53,11 @@ export class NewReminderComponent {
     private messageService: MessageService
   ) {}
 
-  protected newReminder = this.formBuilder.group<ControlConfigMap<Reminder>>({
+  protected newReminder = this.formBuilder.group({
     title: ['', [V.required, V.min(3)]],
     description: ['', [V.required, V.min(3)]],
-    channel: [Channel.EMAIL, V.required],
     usersToReminder: [[], [V.required, V.minLength(1)]],
-    scheduled: [this.minDate, V.required],
+    scheduled: ['', V.required],
     ownerId: [this.ownerId, V.required],
     categoryId: [1, V.required],
   })
@@ -69,7 +66,7 @@ export class NewReminderComponent {
     if (this.newReminder.valid) {
       this.loading = true
       this.reminderService
-        .create(this.newReminder.value as Reminder)
+        .create(this.newReminder.value as unknown as Reminder)
         .subscribe({
           next: () => {
             this.messageService.add({

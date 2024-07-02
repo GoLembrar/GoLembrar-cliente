@@ -16,6 +16,7 @@ import { BackButtonComponent } from 'src/app/core/components/back-button/back-bu
 import { TitleComponent } from 'src/app/core/components/title/title.component'
 import { contactChannels } from 'src/app/core/constants/contact-channels'
 import { Contact } from 'src/app/core/models/contact'
+import { Channel } from 'src/app/core/models/enums/channels'
 import { ContactService } from 'src/app/core/services/contact/contact.service'
 import { getInputError, inputInvalid } from 'src/app/core/utils/input'
 
@@ -48,7 +49,7 @@ export class AddContactComponent {
 
   protected newContact = this.formBuilder.group({
     name: ['', [V.required]],
-    platform: ['EMAIL', [V.required]],
+    platform: [Channel.EMAIL, [V.required]],
     identify: ['', [V.required, V.email]],
   })
 
@@ -73,6 +74,7 @@ export class AddContactComponent {
             detail: 'Contato adicionado',
           })
           this.newContact.reset()
+          this.newContact.controls.platform.setValue(Channel.EMAIL)
           this.loading = false
         },
         error: () => {
