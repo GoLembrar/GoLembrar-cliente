@@ -26,11 +26,20 @@
 
     <p-button
       label="Novo lembrete"
-      icon="pi pi-plus-circle"
       [outlined]="true"
       routerLink="new"
       (click)="onClickMenuOption()"
-    ></p-button>
+      styleClass="flex justify-content-center align-items-center gap-2"
+    >
+      <ng-template pTemplate="icon">
+        <img
+          class="p-0"
+          width="16"
+          src="/assets/Gplus-icon.svg"
+          alt="Description of SVG"
+        />
+      </ng-template>
+    </p-button>
   </ng-template>
 
   <ng-template pTemplate="content">
