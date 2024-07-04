@@ -98,10 +98,33 @@ ul {
   background-color: transparent;
 }
 
-.p-accordion-header a {
-  background: white;
+.p-accordion {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  border-bottom: none;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.p-accordion-tab {
+  box-sizing: border-box;
+  border: 1.5px solid var(--primary-color);
+  border-radius: 12px;
+  background-color: white;
+  .p-accordion-header {
+    a {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+
+      span::before {
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  .p-accordion-content {
+    background: none;
+    border: none;
+  }
 }

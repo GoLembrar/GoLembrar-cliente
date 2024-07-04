@@ -16,7 +16,7 @@ import { TagModule } from 'primeng/tag'
 
 import { BackButtonComponent } from 'src/app/core/components/back-button/back-button.component'
 import { TitleComponent } from 'src/app/core/components/title/title.component'
-import { Reminder } from 'src/app/core/models/reminder'
+import { CreateReminder } from 'src/app/core/models/reminder'
 import { AuthService } from 'src/app/core/services/auth.service'
 import { ContactService } from 'src/app/core/services/contact/contact.service'
 import { ReminderService } from 'src/app/core/services/reminder/reminder.service'
@@ -66,7 +66,7 @@ export class NewReminderComponent {
     if (this.newReminder.valid) {
       this.loading = true
       this.reminderService
-        .create(this.newReminder.value as unknown as Reminder)
+        .create(this.newReminder.value as unknown as CreateReminder)
         .subscribe({
           next: () => {
             this.messageService.add({

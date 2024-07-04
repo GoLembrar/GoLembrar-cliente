@@ -7,24 +7,33 @@
   <p-tabMenu
     [model]="items"
     [activeItem]="activeItem"
-    class="flex justify-content-center md:block"
   />
 </div>
+
+@if(reminders().isLoading){
+<p>loading</p>
+} @else if (reminders().data!.length > 0) {
 
 <p-accordion
   expandIcon="pi pi-ellipsis-h"
   collapseIcon="pi pi-ellipsis-v"
 >
-  <p-accordionTab header="Header I">
-    <p>Lorem ipsum dolor sit amet...</p>
+  @for (reminder of reminders().data; track $index) {
+
+  <p-accordionTab>
+    <ng-template pTemplate="header">
+      <div class="flex justify-content-between w-full pr-3">
+        <div class="font-bold white-space-nowrap">
+          {{ reminder.title }}
+        </div>
+        <div>
+          <p-tag value="Agendado" />
+        </div>
+      </div>
+    </ng-template>
+
+    <p>{{ reminder.description }}</p>
   </p-accordionTab>
-  <p-accordionTab header="Header II">
-    <p>
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-      accusantium...
-    </p>
-  </p-accordionTab>
-  <p-accordionTab header="Header III">
-    <p>At vero eos et accusamus et iusto odio dignissimos...</p>
-  </p-accordionTab>
+  }
 </p-accordion>
+}
