@@ -34,6 +34,8 @@
           [inputStyle]="{ width: '100%' }"
           [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('password') }"
           promptLabel="Força da senha"
+          [minlength]="6"
+          [maxlength]="80"
         >
         </p-password>
 
@@ -63,6 +65,8 @@
           [style]="{ width: '100%' }"
           [inputStyle]="{ width: '100%' }"
           promptLabel="Força da senha"
+          [minlength]="6"
+          [maxlength]="80"
         >
         </p-password>
         <div *ngIf="inputInvalid('newPassword')">
@@ -105,6 +109,8 @@
           [style]="{ width: '100%' }"
           [inputStyle]="{ width: '100%' }"
           promptLabel="Força da senha"
+          [minlength]="6"
+          [maxlength]="80"
         >
         </p-password>
         <div *ngIf="inputInvalid('confirmNewPassword')">
@@ -159,6 +165,7 @@
   </div>
 
   <div class="formgrid grid gap-2 mx-1">
+    @if (!userInfo().isLoading) {
     <fieldset class="field col-12 m-0 p-0">
       <legend>
         <label
@@ -174,6 +181,8 @@
         pInputText
         formControlName="name"
         placeholder="Digite o nome do contato"
+        [minlength]="2"
+        [maxlength]="60"
       />
     </fieldset>
 
@@ -192,8 +201,11 @@
         pInputText
         formControlName="email"
         placeholder="contato@golembrar.com"
+        [minlength]="2"
+        [maxlength]="60"
       />
     </fieldset>
+    }
     <div
       class="col-12 p-0 mt-2 flex flex-column justify-content-end align-items-end gap-3"
     >

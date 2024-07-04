@@ -48,9 +48,9 @@ export class AddContactComponent {
   ) {}
 
   protected newContact = this.formBuilder.group({
-    name: ['', [V.required]],
+    name: ['', [V.required, V.minLength(2), V.maxLength(60)]],
     platform: [Channel.EMAIL, [V.required]],
-    identify: ['', [V.required, V.email]],
+    identify: ['', [V.required, V.email, V.minLength(2), V.maxLength(60)]],
   })
 
   channels = contactChannels

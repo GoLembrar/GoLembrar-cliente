@@ -57,14 +57,23 @@ export class ProfileComponent {
   readonly userInfo = this.authService.getUserInfo()
 
   protected updateProfile = this.formBuilder.group({
-    name: ['', [V.required]],
-    email: ['', [V.required, V.email]],
+    name: [
+      this.userInfo().data?.name,
+      [V.required, V.minLength(2), V.maxLength(60)],
+    ],
+    email: [
+      this.userInfo().data?.email,
+      [V.required, V.email, V.minLength(2), V.maxLength(60)],
+    ],
   })
 
   protected updatePassword = this.formBuilder.group({
-    password: ['', [V.required, V.minLength(8)]],
-    newPassword: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
-    confirmNewPassword: ['', [V.required]],
+    password: ['', [V.required, V.minLength(6), V.maxLength(80)]],
+    newPassword: [
+      '',
+      [V.required, V.minLength(6), V.maxLength(80), V.pattern(REGEX_PASSWORD)],
+    ],
+    confirmNewPassword: ['', [V.required, V.minLength(6), V.maxLength(80)]],
   })
 
   constructor(
@@ -75,11 +84,7 @@ export class ProfileComponent {
     private messageService: MessageService,
     private router: Router
   ) {
-    this.updateProfile.patchValue({
-      name: this.userInfo().data!.name,
-      email: this.userInfo().data!.email,
-    })
-
+    if (!this.userInfo().data) this.router.navigateByUrl('/')
     this.updatePassword.setValidators(comparatePassword(this.updatePassword))
   }
 
