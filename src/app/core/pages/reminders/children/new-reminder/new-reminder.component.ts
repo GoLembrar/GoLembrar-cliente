@@ -45,6 +45,15 @@ export class NewReminderComponent {
   loading = false
   readonly minDate = new Date(new Date().getTime() + 30 * 60000)
 
+  protected newReminder = this.formBuilder.group({
+    title: ['', [V.required, V.min(2), V.max(20)]],
+    description: ['', [V.required, V.min(2), V.max(255)]],
+    usersToReminder: [[], [V.required, V.minLength(1)]],
+    scheduled: ['', V.required],
+    ownerId: [this.ownerId, V.required],
+    categoryId: [1, V.required],
+  })
+
   constructor(
     private reminderService: ReminderService,
     private contactService: ContactService,
@@ -52,15 +61,6 @@ export class NewReminderComponent {
     private authService: AuthService,
     private messageService: MessageService
   ) {}
-
-  protected newReminder = this.formBuilder.group({
-    title: ['', [V.required, V.min(3)]],
-    description: ['', [V.required, V.min(3)]],
-    usersToReminder: [[], [V.required, V.minLength(1)]],
-    scheduled: ['', V.required],
-    ownerId: [this.ownerId, V.required],
-    categoryId: [1, V.required],
-  })
 
   onSubmit() {
     if (this.newReminder.valid) {

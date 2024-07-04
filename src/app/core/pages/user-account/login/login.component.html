@@ -32,6 +32,8 @@
               id="email"
               formControlName="email"
               class="w-full"
+              [minlength]="2"
+              [maxlength]="60"
             />
           </span>
         </fieldset>
@@ -48,6 +50,8 @@
             [feedback]="false"
             [style]="{ width: '100%' }"
             [inputStyle]="{ width: '100%' }"
+            [minlength]="6"
+            [maxlength]="80"
           >
           </p-password>
         </fieldset>

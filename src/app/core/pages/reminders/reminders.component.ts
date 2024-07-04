@@ -1,11 +1,12 @@
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component } from '@angular/core'
+import { TitleComponent } from '../../components/title/title.component'
 
 @Component({
-  selector: 'gl-reminders',
   standalone: true,
-  imports: [CommonModule],
+  selector: 'gl-reminders',
   templateUrl: './reminders.component.html',
   styleUrl: './reminders.component.scss',
+  imports: [CommonModule, TitleComponent],
 })
 export class RemindersComponent {}

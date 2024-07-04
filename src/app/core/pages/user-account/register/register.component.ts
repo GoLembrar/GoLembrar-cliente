@@ -53,10 +53,18 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   protected account = this.formBuilder.group(
     {
-      name: ['', [V.required, V.minLength(3)]],
-      email: ['', [V.required, V.email]],
-      password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
-      confirmPassword: ['', [V.required]],
+      name: ['', [V.required, V.minLength(2), V.maxLength(60)]],
+      email: ['', [V.required, V.email, V.minLength(2), V.maxLength(60)]],
+      password: [
+        '',
+        [
+          V.required,
+          V.minLength(6),
+          V.maxLength(80),
+          V.pattern(REGEX_PASSWORD),
+        ],
+      ],
+      confirmPassword: ['', [V.required, V.minLength(6), V.maxLength(80)]],
     },
     {
       validators: this.comparatePassword(),
