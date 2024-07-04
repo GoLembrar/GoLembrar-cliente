@@ -116,10 +116,6 @@ ul {
       display: flex;
       flex-direction: row-reverse;
       justify-content: space-between;
-
-      span::before {
-        color: var(--primary-color);
-      }
     }
   }
 

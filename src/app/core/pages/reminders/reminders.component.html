@@ -19,7 +19,6 @@
   collapseIcon="pi pi-ellipsis-v"
 >
   @for (reminder of reminders().data; track $index) {
-
   <p-accordionTab>
     <ng-template pTemplate="header">
       <div class="flex justify-content-between w-full pr-3">
@@ -27,11 +26,13 @@
           {{ reminder.title }}
         </div>
         <div>
-          <p-tag value="Agendado" />
+          <p-tag
+            icon="pi pi-clock"
+            value="Agendado"
+          />
         </div>
       </div>
     </ng-template>
-
     <p>{{ reminder.description }}</p>
   </p-accordionTab>
   }
