@@ -2,3 +2,29 @@
   label1="Meus"
   label2="lembretes"
 ></gl-title>
+
+<div class="my-4">
+  <p-tabMenu
+    [model]="items"
+    [activeItem]="activeItem"
+    class="flex justify-content-center md:block"
+  />
+</div>
+
+<p-accordion
+  expandIcon="pi pi-ellipsis-h"
+  collapseIcon="pi pi-ellipsis-v"
+>
+  <p-accordionTab header="Header I">
+    <p>Lorem ipsum dolor sit amet...</p>
+  </p-accordionTab>
+  <p-accordionTab header="Header II">
+    <p>
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+      accusantium...
+    </p>
+  </p-accordionTab>
+  <p-accordionTab header="Header III">
+    <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+  </p-accordionTab>
+</p-accordion>

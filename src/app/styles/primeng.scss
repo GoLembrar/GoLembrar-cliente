@@ -93,3 +93,15 @@ ul {
 .p-multiselect-label {
   white-space: wrap;
 }
+
+.p-tabmenu-nav.p-reset {
+  background-color: transparent;
+}
+
+.p-accordion-header a {
+  background: white;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  border-bottom: none;
+}
