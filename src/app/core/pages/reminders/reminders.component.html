@@ -15,25 +15,53 @@
 } @else if (reminders().data!.length > 0) {
 
 <p-accordion
-  expandIcon="pi pi-ellipsis-h"
-  collapseIcon="pi pi-ellipsis-v"
+  expandIcon="pi pi-chevron-down"
+  collapseIcon="pi pi-chevron-up"
 >
   @for (reminder of reminders().data; track $index) {
   <p-accordionTab>
     <ng-template pTemplate="header">
-      <div class="flex justify-content-between w-full pr-3">
+      <div
+        class="flex flex-column align-items-start lg:flex-row lg:align-items-center gap-3 justify-content-between w-full pr-3"
+      >
         <div class="font-bold white-space-nowrap">
           {{ reminder.title }}
         </div>
-        <div>
+
+        <div class="flex align-items-center gap-2">
+          <div class="p-tag">
+            <span> {{ reminder.scheduled | date : 'dd/MM/yy - HH:mm' }} </span>
+          </div>
           <p-tag
-            icon="pi pi-clock"
-            value="Agendado"
+            icon="pi pi-history"
+            severity="info"
+            value="Pendente"
           />
         </div>
       </div>
     </ng-template>
-    <p>{{ reminder.description }}</p>
+
+    <ng-template pTemplate="p-accordion-content">
+      <div>
+        <a [routerLink]="'.'">Ver conteúdo</a>
+      </div>
+      <p>{{ reminder.description }}</p>
+
+      <div class="flex justify-content-end gap-2">
+        <p-button
+          [text]="true"
+          icon="pi pi-pencil"
+          [rounded]="true"
+        ></p-button>
+
+        <p-button
+          [text]="true"
+          icon="pi pi-trash"
+          [rounded]="true"
+          severity="danger"
+        ></p-button>
+      </div>
+    </ng-template>
   </p-accordionTab>
   }
 </p-accordion>

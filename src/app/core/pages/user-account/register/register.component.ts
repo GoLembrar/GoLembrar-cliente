@@ -79,19 +79,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
       if (
         confirmPassword?.errors &&
         !confirmPassword.errors['passwordMismatch']
-      ) {
+      )
         return null
-      }
 
       if (
         password &&
         confirmPassword &&
         password.value !== confirmPassword.value
-      ) {
+      )
         confirmPassword.setErrors({ passwordMismatch: true })
-      } else {
-        confirmPassword?.setErrors(null)
-      }
+      else confirmPassword?.setErrors(null)
 
       return null
     }
