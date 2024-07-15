@@ -1,14 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common'
+import { Component, inject } from '@angular/core'
 
-import { AccordionModule } from 'primeng/accordion';
-import { MenuItem } from 'primeng/api';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { TagModule } from 'primeng/tag';
+import { AccordionModule } from 'primeng/accordion'
+import { ConfirmationService, MenuItem } from 'primeng/api'
+import { TabMenuModule } from 'primeng/tabmenu'
+import { TagModule } from 'primeng/tag'
 
-import { ButtonModule } from 'primeng/button';
-import { TitleComponent } from '../../components/title/title.component';
-import { ReminderService } from '../../services/reminder/reminder.service';
+import { Router } from '@angular/router'
+import { ButtonModule } from 'primeng/button'
+import { TitleComponent } from '../../components/title/title.component'
+import { ReminderService } from '../../services/reminder/reminder.service'
 @Component({
   standalone: true,
   selector: 'gl-reminders',
@@ -25,8 +26,10 @@ import { ReminderService } from '../../services/reminder/reminder.service';
 })
 export class RemindersComponent {
   private reminderService = inject(ReminderService)
-
+  private confirmationService = inject(ConfirmationService)
+  showDialog = true
   reminders = this.reminderService.findAll()
+  private router = inject(Router)
 
   items: MenuItem[] = [
     { label: 'Hoje' },
@@ -35,4 +38,18 @@ export class RemindersComponent {
   ]
 
   activeItem = this.items[0]
+
+  onEdit(id: number) {
+    this.router.navigateByUrl(`/edit/${id}`)
+  }
+
+  onDelete(id: number) {
+    this.confirmationService.confirm({
+      header: 'Excluir lembrete?',
+      message: 'Deseja excluir esse lembrete?',
+      accept: () => {
+        console.log(id)
+      },
+    })
+  }
 }

@@ -3,7 +3,9 @@
   label2="lembretes"
 ></gl-title>
 
-<div class="my-4">
+<div
+  class="my-4 w-full inline-flex justify-content-center lg:justify-content-start"
+>
   <p-tabMenu
     [model]="items"
     [activeItem]="activeItem"
@@ -22,7 +24,7 @@
   <p-accordionTab>
     <ng-template pTemplate="header">
       <div
-        class="flex flex-column align-items-start lg:flex-row lg:align-items-center gap-3 justify-content-between w-full pr-3"
+        class="flex flex-column align-items-start lg:flex-row lg:align-items-center lg:h-4rem gap-3 justify-content-between w-full pr-3"
       >
         <div class="font-bold white-space-nowrap">
           {{ reminder.title }}
@@ -52,6 +54,7 @@
           [text]="true"
           icon="pi pi-pencil"
           [rounded]="true"
+          (onClick)="onEdit(reminder.id)"
         ></p-button>
 
         <p-button
@@ -59,6 +62,7 @@
           icon="pi pi-trash"
           [rounded]="true"
           severity="danger"
+          (onClick)="onDelete(reminder.id)"
         ></p-button>
       </div>
     </ng-template>
