@@ -44,9 +44,9 @@
     </ng-template>
 
     <ng-template pTemplate="p-accordion-content">
-      <div>
-        <a [routerLink]="'.'">Ver conteúdo</a>
-      </div>
+      <!-- <div>
+        <a [routerLink]="'show/' + reminder.id">Ver conteúdo</a>
+      </div> -->
       <p>{{ reminder.description }}</p>
 
       <div class="flex justify-content-end gap-2">
@@ -63,6 +63,12 @@
           [rounded]="true"
           severity="danger"
           (onClick)="onDelete(reminder.id)"
+        ></p-button>
+
+        <p-button
+          [text]="true"
+          icon="pi pi-chevron-right"
+          [rounded]="true"
         ></p-button>
       </div>
     </ng-template>

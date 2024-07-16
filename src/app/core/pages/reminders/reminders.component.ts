@@ -27,9 +27,10 @@ import { ReminderService } from '../../services/reminder/reminder.service'
 export class RemindersComponent {
   private reminderService = inject(ReminderService)
   private confirmationService = inject(ConfirmationService)
+  private router = inject(Router)
+
   showDialog = true
   reminders = this.reminderService.findAll()
-  private router = inject(Router)
 
   items: MenuItem[] = [
     { label: 'Hoje' },

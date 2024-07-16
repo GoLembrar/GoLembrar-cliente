@@ -5,11 +5,11 @@
 ::ng-deep {
   .p-accordion-header-link {
     transition: padding 0.3s;
-    padding: 18px;
+    padding: 6px 16px;
   }
   .p-accordion-tab.p-accordion-tab-active {
     .p-accordion-header-link {
-      padding-bottom: 10px;
+      padding-bottom: 0px;
     }
   }
 
