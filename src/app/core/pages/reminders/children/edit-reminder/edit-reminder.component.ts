@@ -43,8 +43,8 @@ export class EditReminderComponent implements OnInit {
   private contactService = inject(ContactService)
   private formBuilder = inject(NonNullableFormBuilder)
   private reminderService = inject(ReminderService)
-  reminderId = Number(this.route.snapshot.paramMap.get('id') || '')
-  reminder$ = this.reminderService.findOne(this.reminderId)
+  private id = Number(this.route.snapshot.paramMap.get('id') || '')
+  public reminder$ = this.reminderService.findOne(this.id).result$
 
   ownerId = this.authService.getJwtPayload().id
   contacts = this.contactService.getContacts()
@@ -54,14 +54,14 @@ export class EditReminderComponent implements OnInit {
   protected editReminder = this.formBuilder.group({
     title: ['', [V.required, V.min(2), V.max(20)]],
     description: ['', [V.required, V.min(2), V.max(450)]],
-    usersToReminder: [[], [V.required, V.minLength(1)]],
+    usersToReminder: [[''], [V.required, V.minLength(1)]],
     scheduled: [new Date(), V.required],
     ownerId: [this.ownerId, V.required],
     categoryId: [1, V.required],
   })
 
   ngOnInit() {
-    this.reminder$.result$
+    this.reminder$
       .pipe(
         switchMap(result => {
           if (result && result.data)
@@ -69,6 +69,9 @@ export class EditReminderComponent implements OnInit {
               title: result.data.title,
               description: result.data.description,
               scheduled: new Date(result.data.scheduled),
+              usersToReminder: result.data.usersToReminder.map(
+                contact => contact.id
+              ),
             })
 
           return []

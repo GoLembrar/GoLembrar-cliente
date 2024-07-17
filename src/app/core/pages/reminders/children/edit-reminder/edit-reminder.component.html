@@ -5,7 +5,7 @@
 
 <gl-back-button />
 
-@if(reminder$.result$ | async ; as reminder){ @if (reminder.isLoading) {
+@if(reminder$ | async ; as reminder){ @if (reminder.isLoading) {
 <p>loading...</p>
 }@if(reminder.isSuccess) {
 <form
@@ -23,7 +23,7 @@
         </label>
       </legend>
       <input
-        class="w-full mt-3"
+        class="w-full mt-3 font-bold"
         pInputText
         formControlName="title"
         placeholder="Digite o título da mensagem"
@@ -145,4 +145,7 @@
     ></p-button>
   </div>
 </form>
-} }
+
+@if (reminder.isError) {
+<p>Error</p>
+} } }
