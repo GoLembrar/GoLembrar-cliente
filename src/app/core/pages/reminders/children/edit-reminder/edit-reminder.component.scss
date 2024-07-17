@@ -1,0 +1,9 @@
+:host {
+  ul {
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll;
+    max-height: 512px;
+    padding-bottom: 20px;
+  }
+}

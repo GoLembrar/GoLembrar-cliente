@@ -20,7 +20,7 @@
         </label>
       </legend>
       <input
-        class="w-full"
+        class="w-full mt-3"
         pInputText
         formControlName="title"
         placeholder="Digite o título da mensagem"
@@ -42,7 +42,7 @@
 
       <textarea
         rows="6"
-        class="w-full"
+        class="w-full mt-3"
         pInputTextarea
         id="description"
         formControlName="description"
@@ -67,7 +67,7 @@
         placeholder="Selecione"
         formControlName="usersToReminder"
         [filter]="true"
-        styleClass="flex"
+        styleClass="flex mt-3"
         [showToggleAll]="false"
         emptyMessage="Nenhum contato cadastrado"
         emptyFilterMessage="Nenhum contato encontrado"
@@ -126,7 +126,7 @@
         [showIcon]="true"
         [showTime]="true"
         [minDate]="minDate"
-        styleClass="flex"
+        styleClass="flex mt-3"
         dateFormat="dd/mm/yy -"
         placeholder="Selecione uma data e hora"
       />

@@ -15,7 +15,7 @@ export interface Reminder {
   id: number
   title: string
   description: string
-  scheduled: string
+  scheduled: Date
   isActivated: boolean
   categoryId: number
   usersToReminder: Contact[]

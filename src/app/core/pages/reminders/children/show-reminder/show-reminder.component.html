@@ -5,9 +5,9 @@
 
 <gl-back-button />
 
-@if(reminder().isLoading){
+@if(reminder.result$ | async ; as reminder){ @if (reminder.isLoading) {
 <p>loading...</p>
-} @else {
+} @if(reminder.isSuccess){
 <form class="mt-5 formgrid grid gap-3 px-2">
   <div class="col-12 lg:col px-0 flex flex-column gap-3">
     <fieldset class="field col-12 m-0 p-0">
@@ -18,7 +18,7 @@
       <input
         class="w-full mt-3"
         pInputText
-        [value]="reminder().data?.scheduled | date : 'dd/MM/yy HH:mm'"
+        [value]="reminder.data.scheduled | date : 'dd/MM/yy HH:mm'"
         readonly
       />
     </fieldset>
@@ -31,7 +31,7 @@
         class="w-full mt-3"
         pInputText
         placeholder="Digite o título da mensagem"
-        [value]="reminder().data?.title"
+        [value]="reminder.data.title"
         readonly
       />
     </fieldset>
@@ -46,7 +46,7 @@
         cols="8"
         class="w-full mt-3"
         pInputTextarea
-        [value]="reminder().data?.description"
+        [value]="reminder.data.description"
         readonly
       ></textarea>
     </fieldset>
@@ -58,7 +58,7 @@
       </legend>
 
       <ul class="px-0 flex flex-column gap-3 hidden">
-        @for (contact of reminder().data?.usersToReminder; track $index) {
+        @for (contact of reminder.data.usersToReminder; track $index) {
         <li
           class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-1 border-round-xl"
         >
@@ -96,4 +96,4 @@
     ></p-button>
   </div>
 </form>
-}
+} }

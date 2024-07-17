@@ -13,6 +13,14 @@ export class ReminderService {
   private router = inject(Router)
   private query = injectQuery()
 
+  findOne(id: number) {
+    return this.query({
+      queryKey: ['reminder'] as const,
+      queryFn: () =>
+        this.http.get<Reminder>(`http://localhost:3002/reminder/${id}`),
+    })
+  }
+
   create(reminder: CreateReminder) {
     return this.http.post(`${environment.apiUrl}/reminder`, reminder)
   }
@@ -22,14 +30,6 @@ export class ReminderService {
       queryKey: ['reminders'] as const,
       queryFn: () =>
         this.http.get<Reminder[]>(`http://localhost:3002/reminder`),
-    }).result
-  }
-
-  findOne(id: number) {
-    return this.query({
-      queryKey: ['reminder'] as const,
-      queryFn: () =>
-        this.http.get<Reminder>(`http://localhost:3002/reminder/${id}`),
     }).result
   }
 
