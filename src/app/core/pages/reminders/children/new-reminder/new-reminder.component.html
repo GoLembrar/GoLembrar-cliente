@@ -20,7 +20,7 @@
         </label>
       </legend>
       <input
-        class="w-full mt-3 font-bold"
+        class="w-full mt-3"
         pInputText
         formControlName="title"
         placeholder="Digite o título da mensagem"
@@ -81,10 +81,12 @@
         >
           <span class="overflow-hidden">
             <div
-              class="inline-flex align-items-center gap-2 bg-blue-50 mx-1 p-2 border-1 border-round-md border-blue-100"
+              class="inline-flex align-items-center gap-2 bg-blue-50 m-1 px-2 py-1 border-1 border-round-md border-blue-100"
               *ngFor="let option of value"
             >
-              <span class="text-blue-900 font-medium">{{ option.name }}</span>
+              <span class="text-blue-900 font-medium text-sm">{{
+                option.name
+              }}</span>
               <p-tag
                 severity="success"
                 [style]="{ backgroundColor: 'var(--secondary-color)' }"
