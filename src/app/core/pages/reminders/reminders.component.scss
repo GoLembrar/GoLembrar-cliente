@@ -5,20 +5,14 @@
 ::ng-deep {
   .p-accordion-header-link {
     transition: padding 0.3s;
-    padding: 6px 16px;
-  }
-  .p-accordion-tab.p-accordion-tab-active {
-    .p-accordion-header-link {
-      padding-bottom: 0px;
-    }
+    padding: 16px;
   }
 
   .p-accordion-content {
-    padding-top: 0;
     p {
       text-overflow: ellipsis;
       overflow: hidden;
-      width: calc(100% - 70px);
+      width: calc(100% - 40px);
       white-space: nowrap;
     }
   }

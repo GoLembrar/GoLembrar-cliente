@@ -122,5 +122,6 @@ ul {
   .p-accordion-content {
     background: none;
     border: none;
+    border-top: 0.5px dashed var(--bluegray-300);
   }
 }

@@ -1,3 +1,4 @@
+import { Contact } from './contact'
 import { Channel } from './enums/channels'
 
 export interface CreateReminder {
@@ -17,6 +18,7 @@ export interface Reminder {
   scheduled: string
   isActivated: boolean
   categoryId: number
+  usersToReminder: Contact[]
   ownerId: string
   createdAt: string
   updatedAt: string

@@ -4,3 +4,96 @@
 ></gl-title>
 
 <gl-back-button />
+
+@if(reminder().isLoading){
+<p>loading...</p>
+} @else {
+<form class="mt-5 formgrid grid gap-3 px-2">
+  <div class="col-12 lg:col px-0 flex flex-column gap-3">
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label class="mb-1"> Agendamento </label>
+      </legend>
+
+      <input
+        class="w-full mt-3"
+        pInputText
+        [value]="reminder().data?.scheduled | date : 'dd/MM/yy HH:mm'"
+        readonly
+      />
+    </fieldset>
+
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label class="mb-1"> Título </label>
+      </legend>
+      <input
+        class="w-full mt-3"
+        pInputText
+        placeholder="Digite o título da mensagem"
+        [value]="reminder().data?.title"
+        readonly
+      />
+    </fieldset>
+
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label class="mb-1"> Mensagem </label>
+      </legend>
+
+      <textarea
+        rows="6"
+        cols="8"
+        class="w-full mt-3"
+        pInputTextarea
+        [value]="reminder().data?.description"
+        readonly
+      ></textarea>
+    </fieldset>
+  </div>
+  <div class="col-12 lg:col px-0 flex flex-column gap-3">
+    <fieldset class="max-w-full field col-12 m-0 p-0">
+      <legend>
+        <label class="mb-1"> Destinatários </label>
+      </legend>
+
+      <ul class="px-0 flex flex-column gap-3 hidden">
+        @for (contact of reminder().data?.usersToReminder; track $index) {
+        <li
+          class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-1 border-round-xl"
+        >
+          <div class="flex align-items-center gap-1">
+            <p-avatar
+              [label]="contact.name[0]"
+              shape="circle"
+              styleClass="mr-2"
+            />
+            <div>
+              <p class="font-medium text-lg capitalize">
+                {{ contact.name }}
+              </p>
+            </div>
+          </div>
+
+          <div class="mr-3">
+            <p-tag
+              severity="success"
+              [style]="{ backgroundColor: 'var(--secondary-color)' }"
+              value="Email"
+            />
+          </div>
+        </li>
+        }
+      </ul>
+    </fieldset>
+  </div>
+
+  <div class="card flex col-12 gap-3 justify-content-end p-0 mt-3">
+    <p-button
+      icon="pi pi-pencil"
+      label="Editar"
+      (onClick)="onEdit()"
+    ></p-button>
+  </div>
+</form>
+}

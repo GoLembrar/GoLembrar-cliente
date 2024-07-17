@@ -1,68 +1,142 @@
-[
-  {
-    "id": 1,
-    "title": "Minha viagem a Roma",
-    "description": "Eu desembarquei no Aeroporto Fiumicino em uma manhã ensolarada. O céu estava azul, sem nenhuma nuvem à vista, e o ar era quente e agradável. Peguei minhas malas e segui para o trem Leonardo Express, que me levaria diretamente ao coração de Roma, a estação Termini. Estava ansioso para explorar a cidade eterna e todas as suas maravilhas históricas...",
-    "scheduled": "2024-08-10T20:00:00.218Z",
-    "isActivated": true,
-    "categoryId": 1,
-    "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
-    "createdAt": "2024-07-04T19:18:56.218Z",
-    "updatedAt": "2024-07-04T19:18:56.218Z"
-  },
-  {
-    "id": 2,
-    "title": "Viagem a Paris",
-    "description": "Eu cheguei ao Aeroporto Charles de Gaulle em uma tarde fria de primavera. O céu estava nublado, mas a cidade tinha um charme inconfundível. Peguei minhas malas e segui para o RER, que me levaria até o centro de Paris. Estava ansioso para ver a Torre Eiffel, caminhar pelo Champs-Élysées e visitar o Louvre...",
-    "scheduled": "2024-09-15T15:00:00.218Z",
-    "isActivated": true,
-    "categoryId": 1,
-    "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
-    "createdAt": "2024-07-04T19:25:56.218Z",
-    "updatedAt": "2024-07-04T19:25:56.218Z"
-  },
-  {
-    "id": 3,
-    "title": "Explorando Nova York",
-    "description": "Pousando no Aeroporto JFK, fui recebido por uma brisa fresca e o skyline icônico de Nova York. Peguei um táxi e segui para meu hotel em Manhattan. Estava ansioso para visitar a Times Square, passear pelo Central Park e subir ao topo do Empire State Building...",
-    "scheduled": "2024-10-20T18:00:00.218Z",
-    "isActivated": true,
-    "categoryId": 1,
-    "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
-    "createdAt": "2024-07-04T19:30:56.218Z",
-    "updatedAt": "2024-07-04T19:30:56.218Z"
-  },
-  {
-    "id": 4,
-    "title": "Aventura em Tóquio",
-    "description": "Desembarquei no Aeroporto de Narita em uma manhã chuvosa. Peguei o trem Narita Express até Shinjuku, onde meu hotel estava localizado. Mal podia esperar para explorar os bairros de Shibuya e Akihabara, além de experimentar a culinária local...",
-    "scheduled": "2024-11-05T09:00:00.218Z",
-    "isActivated": true,
-    "categoryId": 1,
-    "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
-    "createdAt": "2024-07-04T19:35:56.218Z",
-    "updatedAt": "2024-07-04T19:35:56.218Z"
-  },
-  {
-    "id": 5,
-    "title": "Passeio em Londres",
-    "description": "Cheguei ao Aeroporto Heathrow em uma tarde cinzenta, típica de Londres. Peguei o Heathrow Express até Paddington e, de lá, um táxi para meu hotel em Westminster. Estava empolgado para ver o Big Ben, passear pela London Eye e visitar o Museu Britânico...",
-    "scheduled": "2024-12-01T14:00:00.218Z",
-    "isActivated": true,
-    "categoryId": 1,
-    "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
-    "createdAt": "2024-07-04T19:40:56.218Z",
-    "updatedAt": "2024-07-04T19:40:56.218Z"
-  },
-  {
-    "id": 6,
-    "title": "Descobrindo Sydney",
-    "description": "Após um longo voo, aterrissei no Aeroporto de Sydney e fui saudado por um clima quente e ensolarado. Peguei um táxi até meu hotel em Circular Quay, com vista para a Opera House. Estava ansioso para explorar as praias de Bondi e Manly, e fazer uma caminhada pela Sydney Harbour Bridge...",
-    "scheduled": "2024-12-25T10:00:00.218Z",
-    "isActivated": true,
-    "categoryId": 1,
-    "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
-    "createdAt": "2024-07-04T19:45:56.218Z",
-    "updatedAt": "2024-07-04T19:45:56.218Z"
-  }
-]
+{
+  "reminder": [
+    {
+      "id": 1,
+      "title": "Minha viagem a Roma",
+      "description": "Eu desembarquei no Aeroporto Fiumicino em uma manhã ensolarada. O céu estava azul, sem nenhuma nuvem à vista, e o ar era quente e agradável. Peguei minhas malas e segui para o trem Leonardo Express, que me levaria diretamente ao coração de Roma, a estação Termini. Estava ansioso para explorar a cidade eterna e todas as suas maravilhas históricas...",
+      "scheduled": "2024-08-10T20:00:00.218Z",
+      "isActivated": true,
+      "categoryId": 1,
+      "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
+      "createdAt": "2024-07-04T19:18:56.218Z",
+      "updatedAt": "2024-07-04T19:18:56.218Z",
+      "usersToReminder": [
+        {
+          "name": "Alice Souza",
+          "id": "4c0b7e4a-763e-4b32-80ce-cf84057d64d2",
+          "platform": "EMAIL"
+        },
+        {
+          "name": "Bruno Lima",
+          "id": "7f573e46-97cd-4a4c-b705-856f004b64ea",
+          "platform": "EMAIL"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Viagem a Paris",
+      "description": "Eu cheguei ao Aeroporto Charles de Gaulle em uma tarde fria de primavera. O céu estava nublado, mas a cidade tinha um charme inconfundível. Peguei minhas malas e segui para o RER, que me levaria até o centro de Paris. Estava ansioso para ver a Torre Eiffel, caminhar pelo Champs-Élysées e visitar o Louvre...",
+      "scheduled": "2024-09-15T15:00:00.218Z",
+      "isActivated": true,
+      "categoryId": 1,
+      "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
+      "createdAt": "2024-07-04T19:25:56.218Z",
+      "updatedAt": "2024-07-04T19:25:56.218Z",
+      "usersToReminder": [
+        {
+          "name": "Carlos Silva",
+          "id": "7f573e46-97cd-4a4c-b705-856f004b64ea",
+          "platform": "EMAIL"
+        },
+        {
+          "name": "Daniela Pereira",
+          "id": "4c0b7e4a-763e-4b32-80ce-cf84057d64d2",
+          "platform": "EMAIL"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Explorando Nova York",
+      "description": "Pousando no Aeroporto JFK, fui recebido por uma brisa fresca e o skyline icônico de Nova York. Peguei um táxi e segui para meu hotel em Manhattan. Estava ansioso para visitar a Times Square, passear pelo Central Park e subir ao topo do Empire State Building...",
+      "scheduled": "2024-10-20T18:00:00.218Z",
+      "isActivated": true,
+      "categoryId": 1,
+      "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
+      "createdAt": "2024-07-04T19:30:56.218Z",
+      "updatedAt": "2024-07-04T19:30:56.218Z",
+      "usersToReminder": [
+        {
+          "name": "Eduardo Costa",
+          "id": "4c0b7e4a-763e-4b32-80ce-cf84057d64d2",
+          "platform": "EMAIL"
+        },
+        {
+          "name": "Fernanda Oliveira",
+          "id": "7f573e46-97cd-4a4c-b705-856f004b64ea",
+          "platform": "EMAIL"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Aventura em Tóquio",
+      "description": "Desembarquei no Aeroporto de Narita em uma manhã chuvosa. Peguei o trem Narita Express até Shinjuku, onde meu hotel estava localizado. Mal podia esperar para explorar os bairros de Shibuya e Akihabara, além de experimentar a culinária local...",
+      "scheduled": "2024-11-05T09:00:00.218Z",
+      "isActivated": true,
+      "categoryId": 1,
+      "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
+      "createdAt": "2024-07-04T19:35:56.218Z",
+      "updatedAt": "2024-07-04T19:35:56.218Z",
+      "usersToReminder": [
+        {
+          "name": "Gabriel Santos",
+          "id": "7f573e46-97cd-4a4c-b705-856f004b64ea",
+          "platform": "EMAIL"
+        },
+        {
+          "name": "Helena Gomes",
+          "id": "4c0b7e4a-763e-4b32-80ce-cf84057d64d2",
+          "platform": "EMAIL"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Passeio em Londres",
+      "description": "Cheguei ao Aeroporto Heathrow em uma tarde cinzenta, típica de Londres. Peguei o Heathrow Express até Paddington e, de lá, um táxi para meu hotel em Westminster. Estava empolgado para ver o Big Ben, passear pela London Eye e visitar o Museu Britânico...",
+      "scheduled": "2024-12-01T14:00:00.218Z",
+      "isActivated": true,
+      "categoryId": 1,
+      "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
+      "createdAt": "2024-07-04T19:40:56.218Z",
+      "updatedAt": "2024-07-04T19:40:56.218Z",
+      "usersToReminder": [
+        {
+          "name": "Igor Almeida",
+          "id": "4c0b7e4a-763e-4b32-80ce-cf84057d64d2",
+          "platform": "EMAIL"
+        },
+        {
+          "name": "Juliana Lima",
+          "id": "7f573e46-97cd-4a4c-b705-856f004b64ea",
+          "platform": "EMAIL"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Descobrindo Sydney",
+      "description": "Após um longo voo, aterrissei no Aeroporto de Sydney e fui saudado por um clima quente e ensolarado. Peguei um táxi até meu hotel em Circular Quay, com vista para a Opera House. Estava ansioso para explorar as praias de Bondi e Manly, e fazer uma caminhada pela Sydney Harbour Bridge...",
+      "scheduled": "2024-12-25T10:00:00.218Z",
+      "isActivated": true,
+      "categoryId": 1,
+      "ownerId": "cd178b3d-ce2c-4793-a339-021e2b7e845d",
+      "createdAt": "2024-07-04T19:45:56.218Z",
+      "updatedAt": "2024-07-04T19:45:56.218Z",
+      "usersToReminder": [
+        {
+          "name": "Lucas Fernandes",
+          "id": "7f573e46-97cd-4a4c-b705-856f004b64ea",
+          "platform": "EMAIL"
+        },
+        {
+          "name": "Mariana Souza",
+          "id": "4c0b7e4a-763e-4b32-80ce-cf84057d64d2",
+          "platform": "EMAIL"
+        }
+      ]
+    }
+  ]
+}

@@ -132,48 +132,46 @@
 <gl-loading></gl-loading>
 } @else if (contacts().data!.length > 0) {
 
-<ul class="px-0 pt-2 flex flex-column gap-3">
-  <ul class="px-0 pt-2 flex flex-column gap-3">
-    @for (contact of contacts().data; track $index) {
-    <li
-      class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-1 border-round-xl"
-    >
-      <div class="flex align-items-center gap-1">
-        <p-avatar
-          [label]="contact.name[0]"
-          shape="circle"
-          styleClass="mr-2"
-        />
-        <div class="contact-name">
-          <p class="font-medium text-lg capitalize">
-            {{ contact.name }}
-          </p>
-        </div>
+<ul class="px-0 pt-4 flex flex-column gap-3">
+  @for (contact of contacts().data; track $index) {
+  <li
+    class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-1 border-round-xl"
+  >
+    <div class="flex align-items-center gap-1">
+      <p-avatar
+        [label]="contact.name[0]"
+        shape="circle"
+        styleClass="mr-2"
+      />
+      <div class="contact-name">
+        <p class="font-medium text-lg capitalize">
+          {{ contact.name }}
+        </p>
       </div>
+    </div>
 
-      <div class="text-cyan-600 lg:mr-8 lg:pr-8">
-        <div class="lg:mr-3">
-          @switch (contact.platform) { @case ("EMAIL") {
-          <i class="pi pi-envelope"></i>
-          } @case ("WHATSAPP") {
-          <i class="pi pi-whatsapp"></i>
-          } @case ("TELEGRAM") {
-          <i class="pi pi-telegram"></i>
-          } @case ("DISCORD") {
-          <i class="pi pi-discord"></i>
-          } }
-        </div>
+    <div class="text-cyan-600 lg:mr-8 lg:pr-8">
+      <div class="lg:mr-3">
+        @switch (contact.platform) { @case ("EMAIL") {
+        <i class="pi pi-envelope"></i>
+        } @case ("WHATSAPP") {
+        <i class="pi pi-whatsapp"></i>
+        } @case ("TELEGRAM") {
+        <i class="pi pi-telegram"></i>
+        } @case ("DISCORD") {
+        <i class="pi pi-discord"></i>
+        } }
       </div>
-      <p-button
-        icon="pi pi-pencil"
-        [rounded]="true"
-        [text]="true"
-        severity="info"
-        (onClick)="onEdit(contact)"
-      ></p-button>
-    </li>
-    }
-  </ul>
+    </div>
+    <p-button
+      icon="pi pi-pencil"
+      [rounded]="true"
+      [text]="true"
+      severity="info"
+      (onClick)="onEdit(contact)"
+    ></p-button>
+  </li>
+  }
 </ul>
 } @else {
 

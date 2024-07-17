@@ -44,6 +44,10 @@ export class RemindersComponent {
     this.router.navigateByUrl(`/edit/${id}`)
   }
 
+  onShow(id: number) {
+    this.router.navigateByUrl(`/show/${id}`)
+  }
+
   onDelete(id: number) {
     this.confirmationService.confirm({
       header: 'Excluir lembrete?',
