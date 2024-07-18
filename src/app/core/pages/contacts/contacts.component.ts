@@ -1,27 +1,27 @@
-import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators as V,
-} from '@angular/forms'
-import { RouterModule } from '@angular/router'
+} from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
-import { AvatarModule } from 'primeng/avatar'
-import { ButtonModule } from 'primeng/button'
-import { ChipModule } from 'primeng/chip'
-import { DialogModule } from 'primeng/dialog'
-import { MenuModule } from 'primeng/menu'
-import { ProgressSpinnerModule } from 'primeng/progressspinner'
+import { AvatarModule } from 'primeng/avatar';
+import { ButtonModule } from 'primeng/button';
+import { ChipModule } from 'primeng/chip';
+import { DialogModule } from 'primeng/dialog';
+import { MenuModule } from 'primeng/menu';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-import { ConfirmationService, MessageService } from 'primeng/api'
-import { InputTextModule } from 'primeng/inputtext'
-import { TitleComponent } from '../../components/title/title.component'
-import { contactChannels } from '../../constants/contact-channels'
-import { Contact, EditContact } from '../../models/contact'
-import { Channel } from '../../models/enums/channels'
-import { ContactService } from '../../services/contact/contact.service'
-import { LoadingComponent } from './loading/loading.component'
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext';
+import { TitleComponent } from '../../components/title/title.component';
+import { contactChannels } from '../../constants/contact-channels';
+import { Contact, EditContact } from '../../models/contact';
+import { Channel } from '../../models/enums/channels';
+import { ContactService } from '../../services/contact/contact.service';
+import { LoadingComponent } from './loading/loading.component';
 
 @Component({
   standalone: true,
@@ -62,7 +62,7 @@ export class ContactsComponent {
 
   protected contactToEditForm = this.formBuilder.group({
     name: ['', [V.required, V.min(2), V.max(255)]],
-    platform: [Channel.EMAIL],
+    channel: [Channel.EMAIL],
     identify: ['', [V.required, V.email, V.min(2), V.max(255)]],
   })
 

@@ -14,73 +14,13 @@
         {
           "name": "Alice Souza",
           "id": "f0b9cfd9-5987-49a6-90f7-944552bebee8",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "alice@gmail.com"
         },
         {
           "name": "Bruno Lima",
           "id": "11e80f14-0604-41d4-b150-337e64858fb2",
-          "platform": "EMAIL",
-          "identify": "bruno@gmail.com"
-        },
-        {
-          "name": "Alice Souza",
-          "id": "f0b9cfd9-5987-49a6-90f7-944552bebee8",
-          "platform": "EMAIL",
-          "identify": "alice@gmail.com"
-        },
-        {
-          "name": "Bruno Lima",
-          "id": "11e80f14-0604-41d4-b150-337e64858fb2",
-          "platform": "EMAIL",
-          "identify": "bruno@gmail.com"
-        },
-        {
-          "name": "Alice Souza",
-          "id": "f0b9cfd9-5987-49a6-90f7-944552bebee8",
-          "platform": "EMAIL",
-          "identify": "alice@gmail.com"
-        },
-        {
-          "name": "Bruno Lima",
-          "id": "11e80f14-0604-41d4-b150-337e64858fb2",
-          "platform": "EMAIL",
-          "identify": "bruno@gmail.com"
-        },
-        {
-          "name": "Alice Souza",
-          "id": "f0b9cfd9-5987-49a6-90f7-944552bebee8",
-          "platform": "EMAIL",
-          "identify": "alice@gmail.com"
-        },
-        {
-          "name": "Bruno Lima",
-          "id": "11e80f14-0604-41d4-b150-337e64858fb2",
-          "platform": "EMAIL",
-          "identify": "bruno@gmail.com"
-        },
-        {
-          "name": "Alice Souza",
-          "id": "f0b9cfd9-5987-49a6-90f7-944552bebee8",
-          "platform": "EMAIL",
-          "identify": "alice@gmail.com"
-        },
-        {
-          "name": "Bruno Lima",
-          "id": "11e80f14-0604-41d4-b150-337e64858fb2",
-          "platform": "EMAIL",
-          "identify": "bruno@gmail.com"
-        },
-        {
-          "name": "Alice Souza",
-          "id": "f0b9cfd9-5987-49a6-90f7-944552bebee8",
-          "platform": "EMAIL",
-          "identify": "alice@gmail.com"
-        },
-        {
-          "name": "Bruno Lima",
-          "id": "11e80f14-0604-41d4-b150-337e64858fb2",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "bruno@gmail.com"
         }
       ]
@@ -99,13 +39,13 @@
         {
           "name": "Carlos Silva",
           "id": "374d5eb8-e2f9-455f-bde6-ad0953be0ba2",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "carlos@gmail.com"
         },
         {
           "name": "Daniela Pereira",
           "id": "3c89cf7a-8272-4735-9498-62c041208bcb",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "daniela@gmail.com"
         }
       ]
@@ -124,13 +64,13 @@
         {
           "name": "Eduardo Costa",
           "id": "124030a4-f721-44c3-85b9-041854ea5bd4",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "eduardo@gmail.com"
         },
         {
           "name": "Fernanda Oliveira",
           "id": "bfbc78dd-06b2-4745-b896-7416f97ddea3",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "fernando@gmail.com"
         }
       ]
@@ -149,13 +89,13 @@
         {
           "name": "Gabriel Santos",
           "id": "b838f72f-6d6c-4fba-9a70-339c2d2fd543",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "gabriel@gmail.com"
         },
         {
           "name": "Helena Gomes",
           "id": "a361a92d-ab2e-42ad-bc10-0944fcdbdec9",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "helena@gmail.com"
         }
       ]
@@ -174,13 +114,13 @@
         {
           "name": "Igor Almeida",
           "id": "4e9ac299-9bdc-4f87-ad2e-d6bce2cd4573",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "igor@gmail.com"
         },
         {
           "name": "Juliana Lima",
           "id": "959bde7d-9d26-47d9-b69a-a7651de05067",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "juliana@gmail.com"
         }
       ]
@@ -199,13 +139,13 @@
         {
           "name": "Lucas Fernandes",
           "id": "26d996ae-ad30-41d7-af65-b9fabf9b42d2",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "lucas@gmail.com"
         },
         {
           "name": "Mariana Souza",
           "id": "ab19e8e4-e5ec-425c-af8c-878a162f3f1d",
-          "platform": "EMAIL",
+          "channel": "EMAIL",
           "identify": "mariana@gmail.com"
         }
       ]

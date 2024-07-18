@@ -1,24 +1,24 @@
-import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
   Validators as V,
-} from '@angular/forms'
-import { MessageService } from 'primeng/api'
-import { AvatarModule } from 'primeng/avatar'
-import { ButtonModule } from 'primeng/button'
-import { DropdownModule } from 'primeng/dropdown'
-import { InputMaskModule } from 'primeng/inputmask'
-import { InputTextModule } from 'primeng/inputtext'
-import { TreeSelectModule } from 'primeng/treeselect'
-import { BackButtonComponent } from 'src/app/core/components/back-button/back-button.component'
-import { TitleComponent } from 'src/app/core/components/title/title.component'
-import { contactChannels } from 'src/app/core/constants/contact-channels'
-import { Contact } from 'src/app/core/models/contact'
-import { Channel } from 'src/app/core/models/enums/channels'
-import { ContactService } from 'src/app/core/services/contact/contact.service'
-import { getInputError, inputInvalid } from 'src/app/core/utils/input'
+} from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { AvatarModule } from 'primeng/avatar';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { BackButtonComponent } from 'src/app/core/components/back-button/back-button.component';
+import { TitleComponent } from 'src/app/core/components/title/title.component';
+import { contactChannels } from 'src/app/core/constants/contact-channels';
+import { Contact } from 'src/app/core/models/contact';
+import { Channel } from 'src/app/core/models/enums/channels';
+import { ContactService } from 'src/app/core/services/contact/contact.service';
+import { getInputError, inputInvalid } from 'src/app/core/utils/input';
 
 @Component({
   selector: 'gl-profile',
@@ -49,7 +49,7 @@ export class AddContactComponent {
 
   protected newContact = this.formBuilder.group({
     name: ['', [V.required, V.minLength(2), V.maxLength(60)]],
-    platform: [Channel.EMAIL, [V.required]],
+    channel: [Channel.EMAIL, [V.required]],
     identify: ['', [V.required, V.email, V.minLength(2), V.maxLength(60)]],
   })
 
@@ -74,7 +74,7 @@ export class AddContactComponent {
             detail: 'Contato adicionado',
           })
           this.newContact.reset()
-          this.newContact.controls.platform.setValue(Channel.EMAIL)
+          this.newContact.controls.channel.setValue(Channel.EMAIL)
           this.loading = false
         },
         error: () => {

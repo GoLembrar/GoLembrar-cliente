@@ -58,33 +58,33 @@
     <fieldset class="field col-12 m-0 p-0">
       <legend>
         <label
-          for="platform"
+          for="channel"
           class="block mb-1"
           >Canal</label
         >
       </legend>
       <p-dropdown
         styleClass="flex"
-        formControlName="platform"
+        formControlName="channel"
         [options]="channels"
         optionLabel="label"
         optionValue="value"
         placeholder="Selecione uma plataforma"
       >
         <ng-template
-          let-platform
+          let-channel
           pTemplate="item"
         >
           <div class="flex align-items-center gap-2">
-            <span class=""><i [class]="platform.icon"></i></span>
-            <div>{{ platform.label }}</div>
+            <span class=""><i [class]="channel.icon"></i></span>
+            <div>{{ channel.label }}</div>
           </div>
         </ng-template>
       </p-dropdown>
-      <div *ngIf="inputInvalid('platform')">
+      <div *ngIf="inputInvalid('channel')">
         <small
           class="text-red-600"
-          *ngIf="getInputError('platform', 'required')"
+          *ngIf="getInputError('channel', 'required')"
           >Campo obrigatório</small
         >
       </div>

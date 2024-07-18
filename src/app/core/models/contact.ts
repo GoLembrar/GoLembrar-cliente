@@ -1,9 +1,9 @@
-import { Channel } from './enums/channels'
+import { Channel } from './enums/channels';
 
 export interface Contact {
   id: string
   name: string
-  platform: Channel
+  channel: Channel
   identify: string
 }
 

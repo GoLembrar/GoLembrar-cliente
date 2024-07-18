@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http'
-import { inject, Injectable } from '@angular/core'
-import { Router } from '@angular/router'
-import { injectQuery } from '@ngneat/query'
-import { environment } from 'src/environments/environment.development'
-import { CreateReminder, Reminder } from '../../models/reminder'
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { injectQuery } from '@ngneat/query';
+import { environment } from 'src/environments/environment.development';
+import { CreateReminder, Reminder } from '../../models/reminder';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class ReminderService {
     return this.query({
       queryKey: ['reminder'] as const,
       queryFn: () =>
-        this.http.get<Reminder>(`http://localhost:3002/reminder/${id}`),
+        this.http.get<Reminder>(`${environment.apiUrl}/reminder/${id}`),
     })
   }
 
@@ -29,7 +29,7 @@ export class ReminderService {
     return this.query({
       queryKey: ['reminders'] as const,
       queryFn: () =>
-        this.http.get<Reminder[]>(`http://localhost:3002/reminder`),
+        this.http.get<Reminder[]>(`${environment.apiUrl}/reminder`),
     }).result
   }
 
