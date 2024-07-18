@@ -31,7 +31,7 @@ import { ReminderService } from 'src/app/core/services/reminder/reminder.service
 export class ShowReminderComponent {
   private route = inject(ActivatedRoute)
   private reminderService = inject(ReminderService)
-  private id = Number(this.route.snapshot.paramMap.get('id') || 0)
+  private id = this.route.snapshot.paramMap.get('id') || ''
   reminder = this.reminderService.findOne(this.id).result
 
   onEdit() {

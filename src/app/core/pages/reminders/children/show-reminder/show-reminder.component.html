@@ -58,19 +58,19 @@
       </legend>
 
       <ul class="px-0 flex flex-column gap-3 hidden">
-        @for (contact of reminder.usersToReminder; track $index) {
+        @for (reminder of reminder.usersToReminder; track $index) {
         <li
           class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-1 border-round-xl"
         >
           <div class="flex align-items-center gap-1">
             <p-avatar
-              [label]="contact.name[0]"
+              [label]="reminder.contact.name[0]"
               shape="circle"
               styleClass="mr-2"
             />
             <div>
               <p class="font-medium text-lg capitalize">
-                {{ contact.name }}
+                {{ reminder.contact.name }}
               </p>
             </div>
           </div>

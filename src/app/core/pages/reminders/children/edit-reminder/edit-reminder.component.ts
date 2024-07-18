@@ -43,7 +43,7 @@ export class EditReminderComponent implements OnInit {
   private contactService = inject(ContactService)
   private formBuilder = inject(NonNullableFormBuilder)
   private reminderService = inject(ReminderService)
-  private id = Number(this.route.snapshot.paramMap.get('id') || '')
+  private id = this.route.snapshot.paramMap.get('id') || ''
   public reminder$ = this.reminderService.findOne(this.id).result$
 
   ownerId = this.authService.getJwtPayload().id
@@ -70,7 +70,7 @@ export class EditReminderComponent implements OnInit {
               description: result.data.description,
               scheduled: new Date(result.data.scheduled),
               usersToReminder: result.data.usersToReminder.map(
-                contact => contact.id
+                userToReminder => userToReminder.contactId
               ),
             })
 

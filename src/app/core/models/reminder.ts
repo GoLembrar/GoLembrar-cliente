@@ -11,6 +11,15 @@ export interface CreateReminder {
   categoryId: number
 }
 
+interface UserToReminder {
+  id: number
+  reminderId: string
+  createdAt: Date
+  updatedAt: Date
+  contactId: string
+  contact: Contact
+}
+
 export interface Reminder {
   id: number
   title: string
@@ -18,7 +27,7 @@ export interface Reminder {
   scheduled: Date
   isActivated: boolean
   categoryId: number
-  usersToReminder: Contact[]
+  usersToReminder: UserToReminder[]
   ownerId: string
   createdAt: string
   updatedAt: string

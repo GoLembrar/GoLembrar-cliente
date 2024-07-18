@@ -26,7 +26,7 @@
         placeholder="Digite o título da mensagem"
         id="title"
         [minlength]="2"
-        [maxlength]="20"
+        [maxlength]="128"
       />
     </fieldset>
 
@@ -48,7 +48,7 @@
         formControlName="description"
         [autoResize]="true"
         [minlength]="2"
-        [maxlength]="255"
+        [maxlength]="500"
       ></textarea>
     </fieldset>
 

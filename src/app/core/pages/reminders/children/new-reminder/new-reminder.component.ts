@@ -46,8 +46,8 @@ export class NewReminderComponent {
   readonly minDate = new Date(new Date().getTime() + 30 * 60000)
 
   protected newReminder = this.formBuilder.group({
-    title: ['', [V.required, V.min(2), V.max(20)]],
-    description: ['', [V.required, V.min(2), V.max(255)]],
+    title: ['', [V.required, V.min(2), V.max(120)]],
+    description: ['', [V.required, V.min(2), V.max(500)]],
     usersToReminder: [[], [V.required, V.minLength(1)]],
     scheduled: ['', V.required],
     ownerId: [this.ownerId, V.required],
