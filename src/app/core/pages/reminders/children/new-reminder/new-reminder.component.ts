@@ -75,6 +75,7 @@ export class NewReminderComponent {
               detail: 'Lembrete foi cadastrado',
             })
             this.loading = false
+            this.newReminder.reset()
           },
           error: () => {
             this.messageService.add({

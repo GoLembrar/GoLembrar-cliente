@@ -10,6 +10,13 @@ export interface CreateReminder {
   ownerId: string
   categoryId: number
 }
+enum Status {
+  PENDING = 'PENDING',
+  SENT = 'SENT',
+  FAILED = 'FAILED',
+}
+
+export interface UpdateReminder extends Partial<CreateReminder> {}
 
 interface UserToReminder {
   id: number
@@ -26,7 +33,7 @@ export interface Reminder {
   description: string
   scheduled: Date
   isActivated: boolean
-  categoryId: number
+  status: Status
   usersToReminder: UserToReminder[]
   ownerId: string
   createdAt: string

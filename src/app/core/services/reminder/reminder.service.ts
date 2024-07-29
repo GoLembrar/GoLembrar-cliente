@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { injectQuery } from '@ngneat/query'
 import { environment } from 'src/environments/environment.development'
-import { CreateReminder, Reminder } from '../../models/reminder'
+import { CreateReminder, Reminder, UpdateReminder } from '../../models/reminder'
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +35,12 @@ export class ReminderService {
 
   edit(id: string) {
     this.router.navigateByUrl(`/edit/${id}`)
+  }
+
+  update(updateReminder: UpdateReminder, id: string) {
+    return this.http.patch(
+      `${environment.apiUrl}/reminder/${id}`,
+      updateReminder
+    )
   }
 }

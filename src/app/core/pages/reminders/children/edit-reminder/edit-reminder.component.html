@@ -29,7 +29,7 @@
         placeholder="Digite o título da mensagem"
         id="title"
         [minlength]="2"
-        [maxlength]="20"
+        [maxlength]="120"
       />
     </fieldset>
 
@@ -51,7 +51,7 @@
         formControlName="description"
         [autoResize]="true"
         [minlength]="2"
-        [maxlength]="255"
+        [maxlength]="500"
       ></textarea>
     </fieldset>
 
@@ -148,6 +148,7 @@
       label="Salvar"
       [disabled]="loading"
       [loading]="loading"
+      (onClick)="onSubmit()"
     ></p-button>
   </div>
 </form>
