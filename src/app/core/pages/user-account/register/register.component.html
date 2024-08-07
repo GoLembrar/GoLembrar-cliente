@@ -19,6 +19,8 @@
           id="name"
           formControlName="name"
           class="w-full"
+          [minlength]="2"
+          [maxlength]="20"
         />
       </fieldset>
 
@@ -36,6 +38,8 @@
             placeholder="Digite seu email"
             id="email"
             [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('email') }"
+            [minlength]="2"
+            [maxlength]="60"
           />
         </span>
         <div *ngIf="inputInvalid('email')">
@@ -65,6 +69,8 @@
           [style]="{ width: '100%' }"
           [inputStyle]="{ width: '100%' }"
           promptLabel="Força da senha"
+          [minlength]="6"
+          [maxlength]="80"
         >
         </p-password>
         <div *ngIf="inputInvalid('password')">
@@ -76,8 +82,7 @@
           <small
             class="text-red-600"
             *ngIf="getInputError('password', 'pattern')"
-            >A senha deve ter no minimo 6 caracteres<br />
-            sendo 1 maiusculo</small
+            >A senha deve ter no minimo 6 dígitos</small
           >
         </div>
       </fieldset>
@@ -95,6 +100,8 @@
           [style]="{ width: '100%' }"
           [inputStyle]="{ width: '100%' }"
           promptLabel="Força da senha"
+          [minlength]="6"
+          [maxlength]="80"
         >
         </p-password>
         <div *ngIf="inputInvalid('confirmPassword')">
@@ -107,38 +114,6 @@
             class="text-red-600"
             *ngIf="getInputError('confirmPassword', 'passwordMismatch')"
             >As senhas devem ser iguais</small
-          >
-        </div>
-      </fieldset>
-
-      <fieldset class="field col-12 m-0 p-0">
-        <legend class="mb-2">
-          <label for="phone">Telefone</label>
-        </legend>
-        <span class="p-input-icon-right w-full">
-          <i class="pi pi-phone"></i>
-          <p-inputMask
-            [style.width]="'100%'"
-            styleClass="w-full"
-            inputId="phone"
-            formControlName="phone"
-            mask="(99) 9999-9999?9"
-            placeholder="(99) 9999-9999"
-            [unmask]="true"
-            [autoClear]="false"
-            [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('phone') }"
-          ></p-inputMask>
-        </span>
-        <div *ngIf="inputInvalid('phone')">
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('phone', 'required')"
-            >Campo obrigatório</small
-          >
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('phone', 'pattern')"
-            >Digite um telefone válido</small
           >
         </div>
       </fieldset>

@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs'
 import { REGEX_PASSWORD } from 'src/app/core/constants/regexp'
 import { User } from 'src/app/core/models/user.model'
 import { AuthService } from 'src/app/core/services/auth.service'
+import { getInputError, inputInvalid } from 'src/app/core/utils/input'
 
 @Component({
   selector: 'gl-register',
@@ -52,11 +53,18 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   protected account = this.formBuilder.group(
     {
-      name: ['', [V.required, V.minLength(3)]],
-      email: ['', [V.required, V.email]],
-      password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
-      confirmPassword: ['', [V.required]],
-      phone: ['', [V.required]],
+      name: ['', [V.required, V.minLength(2), V.maxLength(60)]],
+      email: ['', [V.required, V.email, V.minLength(2), V.maxLength(60)]],
+      password: [
+        '',
+        [
+          V.required,
+          V.minLength(6),
+          V.maxLength(80),
+          V.pattern(REGEX_PASSWORD),
+        ],
+      ],
+      confirmPassword: ['', [V.required, V.minLength(6), V.maxLength(80)]],
     },
     {
       validators: this.comparatePassword(),
@@ -71,33 +79,27 @@ export class RegisterComponent implements OnInit, OnDestroy {
       if (
         confirmPassword?.errors &&
         !confirmPassword.errors['passwordMismatch']
-      ) {
+      )
         return null
-      }
 
       if (
         password &&
         confirmPassword &&
         password.value !== confirmPassword.value
-      ) {
+      )
         confirmPassword.setErrors({ passwordMismatch: true })
-      } else {
-        confirmPassword?.setErrors(null)
-      }
+      else confirmPassword?.setErrors(null)
 
       return null
     }
   }
 
   inputInvalid(input: string) {
-    return (
-      this.account.get(input)?.invalid &&
-      (this.account.get(input)?.dirty || this.account.get(input)?.touched)
-    )
+    return inputInvalid(input, this.account)
   }
 
   getInputError(input: string, error: string) {
-    return this.account.get(input)?.hasError(error)
+    return getInputError(input, error, this.account)
   }
 
   getRequestError(): string | null {

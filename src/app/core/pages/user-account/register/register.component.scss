@@ -1,6 +1,21 @@
 :host {
   main {
-    background-color: #222;
+    background: #003459;
+    background: linear-gradient(225deg, #00a6cb, #003459);
+    background-size: 400% 400%;
+    animation: gradient-animation 15s ease infinite;
+    height: 100vh;
   }
 }
 
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
