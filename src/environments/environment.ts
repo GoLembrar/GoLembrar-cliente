@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://golembrar-server.onrender.com',
+  apiUrl: 'https://api-golembrar.vercel.app',
 }
