@@ -1,1 +1,147 @@
-<p>new-reminder works!</p>
+<gl-title
+  label1="Novo"
+  label2="lembrete"
+/>
+
+<gl-back-button />
+
+<form
+  [formGroup]="newReminder"
+  class="mt-3 formgrid grid gap-3"
+>
+  <div class="col-12 lg:col px-0 flex flex-column gap-3">
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label
+          for="title"
+          class="mb-1"
+        >
+          Título
+        </label>
+      </legend>
+      <input
+        class="w-full mt-3"
+        pInputText
+        formControlName="title"
+        placeholder="Digite o título da mensagem"
+        id="title"
+        [minlength]="2"
+        [maxlength]="128"
+      />
+    </fieldset>
+
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label
+          for="description"
+          class="mb-1"
+        >
+          Mensagem
+        </label>
+      </legend>
+
+      <textarea
+        rows="6"
+        class="w-full mt-3"
+        pInputTextarea
+        id="description"
+        formControlName="description"
+        [autoResize]="true"
+        [minlength]="2"
+        [maxlength]="500"
+      ></textarea>
+    </fieldset>
+
+    <fieldset class="max-w-full field col-12 m-0 p-0">
+      <legend>
+        <label
+          for="usersToReminder"
+          class="mb-1"
+        >
+          Destinatários
+        </label>
+      </legend>
+      <p-multiSelect
+        inputId="usersToReminder"
+        optionLabel="name"
+        placeholder="Selecione"
+        formControlName="usersToReminder"
+        [filter]="true"
+        styleClass="flex mt-3"
+        [showToggleAll]="false"
+        emptyMessage="Nenhum contato cadastrado"
+        emptyFilterMessage="Nenhum contato encontrado"
+        [options]="contacts().data"
+        optionValue="id"
+        optionLabel="name"
+      >
+        <ng-template
+          let-value
+          pTemplate="selectedItems"
+        >
+          <span class="overflow-hidden">
+            <div
+              class="inline-flex align-items-center gap-2 bg-blue-50 m-1 px-2 py-1 border-1 border-round-md border-blue-100"
+              *ngFor="let option of value"
+            >
+              <span class="text-blue-900 font-medium text-sm">{{
+                option.name
+              }}</span>
+              <p-tag
+                severity="success"
+                [style]="{ backgroundColor: 'var(--secondary-color)' }"
+                value="Email"
+              />
+            </div>
+            <div *ngIf="!value || value.length === 0">Selecione</div>
+          </span>
+        </ng-template>
+        <ng-template
+          let-contact
+          pTemplate="item"
+        >
+          <span class="flex align-items-center gap-2">
+            <span>{{ contact.name }}</span>
+            <p-tag
+              severity="success"
+              [style]="{ backgroundColor: 'var(--secondary-color)' }"
+              value="Email"
+            />
+          </span>
+        </ng-template>
+      </p-multiSelect>
+    </fieldset>
+  </div>
+  <div class="col-12 lg:col px-0 flex flex-column gap-3">
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label
+          for="scheduled"
+          class="mb-1"
+        >
+          Agendamento
+        </label>
+      </legend>
+      <p-calendar
+        formControlName="scheduled"
+        inputId="scheduled"
+        [showIcon]="true"
+        [showTime]="true"
+        [minDate]="minDate"
+        styleClass="flex mt-3"
+        dateFormat="dd/mm/yy -"
+        placeholder="Selecione uma data e hora"
+      />
+    </fieldset>
+  </div>
+
+  <div class="card flex col-12 gap-3 justify-content-end p-0 mt-3">
+    <p-button
+      icon="pi pi-check"
+      label="Salvar"
+      (onClick)="onSubmit()"
+      [disabled]="loading"
+      [loading]="loading"
+    ></p-button>
+  </div>
+</form>

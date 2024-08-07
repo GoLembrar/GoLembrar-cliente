@@ -7,11 +7,11 @@ import { ToastModule } from 'primeng/toast'
 
 @Component({
   standalone: true,
-  imports: [RouterModule, CommonModule, ToastModule],
   selector: 'gl-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [{ provide: LOCALE_ID, useValue: 'pt-br' }],
+  imports: [RouterModule, CommonModule, ToastModule],
 })
 export class AppComponent {
   constructor() {

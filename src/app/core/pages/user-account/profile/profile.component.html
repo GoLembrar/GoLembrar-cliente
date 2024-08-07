@@ -1,0 +1,228 @@
+<p-dialog
+  [(visible)]="showDialog"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closeOnEscape]="false"
+>
+  <ng-template pTemplate="header">
+    <gl-title
+      label1="Trocar"
+      label2="senha"
+    ></gl-title>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <form
+      [formGroup]="updatePassword"
+      class="formgrid grid justify-content-center align-items-center gap-3"
+    >
+      <fieldset class="field col-12 m-0 p-0">
+        <legend class="mb-1">
+          <label for="password">
+            Senha atual
+            <strong class="text-red-500"> * </strong>
+          </label>
+        </legend>
+        <p-password
+          id="password"
+          formControlName="password"
+          placeholder="Digite sua senha atual"
+          [toggleMask]="true"
+          [feedback]="false"
+          inputId="confirmPassword"
+          [style]="{ width: '100%' }"
+          [inputStyle]="{ width: '100%' }"
+          [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('password') }"
+          promptLabel="Força da senha"
+          [minlength]="6"
+          [maxlength]="80"
+        >
+        </p-password>
+
+        <div *ngIf="inputInvalid('password')">
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('password', 'required')"
+            >Campo obrigatório</small
+          >
+        </div>
+      </fieldset>
+
+      <fieldset class="field col-12 m-0 p-0">
+        <legend class="mb-1">
+          <label for="newPassword"
+            >Nova Senha
+            <strong class="text-red-500"> * </strong>
+          </label>
+        </legend>
+        <p-password
+          id="newPassword"
+          formControlName="newPassword"
+          placeholder="Digite nova sua senha"
+          [toggleMask]="true"
+          inputId="newPassword"
+          [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('newPassword') }"
+          [style]="{ width: '100%' }"
+          [inputStyle]="{ width: '100%' }"
+          promptLabel="Força da senha"
+          [minlength]="6"
+          [maxlength]="80"
+        >
+        </p-password>
+        <div *ngIf="inputInvalid('newPassword')">
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('newPassword', 'required')"
+            >Campo obrigatório</small
+          >
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('newPassword', 'pattern')"
+            >A senha deve ter no minimo 6 caracteres<br />
+            sendo 1 maiúsculo</small
+          >
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('newPassword', 'sameAsOldPassword')"
+            >A senha deve ser diferente da atual</small
+          >
+        </div>
+      </fieldset>
+
+      <fieldset class="field col-12 m-0 p-0">
+        <legend class="mb-1">
+          <label for="confirmNewPassword"
+            >Confirmar senha
+            <strong class="text-red-500"> * </strong>
+          </label>
+        </legend>
+        <p-password
+          id="confirmNewPassword"
+          formControlName="confirmNewPassword"
+          placeholder="Confirme sua senha"
+          [toggleMask]="true"
+          [feedback]="false"
+          inputId="confirmNewPassword"
+          [ngClass]="{
+            'ng-invalid ng-dirty': inputInvalid('confirmNewPassword')
+          }"
+          [style]="{ width: '100%' }"
+          [inputStyle]="{ width: '100%' }"
+          promptLabel="Força da senha"
+          [minlength]="6"
+          [maxlength]="80"
+        >
+        </p-password>
+        <div *ngIf="inputInvalid('confirmNewPassword')">
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('confirmNewPassword', 'required')"
+            >Campo obrigatório</small
+          >
+          <small
+            class="text-red-600"
+            *ngIf="getInputError('confirmNewPassword', 'passwordMismatch')"
+            >As senhas devem ser iguais</small
+          >
+        </div>
+      </fieldset>
+    </form>
+    <div class="flex col-12 gap-3 justify-content-end py-0 px-2 mt-4">
+      <p-button
+        label="Trocar senha"
+        styleClass="justify-content-center"
+        icon="pi pi-lock"
+        size="small"
+        [link]="true"
+        (onClick)="onUpdatePassword()"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<gl-title
+  label1="Editar"
+  label2="perfil"
+/>
+
+<gl-back-button />
+
+<form
+  [formGroup]="updateProfile"
+  class="flex flex-column md:flex-row align-items-top justify-content-center gap-4 w-full pt-4 md:mt-4"
+>
+  <div class="flex justify-content-center mt-2">
+    <p-avatar
+      label="A"
+      size="xlarge"
+      shape="circle"
+      styleClass="cursor-pointer"
+      [style]="{
+        width: '220px',
+        height: '220px'
+      }"
+    />
+  </div>
+
+  <div class="formgrid grid gap-2 mx-1">
+    @if (!userInfo().isLoading) {
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label
+          for="name"
+          class="block mb-1"
+        >
+          Nome
+        </label>
+      </legend>
+      <input
+        id="name"
+        class="w-full"
+        pInputText
+        formControlName="name"
+        placeholder="Digite o nome do contato"
+        [minlength]="2"
+        [maxlength]="60"
+      />
+    </fieldset>
+
+    <fieldset class="field col-12 m-0 p-0">
+      <legend>
+        <label
+          for="email"
+          class="block mb-1"
+        >
+          Email
+        </label>
+      </legend>
+      <input
+        id="email"
+        class="w-full"
+        pInputText
+        formControlName="email"
+        placeholder="contato@golembrar.com"
+        [minlength]="2"
+        [maxlength]="60"
+      />
+    </fieldset>
+    }
+    <div
+      class="col-12 p-0 mt-2 flex flex-column justify-content-end align-items-end gap-3"
+    >
+      <p-button
+        size="small"
+        [text]="true"
+        severity="danger"
+        icon="pi pi-lock"
+        label="Trocar senha"
+        styleClass="mr-1"
+        (onClick)="showDialog = true"
+      ></p-button>
+      <p-button
+        icon="pi pi-check"
+        label="Editar perfil"
+        (onClick)="onUpdateProfile()"
+      ></p-button>
+    </div>
+  </div>
+</form>

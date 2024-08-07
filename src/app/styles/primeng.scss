@@ -85,3 +85,43 @@ ul {
 .p-avatar {
   background-color: #e4f3f7;
 }
+
+.p-calendar .p-datepicker {
+  min-width: 50%;
+}
+
+.p-multiselect-label {
+  white-space: wrap;
+}
+
+.p-tabmenu-nav.p-reset {
+  background-color: transparent;
+}
+
+.p-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.p-accordion-tab {
+  box-sizing: border-box;
+  border: 1.5px solid var(--primary-color);
+  border-radius: 12px;
+  background-color: white;
+  .p-accordion-header {
+    a {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+    }
+  }
+
+  .p-accordion-content {
+    background: none;
+    border: none;
+    border-top: 0.5px dashed var(--bluegray-300);
+  }
+}

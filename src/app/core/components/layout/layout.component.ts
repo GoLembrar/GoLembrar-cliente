@@ -11,7 +11,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog'
 import { MenuModule } from 'primeng/menu'
 import { SidebarModule } from 'primeng/sidebar'
 
+import { AuthService } from '../../services/auth.service'
 import { NoConnectionService } from '../../services/no-connection/no-connection.service'
+import { NameAbbreviationPipe } from '../../utils/pipes/name-abbreviation/name-abbreviation.pipe'
 import { LayoutService } from './layout.service'
 
 @Component({
@@ -19,7 +21,7 @@ import { LayoutService } from './layout.service'
   selector: 'gl-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
-  providers: [LayoutService, ConfirmationService],
+  providers: [ConfirmationService, LayoutService],
   imports: [
     CommonModule,
     RouterModule,
@@ -29,22 +31,22 @@ import { LayoutService } from './layout.service'
     AvatarGroupModule,
     MenuModule,
     ConfirmDialogModule,
+    NameAbbreviationPipe,
   ],
 })
 export class LayoutComponent implements OnInit {
   isSidebarOpen = false
   isMobile = false
   avatarMenu = this.layoutService.avatarMenu
+  readonly userInfo = this.authService.getUserInfo()
 
   constructor(
-    private layoutService: LayoutService,
-    private noConnectionService: NoConnectionService
+    private noConnectionService: NoConnectionService,
+    private authService: AuthService,
+    private layoutService: LayoutService
   ) {
-    if (window.innerWidth > 768) {
-      this.isSidebarOpen = true
-    } else {
-      this.isMobile = true
-    }
+    if (window.innerWidth > 768) this.isSidebarOpen = true
+    else this.isMobile = true
 
     fromEvent(window, 'resize').subscribe({
       next: () => {

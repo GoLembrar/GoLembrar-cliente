@@ -1,0 +1,21 @@
+:host {
+  margin-bottom: 200px;
+}
+
+::ng-deep {
+  .p-accordion-header-link {
+    transition: padding 0.3s;
+    padding: 16px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02), 0px 0px 2px rgba(0, 0, 0, 0.05),
+      0px 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .p-accordion-content {
+    p {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: calc(100% - 40px);
+      white-space: nowrap;
+    }
+  }
+}

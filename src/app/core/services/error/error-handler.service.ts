@@ -7,22 +7,31 @@ import { throwError } from 'rxjs'
   providedIn: 'root',
 })
 export class ErrorHandlerService implements ErrorHandler {
-  constructor(private messageService: MessageService) {}
+  private readonly errorHandlers: {
+    [key: number]: (response: HttpErrorResponse) => void
+  }
 
-  public handleError(response: HttpErrorResponse) {
-    switch (response.status) {
-      case 409:
+  constructor(private messageService: MessageService) {
+    this.errorHandlers = {
+      422: (response: HttpErrorResponse) => {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Erro ao validar senha',
+          detail: response.error.message,
+        })
+      },
+      409: (_response: HttpErrorResponse) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Conflito',
-          detail: response.error.message,
+          detail: 'Email já cadastrado',
         })
-        break
-      case 404:
+      },
+      404: (_response: HttpErrorResponse) => {
         // localStorage.clear()
         // location.reload()
-        break
-      case 403:
+      },
+      403: (_response: HttpErrorResponse) => {
         this.messageService.add({
           severity: 'info',
           summary: 'Erro',
@@ -30,21 +39,29 @@ export class ErrorHandlerService implements ErrorHandler {
         })
         location.reload()
         localStorage.clear()
-        break
-      case 401:
+      },
+      401: (_response: HttpErrorResponse) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Credenciais inválidas',
           detail: 'Email ou senha incorretos',
         })
-        break
-      case 0:
+      },
+      0: (_response: HttpErrorResponse) => {
         this.messageService.add({
           severity: 'info',
           summary: 'Erro 0',
           detail: 'Sem conexão com o servidor',
         })
-        break
+      },
+    }
+  }
+
+  public handleError(response: HttpErrorResponse) {
+    const handler = this.errorHandlers[response.status]
+
+    if (handler) handler(response)
+    else {
     }
     return throwError(() => new Error())
   }

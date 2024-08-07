@@ -26,20 +26,28 @@
 
     <p-button
       label="Novo lembrete"
-      icon="pi pi-plus-circle"
       [outlined]="true"
-      routerLink="reminders/new"
+      routerLink="new"
       (click)="onClickMenuOption()"
-    ></p-button>
+      styleClass="flex justify-content-center align-items-center gap-2"
+    >
+      <ng-template pTemplate="icon">
+        <img
+          class="p-0"
+          width="16"
+          src="/assets/Gplus-icon.svg"
+          alt="Description of SVG"
+        />
+      </ng-template>
+    </p-button>
   </ng-template>
 
   <ng-template pTemplate="content">
     <p-button
-      cla
-      label="Hoje"
+      label="Meus lembretes"
       icon="pi pi-calendar"
       [outlined]="true"
-      routerLink="#"
+      routerLink=""
       (click)="onClickMenuOption()"
     ></p-button>
     <p-button
@@ -63,6 +71,7 @@
       label="Configurações"
       icon=" pi pi-cog"
       [outlined]="true"
+      routerLink="profile"
       (click)="onClickMenuOption()"
     ></p-button>
   </ng-template>
@@ -90,7 +99,11 @@
         class="flex align-items-center gap-2"
         (click)="menu.toggle($event)"
       >
-        <h4 class="font-medium text-sm">Andrew D.</h4>
+        <h4 class="font-medium text-sm">
+          @if (!userInfo().isLoading) {
+          {{ userInfo().data!.name | nameAbbreviation }}
+          }
+        </h4>
         <p-avatar
           icon="pi pi-user"
           shape="circle"
@@ -100,7 +113,7 @@
     </div>
   </header>
 
-  <main class="px-2 pt-3">
+  <main class="px-0 pt-3">
     <router-outlet></router-outlet>
   </main>
 </div>

@@ -1,11 +1,56 @@
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component, inject } from '@angular/core'
 
+import { AccordionModule } from 'primeng/accordion'
+import { ConfirmationService, MenuItem } from 'primeng/api'
+import { TabMenuModule } from 'primeng/tabmenu'
+import { TagModule } from 'primeng/tag'
+
+import { Router } from '@angular/router'
+import { ButtonModule } from 'primeng/button'
+import { TitleComponent } from '../../components/title/title.component'
+import { ReminderService } from '../../services/reminder/reminder.service'
 @Component({
-  selector: 'gl-reminders',
   standalone: true,
-  imports: [CommonModule],
+  selector: 'gl-reminders',
   templateUrl: './reminders.component.html',
   styleUrl: './reminders.component.scss',
+  imports: [
+    CommonModule,
+    TitleComponent,
+    TabMenuModule,
+    AccordionModule,
+    TagModule,
+    ButtonModule,
+  ],
 })
-export class RemindersComponent {}
+export class RemindersComponent {
+  private reminderService = inject(ReminderService)
+  private confirmationService = inject(ConfirmationService)
+  private router = inject(Router)
+
+  showDialog = true
+  reminders = this.reminderService.findAll()
+
+  items: MenuItem[] = [{ label: 'Todos' }]
+
+  activeItem = this.items[0]
+
+  onEdit(id: number) {
+    this.router.navigateByUrl(`/edit/${id}`)
+  }
+
+  onShow(id: number) {
+    this.router.navigateByUrl(`/show/${id}`)
+  }
+
+  onDelete(id: number) {
+    this.confirmationService.confirm({
+      header: 'Excluir lembrete?',
+      message: 'Deseja excluir esse lembrete?',
+      accept: () => {
+        console.log(id)
+      },
+    })
+  }
+}

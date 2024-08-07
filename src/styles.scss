@@ -12,6 +12,7 @@
   --dark-color: #003459;
   --black-color: #1e1e1e;
   --white-color: #fffbf8;
+  --light: #e6f6fa;
 }
 
 html,
@@ -35,7 +36,7 @@ body::before {
   background-size: contain;
   background-position: top right -140px;
   z-index: -9999;
-  filter: opacity(24%);
+  filter: opacity(20%);
 }
 
 fieldset {

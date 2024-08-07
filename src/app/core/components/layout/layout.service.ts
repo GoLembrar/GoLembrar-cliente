@@ -12,12 +12,13 @@ export class LayoutService {
     {
       label: 'Meu perfil',
       icon: 'pi pi-user',
-      routerLink: '/settings/profile',
+      routerLink: '/profile',
     },
     {
       label: 'Configurações',
       icon: 'pi pi-cog',
       routerLink: '/settings',
+      disabled: true
     },
     {
       label: 'Logout',
