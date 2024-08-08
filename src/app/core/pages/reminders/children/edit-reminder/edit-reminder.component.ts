@@ -17,7 +17,6 @@ import { switchMap } from 'rxjs'
 import { BackButtonComponent } from 'src/app/core/components/back-button/back-button.component'
 import { TitleComponent } from 'src/app/core/components/title/title.component'
 import { UpdateReminder } from 'src/app/core/models/reminder'
-import { AuthService } from 'src/app/core/services/auth.service'
 import { ContactService } from 'src/app/core/services/contact/contact.service'
 import { ReminderService } from 'src/app/core/services/reminder/reminder.service'
 
@@ -42,7 +41,6 @@ import { ReminderService } from 'src/app/core/services/reminder/reminder.service
 export class EditReminderComponent implements OnInit {
   private route = inject(ActivatedRoute)
   private router = inject(Router)
-  private authService = inject(AuthService)
   private contactService = inject(ContactService)
   private formBuilder = inject(FormBuilder)
   private reminderService = inject(ReminderService)
@@ -50,7 +48,6 @@ export class EditReminderComponent implements OnInit {
   private id = this.route.snapshot.paramMap.get('id') || ''
   public reminder$ = this.reminderService.findOne(this.id).result$
 
-  public readonly ownerId = this.authService.getJwtPayload().id
   public readonly contacts = this.contactService.getContacts()
   public loading = false
   public readonly minDate = new Date(new Date().getTime() + 30 * 60000)
@@ -60,7 +57,6 @@ export class EditReminderComponent implements OnInit {
     description: ['', [V.required, V.min(2), V.max(500)]],
     usersToReminder: [<string[]>[], [V.required, V.minLength(1)]],
     scheduled: [new Date(), V.required],
-    ownerId: [this.ownerId, V.required],
   })
 
   ngOnInit() {
@@ -85,8 +81,6 @@ export class EditReminderComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.editReminder.value)
-
     if (this.editReminder.valid) {
       this.loading = true
 
