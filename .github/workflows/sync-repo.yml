@@ -10,6 +10,9 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Syncing repository
         run: |
           gh repo sync $REPOSITORY -b main
