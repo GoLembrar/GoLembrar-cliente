@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://www.render.golembrar.com',
+  apiUrl: 'https://golembrar-server-1.onrender.com',
 }
