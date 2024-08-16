@@ -3,25 +3,12 @@
     <ng-template pTemplate="title">
       <h1 class="m-0 mb-2 text-3xl text-center">Fazer cadastro</h1>
     </ng-template>
-    <form
-      [formGroup]="account"
-      (ngSubmit)="postUser()"
-      class="p-3 flex flex-column gap-3 formgrid"
-    >
+    <form [formGroup]="account" (ngSubmit)="onSubmit()" class="p-3 flex flex-column gap-3 formgrid">
       <fieldset class="field col-12 mb-0 px-0">
         <legend>
           <label for="name">Nome</label>
         </legend>
-        <input
-          pInputText
-          type="name"
-          placeholder="Digite seu nome"
-          id="name"
-          formControlName="name"
-          class="w-full"
-          [minlength]="2"
-          [maxlength]="20"
-        />
+        <input pInputText type="name" placeholder="Digite seu nome" id="name" formControlName="name" class="w-full" [minlength]="3" [maxlength]="100" />
       </fieldset>
 
       <fieldset class="field col-12 m-0 p-0">
@@ -30,29 +17,11 @@
         </legend>
         <span class="p-input-icon-right w-full">
           <i class="pi pi-envelope"></i>
-          <input
-            type="email"
-            class="w-full"
-            pInputText
-            formControlName="email"
-            placeholder="Digite seu email"
-            id="email"
-            [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('email') }"
-            [minlength]="2"
-            [maxlength]="60"
-          />
+          <input type="email" class="w-full" pInputText formControlName="email" placeholder="Digite seu email" id="email" [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('email') }" [minlength]="4" [maxlength]="100" />
         </span>
         <div *ngIf="inputInvalid('email')">
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('email', 'required')"
-            >Campo obrigatório</small
-          >
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('email', 'email')"
-            >Digite um email válido</small
-          >
+          <small class="text-red-600" *ngIf="getInputError('email', 'required')">Campo obrigatório</small>
+          <small class="text-red-600" *ngIf="getInputError('email', 'email')">Digite um email válido</small>
         </div>
       </fieldset>
 
@@ -60,30 +29,11 @@
         <legend class="mb-2">
           <label for="password">Senha</label>
         </legend>
-        <p-password
-          formControlName="password"
-          placeholder="Digite sua senha"
-          [toggleMask]="true"
-          inputId="password"
-          [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('password') }"
-          [style]="{ width: '100%' }"
-          [inputStyle]="{ width: '100%' }"
-          promptLabel="Força da senha"
-          [minlength]="6"
-          [maxlength]="80"
-        >
+        <p-password formControlName="password" placeholder="Digite sua senha" [toggleMask]="true" inputId="password" [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('password') }" [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }" promptLabel="Força da senha" [minlength]="6" [maxlength]="25">
         </p-password>
         <div *ngIf="inputInvalid('password')">
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('password', 'required')"
-            >Campo obrigatório</small
-          >
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('password', 'pattern')"
-            >A senha deve ter no minimo 6 dígitos</small
-          >
+          <small class="text-red-600" *ngIf="getInputError('password', 'required')">Campo obrigatório</small>
+          <small class="text-red-600" *ngIf="getInputError('password', 'pattern')">A senha deve ter entre 6-25 caracteres</small>
         </div>
       </fieldset>
 
@@ -91,30 +41,11 @@
         <legend class="mb-2">
           <label for="confirmPassword">Confirmar senha</label>
         </legend>
-        <p-password
-          formControlName="confirmPassword"
-          placeholder="Confirme sua senha"
-          [toggleMask]="true"
-          inputId="confirmPassword"
-          [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('confirmPassword') }"
-          [style]="{ width: '100%' }"
-          [inputStyle]="{ width: '100%' }"
-          promptLabel="Força da senha"
-          [minlength]="6"
-          [maxlength]="80"
-        >
+        <p-password formControlName="confirmPassword" placeholder="Confirme sua senha" [toggleMask]="true" inputId="confirmPassword" [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('confirmPassword') }" [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }" promptLabel="Força da senha" [minlength]="6" [maxlength]="80">
         </p-password>
         <div *ngIf="inputInvalid('confirmPassword')">
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('confirmPassword', 'required')"
-            >Campo obrigatório</small
-          >
-          <small
-            class="text-red-600"
-            *ngIf="getInputError('confirmPassword', 'passwordMismatch')"
-            >As senhas devem ser iguais</small
-          >
+          <small class="text-red-600" *ngIf="getInputError('confirmPassword', 'required')">Campo obrigatório</small>
+          <small class="text-red-600" *ngIf="getInputError('confirmPassword', 'passwordMismatch')">As senhas devem ser iguais</small>
         </div>
       </fieldset>
 
@@ -122,22 +53,10 @@
         <small class="text-red-600">{{ getRequestError() }}</small>
       </div>
 
-      <div
-        class="flex col-12 p-0 pt-2 flex-column-reverse sm:flex-row sm:justify-content-end"
-      >
-        <p-button
-          label="Criar conta"
-          type="submit"
-          [disabled]="account.invalid || submitting"
-          [loading]="submitting"
-          styleClass="justify-content-center w-full sm:w-auto"
-        ></p-button>
+      <div class="flex col-12 p-0 pt-2 flex-column-reverse sm:flex-row sm:justify-content-end">
+        <p-button label="Criar conta" type="submit" [disabled]="account.invalid || submitting" [loading]="submitting" styleClass="justify-content-center w-full sm:w-auto"></p-button>
       </div>
-      <a
-        class="no-underline hover:underline text-blue-700 align-self-start"
-        href="/login"
-        >Já criei minha conta</a
-      >
+      <a class="no-underline hover:underline text-blue-700 align-self-start" href="/login">Já criei minha conta</a>
     </form>
   </p-card>
 </main>
