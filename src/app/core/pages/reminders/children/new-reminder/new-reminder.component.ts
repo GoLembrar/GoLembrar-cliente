@@ -16,6 +16,7 @@ import { TagModule } from 'primeng/tag'
 
 import { BackButtonComponent } from 'src/app/core/components/back-button/back-button.component'
 import { TitleComponent } from 'src/app/core/components/title/title.component'
+import { REGEX_MESSAGE, REGEX_TITLE } from 'src/app/core/constants/regexp'
 import { CreateReminder } from 'src/app/core/models/reminder'
 import { ContactService } from 'src/app/core/services/contact/contact.service'
 import { ReminderService } from 'src/app/core/services/reminder/reminder.service'
@@ -44,8 +45,8 @@ export class NewReminderComponent {
   readonly minDate = new Date(new Date().getTime() + 30 * 60000)
 
   protected newReminder = this.formBuilder.group({
-    title: ['', [V.required, V.min(2), V.max(120)]],
-    description: ['', [V.required, V.min(2), V.max(500)]],
+    title: ['', [V.required, V.pattern(REGEX_TITLE)]],
+    description: ['', [V.pattern(REGEX_MESSAGE)]],
     usersToReminder: [[], [V.required, V.minLength(1)]],
     scheduled: ['', V.required],
     categoryId: [1, V.required],
@@ -59,6 +60,8 @@ export class NewReminderComponent {
   ) {}
 
   onSubmit() {
+    console.log(this.newReminder.controls.title.value)
+    console.log(this.newReminder.controls.title.invalid)
     if (this.newReminder.valid) {
       this.loading = true
       this.reminderService
