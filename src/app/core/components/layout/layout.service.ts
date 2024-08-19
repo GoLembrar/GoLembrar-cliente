@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api'
 
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service'
 
 @Injectable()
 export class LayoutService {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private confirmationService: ConfirmationService
+  ) {}
 
   avatarMenu: MenuItem[] = [
     {
@@ -18,13 +21,19 @@ export class LayoutService {
       label: 'Configurações',
       icon: 'pi pi-cog',
       routerLink: '/settings',
-      disabled: true
+      disabled: true,
     },
     {
       label: 'Logout',
       icon: 'pi pi-sign-out',
       command: () => {
-        this.authService.logout()
+        this.confirmationService.confirm({
+          header: 'Sair da conta?',
+          message: 'Deseja sair da sua conta?',
+          accept: () => {
+            this.authService.logout()
+          },
+        })
       },
     },
   ]
