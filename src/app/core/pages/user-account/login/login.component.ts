@@ -13,7 +13,7 @@ import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 
 import { MessageService } from 'primeng/api'
-import { Subscription } from 'rxjs'
+import { Subscription, take } from 'rxjs'
 import { UserLogin } from 'src/app/core/models/user.model'
 import { AuthService } from 'src/app/core/services/auth.service'
 
@@ -56,16 +56,21 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.submitting = true
       this.subscription = this.authService
         .login(this.account.value as UserLogin)
+        .pipe(take(1))
         .subscribe({
-          next: () => {
+          next: () =>
             this.messageService.add({
               severity: 'success',
               summary: 'Sucesso',
               detail: 'Fez login na conta',
-            })
-          },
+            }),
           error: () => {
             this.submitting = false
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Credenciais inválidas',
+              detail: 'Email ou senha incorretos',
+            })
           },
         })
     }
