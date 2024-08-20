@@ -53,8 +53,8 @@ export class EditReminderComponent implements OnInit {
   public readonly minDate = new Date(new Date().getTime() + 30 * 60000)
 
   protected editReminder = this.formBuilder.group({
-    title: ['', [V.required, V.min(2), V.max(120)]],
-    description: ['', [V.required, V.min(2), V.max(500)]],
+    title: ['', [V.required, V.minLength(2), V.maxLength(120)]],
+    description: ['', [V.required, V.minLength(2), V.maxLength(500)]],
     usersToReminder: [<string[]>[], [V.required, V.minLength(1)]],
     scheduled: [new Date(), V.required],
   })
