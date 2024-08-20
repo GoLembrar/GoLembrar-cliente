@@ -36,15 +36,11 @@ export class AuthService {
   }
 
   verifyToken() {
-    if (localStorage.getItem('Bearer')) {
-      this.loginWithToken()
-    }
+    if (this.getTokens().token) this.loginWithToken()
   }
 
   ifIsAuthLogin() {
-    if (this.isAuth) {
-      this.router.navigate(['/'])
-    }
+    if (this.isAuth) this.router.navigateByUrl('/')
   }
 
   getIsAuth() {
@@ -60,15 +56,45 @@ export class AuthService {
     return this.http.post<User>(`${environment.apiUrl}/user`, body)
   }
 
+  getTokens() {
+    const token = localStorage.getItem('Bearer') ?? ''
+    const refreshToken = localStorage.getItem('RefreshBearer') ?? ''
+
+    return { token, refreshToken }
+  }
+
+  setTokens(bearer: Token) {
+    localStorage.setItem('Bearer', bearer.token)
+    localStorage.setItem('RefreshBearer', bearer.refreshToken)
+  }
+
   login(account: UserLogin): Observable<void> {
-    this.loading(true)
-    return this.http.post<Token>(`${environment.apiUrl}/auth`, account).pipe(
-      map(bearer => {
-        this.isAuth = true
-        this.router.navigate(['/'])
-        localStorage.setItem('Bearer', bearer.token)
+    return this.http
+      .post<Token>(`${environment.apiUrl}/auth`, account, {
+        withCredentials: true,
       })
-    )
+      .pipe(
+        map(bearer => {
+          this.isAuth = true
+          this.router.navigate(['/'])
+          this.setTokens(bearer)
+        })
+      )
+  }
+
+  refreshToken() {
+    return this.http
+      .get<Token>(`${environment.apiUrl}/auth/refresh`, {
+        headers: {
+          Authorization: `Bearer ${this.getTokens().refreshToken}`,
+        },
+      })
+      .pipe(
+        map(bearer => {
+          this.isAuth = true
+          this.setTokens(bearer)
+        })
+      )
   }
 
   logout() {
@@ -105,9 +131,15 @@ export class AuthService {
   }
 
   getJwtPayload() {
-    const jwtPayload = window.atob(
-      localStorage.getItem('Bearer')?.split('.')[1] ?? ''
-    )
+    const token = this.getTokens().token
+
+    const jwtPayload = window.atob(token.split('.')[1] || '')
     return JSON.parse(jwtPayload) as JwtPayload
+  }
+
+  isTokenExpired() {
+    const exp = this.getJwtPayload().exp
+    const currentTime = Math.floor(Date.now() / 1000)
+    return currentTime >= exp
   }
 }
