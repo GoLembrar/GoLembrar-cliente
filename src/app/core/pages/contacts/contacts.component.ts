@@ -129,8 +129,6 @@ export class ContactsComponent {
   }
 
   onDelete() {
-    console.log(this.contactToEdit)
-
     this.confirmationService.confirm({
       header: 'Apagar esse contato?',
       message: 'Não será possível desfazer essa ação.',
