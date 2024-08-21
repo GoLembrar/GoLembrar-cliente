@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common'
 import { Component, inject } from '@angular/core'
 
 import { AccordionModule } from 'primeng/accordion'
-import { ConfirmationService, MenuItem } from 'primeng/api'
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api'
 import { TabMenuModule } from 'primeng/tabmenu'
 import { TagModule } from 'primeng/tag'
 
@@ -27,6 +27,7 @@ import { ReminderService } from '../../services/reminder/reminder.service'
 export class RemindersComponent {
   private reminderService = inject(ReminderService)
   private confirmationService = inject(ConfirmationService)
+  private messageService = inject(MessageService)
   private router = inject(Router)
 
   showDialog = true
@@ -36,20 +37,36 @@ export class RemindersComponent {
 
   activeItem = this.items[0]
 
-  onEdit(id: number) {
+  onEdit(id: string) {
     this.router.navigateByUrl(`/edit/${id}`)
   }
 
-  onShow(id: number) {
+  onShow(id: string) {
     this.router.navigateByUrl(`/show/${id}`)
   }
 
-  onDelete(id: number) {
+  onDelete(id: string) {
     this.confirmationService.confirm({
       header: 'Excluir lembrete?',
       message: 'Deseja excluir esse lembrete?',
       accept: () => {
-        console.log(id)
+        this.reminderService.delete(id).subscribe({
+          next: () => {
+            this.reminders().refetch()
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Lembrete excluído com sucesso',
+            })
+          },
+          error: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: 'Erro ao excluir lembrete',
+            })
+          },
+        })
       },
     })
   }

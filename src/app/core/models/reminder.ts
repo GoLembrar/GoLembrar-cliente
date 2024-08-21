@@ -28,7 +28,7 @@ interface UserToReminder {
 }
 
 export interface Reminder {
-  id: number
+  id: string
   title: string
   description: string
   scheduled: Date
