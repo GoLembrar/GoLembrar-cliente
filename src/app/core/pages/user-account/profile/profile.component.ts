@@ -154,4 +154,8 @@ export class ProfileComponent {
       },
     })
   }
+
+  resetForm() {
+    this.updatePassword.reset()
+  }
 }

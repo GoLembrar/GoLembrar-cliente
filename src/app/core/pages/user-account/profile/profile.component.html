@@ -4,6 +4,7 @@
   [draggable]="false"
   [resizable]="false"
   [closeOnEscape]="false"
+  (onHide)="resetForm()"
 >
   <ng-template pTemplate="header">
     <gl-title
