@@ -5,5 +5,13 @@
   "prettier.singleAttributePerLine": true,
   "prettier.singleQuote": false,
   "editor.formatOnPaste": false,
-  "javascript.format.insertSpaceAfterConstructor": false
+  "javascript.format.insertSpaceAfterConstructor": false,
+  "angular-schematics.schematicsDefaultOptions": {
+    "angular-*": {
+      "externalTemplate": true
+    },
+    "angular-page": {
+      "skipChangeDetectionOnPush": true
+    }
+  }
 }

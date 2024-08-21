@@ -32,7 +32,7 @@ export class RemindersComponent {
   showDialog = true
   reminders = this.reminderService.findAll()
 
-  items: MenuItem[] = [{ label: 'Todos' }]
+  items: MenuItem[] = [{ label: 'Hoje' }]
 
   activeItem = this.items[0]
 

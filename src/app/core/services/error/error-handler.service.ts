@@ -27,10 +27,7 @@ export class ErrorHandlerService implements ErrorHandler {
           detail: 'Email já cadastrado',
         })
       },
-      404: (_response: HttpErrorResponse) => {
-        // localStorage.clear()
-        // location.reload()
-      },
+      404: (_response: HttpErrorResponse) => {},
       403: (_response: HttpErrorResponse) => {
         this.messageService.add({
           severity: 'info',
@@ -40,13 +37,7 @@ export class ErrorHandlerService implements ErrorHandler {
         location.reload()
         localStorage.clear()
       },
-      401: (_response: HttpErrorResponse) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Credenciais inválidas',
-          detail: 'Email ou senha incorretos',
-        })
-      },
+      401: (_response: HttpErrorResponse) => {},
       0: (_response: HttpErrorResponse) => {
         this.messageService.add({
           severity: 'info',
@@ -61,8 +52,6 @@ export class ErrorHandlerService implements ErrorHandler {
     const handler = this.errorHandlers[response.status]
 
     if (handler) handler(response)
-    else {
-    }
     return throwError(() => new Error())
   }
 }

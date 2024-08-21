@@ -43,27 +43,22 @@
   </ng-template>
 
   <ng-template pTemplate="content">
-    <p-button
-      label="Meus lembretes"
-      icon="pi pi-calendar"
-      [outlined]="true"
-      routerLink=""
-      (click)="onClickMenuOption()"
-    ></p-button>
-    <p-button
-      label="Agendados"
-      icon="pi pi-clock"
-      [outlined]="true"
-      routerLink="#"
-      (click)="onClickMenuOption()"
-    ></p-button>
-    <p-button
-      label="Meus contatos"
-      icon="pi pi-users"
-      [outlined]="true"
-      routerLink="contacts"
-      (click)="onClickMenuOption()"
-    ></p-button>
+    <div class="mt-6">
+      <p-button
+        label="Hoje"
+        icon="pi pi-calendar"
+        [outlined]="true"
+        routerLink=""
+        (click)="onClickMenuOption()"
+      ></p-button>
+      <p-button
+        label="Meus contatos"
+        icon="pi pi-users"
+        [outlined]="true"
+        routerLink="contacts"
+        (click)="onClickMenuOption()"
+      ></p-button>
+    </div>
   </ng-template>
 
   <ng-template pTemplate="footer">
