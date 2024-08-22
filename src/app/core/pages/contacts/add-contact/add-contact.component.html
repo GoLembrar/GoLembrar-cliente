@@ -1,35 +1,80 @@
-<gl-title label1="Novo" label2="contato" />
+<gl-title
+  label1="Novo"
+  label2="contato"
+/>
 
 <gl-back-button />
 
-<form [formGroup]="newContact" (ngSubmit)="onSubmit()" class="flex flex-column md:flex-row align-items-top justify-content-center gap-4 w-full pt-4 md:mt-4">
+<form
+  [formGroup]="newContact"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-column md:flex-row align-items-top justify-content-center gap-4 w-full pt-4 md:mt-4"
+>
   <div class="flex justify-content-center mt-2">
-    <p-avatar label="A" size="xlarge" shape="circle" styleClass="cursor-pointer" [style]="{
+    <p-avatar
+      label="A"
+      size="xlarge"
+      shape="circle"
+      styleClass="cursor-pointer"
+      [style]="{
         width: '220px',
         height: '220px'
-      }" />
+      }"
+    />
   </div>
 
   <div class="formgrid grid gap-2 mx-1">
     <fieldset class="field col-12 m-0 p-0">
       <legend>
-        <label for="name" class="block mb-1">Nome</label>
+        <label
+          for="name"
+          class="block mb-1"
+          >Nome</label
+        >
       </legend>
       <span class="p-input-icon-right w-full">
         <i class="pi pi-user"></i>
-        <input type="text" class="w-full" pInputText formControlName="name" placeholder="Digite o nome do contato" id="name" [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('name') }" [minlength]="2" [maxlength]="100" />
+        <input
+          type="text"
+          class="w-full"
+          pInputText
+          formControlName="name"
+          placeholder="Digite o nome do contato"
+          id="name"
+          [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('name') }"
+          [minlength]="2"
+          [maxlength]="100"
+        />
       </span>
       <div *ngIf="inputInvalid('name')">
-        <small class="text-red-600" *ngIf="getInputError('name', 'required')">Campo obrigatório</small>
+        <small
+          class="text-red-600"
+          *ngIf="getInputError('name', 'required')"
+          >Campo obrigatório</small
+        >
       </div>
     </fieldset>
 
     <fieldset class="field col-12 m-0 p-0">
       <legend>
-        <label for="channel" class="block mb-1">Canal</label>
+        <label
+          for="channel"
+          class="block mb-1"
+          >Canal</label
+        >
       </legend>
-      <p-dropdown styleClass="flex" formControlName="channel" [options]="channels" optionLabel="label" optionValue="value" placeholder="Selecione uma plataforma">
-        <ng-template let-channel pTemplate="item">
+      <p-dropdown
+        styleClass="flex"
+        formControlName="channel"
+        [options]="channels"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Selecione uma plataforma"
+      >
+        <ng-template
+          let-channel
+          pTemplate="item"
+        >
           <div class="flex align-items-center gap-2">
             <span class=""><i [class]="channel.icon"></i></span>
             <div>{{ channel.label }}</div>
@@ -37,27 +82,55 @@
         </ng-template>
       </p-dropdown>
       <div *ngIf="inputInvalid('channel')">
-        <small class="text-red-600" *ngIf="getInputError('channel', 'required')">Campo obrigatório</small>
+        <small
+          class="text-red-600"
+          *ngIf="getInputError('channel', 'required')"
+          >Campo obrigatório</small
+        >
       </div>
     </fieldset>
 
     <fieldset class="field col-12 m-0 p-0">
       <legend>
-        <label for="identify" class="block mb-1">Identificador</label>
+        <label
+          for="identify"
+          class="block mb-1"
+          >Identificador</label
+        >
       </legend>
       <span class="p-input-icon-right w-full">
         <i class="pi pi-book"></i>
-        <input type="text" class="w-full" pInputText formControlName="identify" placeholder="email@email.com" id="identify" [ngClass]="{
+        <input
+          type="text"
+          class="w-full"
+          pInputText
+          formControlName="identify"
+          placeholder="email@email.com"
+          id="identify"
+          [ngClass]="{
             'ng-invalid ng-dirty': inputInvalid('identify')
-          }" [minlength]="2" [maxlength]="100" />
+          }"
+          [minlength]="2"
+          [maxlength]="100"
+        />
       </span>
       <div *ngIf="inputInvalid('identify')">
-        <small class="text-red-600" *ngIf="getInputError('identify', 'required')">Campo obrigatório</small>
+        <small
+          class="text-red-600"
+          *ngIf="getInputError('identify', 'required')"
+          >Campo obrigatório</small
+        >
       </div>
     </fieldset>
 
     <div class="card flex col-12 gap-3 justify-content-end p-0 mt-2">
-      <p-button type="submit" icon="pi pi-check" label="Salvar" [disabled]="newContact.invalid || loading" [loading]="loading"></p-button>
+      <p-button
+        type="submit"
+        icon="pi pi-check"
+        label="Salvar"
+        [disabled]="newContact.invalid || loading"
+        [loading]="loading"
+      ></p-button>
     </div>
   </div>
 </form>
