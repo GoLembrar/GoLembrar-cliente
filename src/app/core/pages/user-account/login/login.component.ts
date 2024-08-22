@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   private subscription = new Subscription()
 
   protected account = this.formBuilder.group({
-    email: ['', [V.required, V.email, V.minLength(2), V.maxLength(60)]],
-    password: ['', [V.required, V.minLength(6), V.maxLength(80)]],
+    email: ['', [V.required, V.email, V.minLength(4), V.maxLength(100)]],
+    password: ['', [V.required, V.minLength(6), V.maxLength(25)]],
   })
 
   constructor(

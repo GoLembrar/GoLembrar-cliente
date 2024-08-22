@@ -62,7 +62,7 @@ export class ContactsComponent {
   protected contactToEditForm = this.formBuilder.group({
     name: ['', [V.required, V.pattern(REGEX_NAME)]],
     channel: [Channel.EMAIL],
-    identify: ['', [V.required, V.email, V.min(2), V.max(255)]],
+    identify: ['', [V.required, V.email, V.min(4), V.max(255)]],
   })
 
   onEdit(contact: Contact) {
@@ -95,9 +95,9 @@ export class ContactsComponent {
             this.showEditContact = false
             return
           }
-  
+
           this.loading = true
-  
+
           this.contactService
             .edit(
               this.contactToEditForm.value as EditContact,

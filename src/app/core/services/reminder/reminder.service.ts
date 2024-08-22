@@ -44,7 +44,7 @@ export class ReminderService {
     )
   }
 
-  delete (id: string) {
+  delete(id: string) {
     return this.http.delete(`${environment.apiUrl}/reminder/${id}`)
   }
 }

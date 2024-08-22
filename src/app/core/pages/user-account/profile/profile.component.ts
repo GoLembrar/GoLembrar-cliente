@@ -59,21 +59,18 @@ export class ProfileComponent {
   protected updateProfile = this.formBuilder.group({
     name: [
       this.userInfo().data?.name,
-      [V.required, V.minLength(2), V.maxLength(60)],
+      [V.required, V.minLength(3), V.maxLength(100)],
     ],
     email: [
       this.userInfo().data?.email,
-      [V.required, V.email, V.minLength(2), V.maxLength(60)],
+      [V.required, V.email, V.minLength(4), V.maxLength(100)],
     ],
   })
 
   protected updatePassword = this.formBuilder.group({
-    password: ['', [V.required, V.minLength(6), V.maxLength(80)]],
-    newPassword: [
-      '',
-      [V.required, V.minLength(6), V.maxLength(80), V.pattern(REGEX_PASSWORD)],
-    ],
-    confirmNewPassword: ['', [V.required, V.minLength(6), V.maxLength(80)]],
+    password: ['', [V.required, V.minLength(6), V.maxLength(25)]],
+    newPassword: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
+    confirmNewPassword: ['', [V.required, V.minLength(6), V.maxLength(25)]],
   })
 
   constructor(
