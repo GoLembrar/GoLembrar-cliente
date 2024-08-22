@@ -5,7 +5,7 @@
     </ng-template>
     <form
       [formGroup]="account"
-      (ngSubmit)="postUser()"
+      (ngSubmit)="onSubmit()"
       class="p-3 flex flex-column gap-3 formgrid"
     >
       <fieldset class="field col-12 mb-0 px-0">
@@ -19,8 +19,8 @@
           id="name"
           formControlName="name"
           class="w-full"
-          [minlength]="2"
-          [maxlength]="20"
+          [minlength]="3"
+          [maxlength]="100"
         />
       </fieldset>
 
@@ -38,8 +38,8 @@
             placeholder="Digite seu email"
             id="email"
             [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('email') }"
-            [minlength]="2"
-            [maxlength]="60"
+            [minlength]="4"
+            [maxlength]="100"
           />
         </span>
         <div *ngIf="inputInvalid('email')">
@@ -70,7 +70,7 @@
           [inputStyle]="{ width: '100%' }"
           promptLabel="Força da senha"
           [minlength]="6"
-          [maxlength]="80"
+          [maxlength]="25"
         >
         </p-password>
         <div *ngIf="inputInvalid('password')">
@@ -82,7 +82,7 @@
           <small
             class="text-red-600"
             *ngIf="getInputError('password', 'pattern')"
-            >A senha deve ter no minimo 6 dígitos</small
+            >A senha deve ter entre 6-25 caracteres</small
           >
         </div>
       </fieldset>
@@ -101,7 +101,7 @@
           [inputStyle]="{ width: '100%' }"
           promptLabel="Força da senha"
           [minlength]="6"
-          [maxlength]="80"
+          [maxlength]="25"
         >
         </p-password>
         <div *ngIf="inputInvalid('confirmPassword')">

@@ -15,7 +15,11 @@ import { InputMaskModule } from 'primeng/inputmask'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 import { Subscription } from 'rxjs'
-import { REGEX_PASSWORD } from 'src/app/core/constants/regexp'
+import {
+  REGEX_EMAIL,
+  REGEX_NAME,
+  REGEX_PASSWORD,
+} from 'src/app/core/constants/regexp'
 import { User } from 'src/app/core/models/user.model'
 import { AuthService } from 'src/app/core/services/auth.service'
 import { getInputError, inputInvalid } from 'src/app/core/utils/input'
@@ -37,7 +41,6 @@ import { getInputError, inputInvalid } from 'src/app/core/utils/input'
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   protected submitting = false
-
   private subscription = new Subscription()
 
   constructor(
@@ -53,18 +56,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   protected account = this.formBuilder.group(
     {
-      name: ['', [V.required, V.minLength(2), V.maxLength(60)]],
-      email: ['', [V.required, V.email, V.minLength(2), V.maxLength(60)]],
-      password: [
-        '',
-        [
-          V.required,
-          V.minLength(6),
-          V.maxLength(80),
-          V.pattern(REGEX_PASSWORD),
-        ],
-      ],
-      confirmPassword: ['', [V.required, V.minLength(6), V.maxLength(80)]],
+      name: ['', [V.required, V.pattern(REGEX_NAME)]],
+      email: ['', [V.required, V.pattern(REGEX_EMAIL)]],
+      password: ['', [V.required, V.pattern(REGEX_PASSWORD)]],
+      confirmPassword: ['', [V.required, V.minLength(6), V.maxLength(25)]],
     },
     {
       validators: this.comparatePassword(),
@@ -106,10 +101,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.authService.messageError
   }
 
-  postUser(): void {
+  onSubmit(): void {
     this.submitting = true
     this.account.controls.confirmPassword.disable()
-
     this.subscription = this.authService
       .register(this.account.value as User)
       .subscribe({

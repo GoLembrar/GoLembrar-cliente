@@ -6,18 +6,17 @@ import {
   Validators as V,
 } from '@angular/forms'
 import { RouterModule } from '@angular/router'
-
+import { ConfirmationService, MessageService } from 'primeng/api'
 import { AvatarModule } from 'primeng/avatar'
 import { ButtonModule } from 'primeng/button'
 import { ChipModule } from 'primeng/chip'
 import { DialogModule } from 'primeng/dialog'
+import { InputTextModule } from 'primeng/inputtext'
 import { MenuModule } from 'primeng/menu'
 import { ProgressSpinnerModule } from 'primeng/progressspinner'
-
-import { ConfirmationService, MessageService } from 'primeng/api'
-import { InputTextModule } from 'primeng/inputtext'
 import { TitleComponent } from '../../components/title/title.component'
 import { contactChannels } from '../../constants/contact-channels'
+import { REGEX_NAME } from '../../constants/regexp'
 import { Contact, EditContact } from '../../models/contact'
 import { Channel } from '../../models/enums/channels'
 import { ContactService } from '../../services/contact/contact.service'
@@ -61,9 +60,9 @@ export class ContactsComponent {
   ) {}
 
   protected contactToEditForm = this.formBuilder.group({
-    name: ['', [V.required, V.min(2), V.max(255)]],
+    name: ['', [V.required, V.pattern(REGEX_NAME)]],
     channel: [Channel.EMAIL],
-    identify: ['', [V.required, V.email, V.min(2), V.max(255)]],
+    identify: ['', [V.required, V.email, V.min(4), V.max(255)]],
   })
 
   onEdit(contact: Contact) {
@@ -77,59 +76,59 @@ export class ContactsComponent {
   }
 
   onSave() {
-    this.confirmationService.confirm({
-      header: 'Salvar edição?',
-      message: 'Confirmar edição de contato?',
-      accept: () => {
-        if (
-          this.contactToEdit.name ===
-            this.contactToEditForm.controls.name.value &&
-          this.contactToEdit.identify ===
-            this.contactToEditForm.controls.identify.value
-        ) {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sucesso',
-            detail: 'Contato foi atualizado',
-          })
-          this.showEditContact = false
-          return
-        }
+    if (!this.contactToEditForm.invalid) {
+      this.confirmationService.confirm({
+        header: 'Salvar edição?',
+        message: 'Confirmar edição de contato?',
+        accept: () => {
+          if (
+            this.contactToEdit.name ===
+              this.contactToEditForm.controls.name.value &&
+            this.contactToEdit.identify ===
+              this.contactToEditForm.controls.identify.value
+          ) {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Contato foi atualizado',
+            })
+            this.showEditContact = false
+            return
+          }
 
-        this.loading = true
+          this.loading = true
 
-        this.contactService
-          .edit(
-            this.contactToEditForm.value as EditContact,
-            this.contactToEdit.id
-          )
-          .subscribe({
-            next: () => {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Sucesso',
-                detail: 'Contato foi atualizado',
-              })
-              this.showEditContact = false
-              this.loading = false
-              this.contacts().refetch()
-            },
-            error: () => {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Erro',
-                detail: 'Erro ao atualizar contato',
-              })
-              this.loading = false
-            },
-          })
-      },
-    })
+          this.contactService
+            .edit(
+              this.contactToEditForm.value as EditContact,
+              this.contactToEdit.id
+            )
+            .subscribe({
+              next: () => {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Sucesso',
+                  detail: 'Contato foi atualizado',
+                })
+                this.showEditContact = false
+                this.loading = false
+                this.contacts().refetch()
+              },
+              error: () => {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Erro',
+                  detail: 'Erro ao atualizar contato',
+                })
+                this.loading = false
+              },
+            })
+        },
+      })
+    }
   }
 
   onDelete() {
-    console.log(this.contactToEdit)
-
     this.confirmationService.confirm({
       header: 'Apagar esse contato?',
       message: 'Não será possível desfazer essa ação.',

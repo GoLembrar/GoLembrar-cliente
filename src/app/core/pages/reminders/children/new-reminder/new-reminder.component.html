@@ -26,7 +26,7 @@
         placeholder="Digite o título da mensagem"
         id="title"
         [minlength]="2"
-        [maxlength]="128"
+        [maxlength]="120"
       />
     </fieldset>
 
@@ -47,7 +47,7 @@
         id="description"
         formControlName="description"
         [autoResize]="true"
-        [minlength]="2"
+        [minlength]="3"
         [maxlength]="500"
       ></textarea>
     </fieldset>
@@ -140,7 +140,7 @@
       icon="pi pi-check"
       label="Salvar"
       (onClick)="onSubmit()"
-      [disabled]="loading"
+      [disabled]="loading || newReminder.invalid"
       [loading]="loading"
     ></p-button>
   </div>

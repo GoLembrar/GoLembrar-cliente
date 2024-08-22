@@ -42,8 +42,8 @@
           placeholder="Digite o nome do contato"
           id="name"
           [ngClass]="{ 'ng-invalid ng-dirty': inputInvalid('name') }"
-          [minlength]="2"
-          [maxlength]="60"
+          [minlength]="3"
+          [maxlength]="100"
         />
       </span>
       <div *ngIf="inputInvalid('name')">
@@ -110,8 +110,8 @@
           [ngClass]="{
             'ng-invalid ng-dirty': inputInvalid('identify')
           }"
-          [minlength]="2"
-          [maxlength]="60"
+          [minlength]="4"
+          [maxlength]="100"
         />
       </span>
       <div *ngIf="inputInvalid('identify')">

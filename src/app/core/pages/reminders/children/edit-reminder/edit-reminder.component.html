@@ -50,7 +50,7 @@
         id="description"
         formControlName="description"
         [autoResize]="true"
-        [minlength]="2"
+        [minlength]="3"
         [maxlength]="500"
       ></textarea>
     </fieldset>
@@ -146,7 +146,7 @@
     <p-button
       icon="pi pi-check"
       label="Salvar"
-      [disabled]="loading"
+      [disabled]="loading || editReminder.invalid"
       [loading]="loading"
       (onClick)="onSubmit()"
     ></p-button>
