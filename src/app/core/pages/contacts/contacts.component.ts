@@ -1,12 +1,17 @@
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import {
+  FormsModule,
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators as V,
 } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { ConfirmationService, MessageService } from 'primeng/api'
+import {
+  AutoCompleteCompleteEvent,
+  AutoCompleteModule,
+} from 'primeng/autocomplete'
 import { AvatarModule } from 'primeng/avatar'
 import { ButtonModule } from 'primeng/button'
 import { ChipModule } from 'primeng/chip'
@@ -40,6 +45,8 @@ import { LoadingComponent } from './loading/loading.component'
     DialogModule,
     ProgressSpinnerModule,
     LoadingComponent,
+    AutoCompleteModule,
+    FormsModule,
   ],
 })
 export class ContactsComponent {
@@ -49,6 +56,9 @@ export class ContactsComponent {
   contactToEdit = {} as Contact
 
   contacts = this.contactService.getContacts()
+
+  selectedItem: any
+  suggestions: Contact[] = []
 
   channels = contactChannels
 
@@ -128,12 +138,12 @@ export class ContactsComponent {
     }
   }
 
-  onDelete() {
+  onDelete(contact: Contact) {
     this.confirmationService.confirm({
       header: 'Apagar esse contato?',
       message: 'Não será possível desfazer essa ação.',
       accept: () => {
-        this.contactService.delete(this.contactToEdit.id).subscribe({
+        this.contactService.delete(contact.id).subscribe({
           next: () => {
             this.messageService.add({
               severity: 'info',
@@ -154,6 +164,14 @@ export class ContactsComponent {
           },
         })
       },
+    })
+  }
+
+  search(event: AutoCompleteCompleteEvent) {
+    const inputValue = event.query.toLowerCase()
+    const contacts = this.contacts().data || []
+    this.suggestions = contacts.filter(contact => {
+      return contact.name.toLowerCase().includes(inputValue)
     })
   }
 }

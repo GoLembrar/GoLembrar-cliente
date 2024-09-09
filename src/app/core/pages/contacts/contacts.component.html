@@ -5,10 +5,15 @@
   [resizable]="false"
 >
   <ng-template pTemplate="header">
-    <gl-title
-      label1="Editar"
-      label2="contato"
-    ></gl-title>
+    <header
+      style="max-width: 900px; margin: auto"
+      class="pb-5"
+    >
+      <gl-title
+        label1="Editar"
+        label2="contato"
+      ></gl-title>
+    </header>
   </ng-template>
   <ng-template pTemplate="content">
     <form
@@ -78,7 +83,7 @@
           [link]="true"
           [loading]="loading"
           [disabled]="contactToEditForm.invalid || loading"
-          (click)="onDelete()"
+          (click)="onDelete(contactToEdit)"
         ></p-button>
 
         <p-button
@@ -99,10 +104,12 @@
   </ng-template>
 </p-dialog>
 
-<gl-title
-  label1="Meus"
-  label2="contatos"
-/>
+<header class="pb-5">
+  <gl-title
+    label1="Meus"
+    label2="contatos"
+  />
+</header>
 
 <div class="flex justify-content-between align-items-center pt-4">
   <p-button
@@ -119,15 +126,23 @@
       [popup]="true"
       styleClass="mt-3"
     />
-    <p-button
-      styleClass="bg-white px-4"
-      icon="pi pi-filter"
-      label="Filtrar canais"
-      size="small"
-      severity="secondary"
-      [outlined]="true"
-      (onClick)="menu.toggle($event)"
-    />
+    <div class="flex align-items-center justify-content-center gap-4">
+      <p-autoComplete
+        [(ngModel)]="selectedItem"
+        [suggestions]="suggestions"
+        (completeMethod)="search($event)"
+        field="name"
+        placeholder="Pesquisar"
+      />
+      <p-button
+        styleClass="bg-white px-4"
+        icon="pi pi-filter"
+        label="Filtrar canais"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="menu.toggle($event)"
+      />
+    </div>
   </div>
 </div>
 
@@ -166,13 +181,22 @@
         } }
       </div>
     </div>
-    <p-button
-      icon="pi pi-pencil"
-      [rounded]="true"
-      [text]="true"
-      severity="info"
-      (onClick)="onEdit(contact)"
-    ></p-button>
+    <div id="actions-icons">
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        severity="info"
+        (onClick)="onEdit(contact)"
+      ></p-button>
+      <p-button
+        icon="pi pi-trash"
+        [rounded]="true"
+        [text]="true"
+        severity="info"
+        (onClick)="onDelete(contact)"
+      ></p-button>
+    </div>
   </li>
   }
 </ul>
