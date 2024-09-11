@@ -1,14 +1,16 @@
-<gl-title
-  label1="Novo"
-  label2="contato"
-/>
+<header class="header">
+  <gl-title
+    label1="Novo"
+    label2="contato"
+  />
 
-<gl-back-button />
+  <gl-back-button />
+</header>
 
 <form
   [formGroup]="newContact"
   (ngSubmit)="onSubmit()"
-  class="flex flex-column md:flex-row align-items-top justify-content-center gap-4 w-full pt-4 md:mt-4"
+  class="flex flex-column md:flex-row align-items-top justify-content-center gap-6 w-full pt-4 md:mt-4"
 >
   <div class="flex justify-content-center mt-2">
     <p-avatar
@@ -23,12 +25,12 @@
     />
   </div>
 
-  <div class="formgrid grid gap-2 mx-1">
+  <div class="formgrid grid gap-4 mx-1">
     <fieldset class="field col-12 m-0 p-0">
       <legend>
         <label
           for="name"
-          class="block mb-1"
+          class="block mb-2 font-bold line-height-2"
           >Nome</label
         >
       </legend>
@@ -59,7 +61,7 @@
       <legend>
         <label
           for="channel"
-          class="block mb-1"
+          class="block mb-2 font-bold line-height-2"
           >Canal</label
         >
       </legend>
@@ -94,7 +96,7 @@
       <legend>
         <label
           for="identify"
-          class="block mb-1"
+          class="block mb-2 font-bold line-height-2"
           >Identificador</label
         >
       </legend>
