@@ -86,7 +86,7 @@ export class ContactsComponent {
   }
 
   onSave() {
-    if (!this.contactToEditForm.invalid) {
+    if (!this.contactToEditForm.invalid && !this.contactToEditForm.pristine) {
       this.confirmationService.confirm({
         header: 'Salvar edição?',
         message: 'Confirmar edição de contato?',
@@ -138,12 +138,12 @@ export class ContactsComponent {
     }
   }
 
-  onDelete(contact: Contact) {
+  onDelete(id: string) {
     this.confirmationService.confirm({
       header: 'Apagar esse contato?',
       message: 'Não será possível desfazer essa ação.',
       accept: () => {
-        this.contactService.delete(contact.id).subscribe({
+        this.contactService.delete(id).subscribe({
           next: () => {
             this.messageService.add({
               severity: 'info',

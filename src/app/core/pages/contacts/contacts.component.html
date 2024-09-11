@@ -34,11 +34,11 @@
         <legend>
           <label
             for="name"
-            class="block mb-1"
+            class="block mb-2"
             >Nome</label
           >
         </legend>
-        <span class="p-input-icon-right w-full">
+        <span class="p-input-icon-left w-full">
           <i class="pi pi-user"></i>
           <input
             type="text"
@@ -56,11 +56,11 @@
         <legend>
           <label
             for="identify"
-            class="block mb-1"
+            class="block mb-2"
             >Identificador</label
           >
         </legend>
-        <span class="p-input-icon-right w-full">
+        <span class="p-input-icon-left w-full">
           <i class="pi pi-envelope"></i>
           <input
             id="identify"
@@ -73,24 +73,11 @@
           />
         </span>
       </fieldset>
-      <div class="flex col-12 gap-3 justify-content-between py-0 px-2 mt-1">
-        <p-button
-          label="Apagar"
-          styleClass="justify-content-center text-red-600"
-          icon="pi pi-times"
-          size="small"
-          severity="danger"
-          [link]="true"
-          [loading]="loading"
-          [disabled]="contactToEditForm.invalid || loading"
-          (click)="onDelete(contactToEdit)"
-        ></p-button>
-
+      <div class="flex justify-content-end col-12 py-0 px-2 mt-1">
         <p-button
           label="Salvar"
-          styleClass="justify-content-center"
+          styleClass="cursor-pointer"
           icon="pi pi-check"
-          size="small"
           [link]="true"
           [loading]="loading"
           type="submit"
@@ -98,7 +85,7 @@
             contactToEditForm.invalid || loading || contactToEditForm.pristine
           "
           (click)="onSave()"
-        ></p-button>
+        />
       </div>
     </form>
   </ng-template>
@@ -186,15 +173,15 @@
         icon="pi pi-pencil"
         [rounded]="true"
         [text]="true"
-        severity="info"
+        severity="secondary"
         (onClick)="onEdit(contact)"
       ></p-button>
       <p-button
         icon="pi pi-trash"
         [rounded]="true"
         [text]="true"
-        severity="info"
-        (onClick)="onDelete(contact)"
+        severity="secondary"
+        (onClick)="onDelete(contact.id)"
       ></p-button>
     </div>
   </li>
