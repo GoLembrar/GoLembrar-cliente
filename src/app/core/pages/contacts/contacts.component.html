@@ -135,10 +135,10 @@
 
 @if (contacts().isLoading) {
 <gl-loading></gl-loading>
-} @else if (contacts().data!.length > 0) {
+} @if (contacts().data; as contacts) {
 
 <ul class="px-0 pt-4 flex flex-column gap-3">
-  @for (contact of contacts().data; track $index) {
+  @for (contact of contacts; track $index) {
   <li
     class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-1 border-round-xl"
   >
@@ -168,7 +168,7 @@
         } }
       </div>
     </div>
-    <div id="actions-icons">
+    <div class="flex flex-column sm:flex-row">
       <p-button
         icon="pi pi-pencil"
         [rounded]="true"
@@ -185,9 +185,8 @@
       ></p-button>
     </div>
   </li>
+  } @empty {
+  <li class="text-center block mt-4">Nenhum contato cadastrado</li>
   }
 </ul>
-} @else {
-
-<p class="text-center block mt-4">Nenhum contato cadastrado</p>
 }

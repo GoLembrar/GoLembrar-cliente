@@ -83,7 +83,7 @@ export class AuthService {
   }
 
   refreshToken() {
-    if (!this.isTokenExpired(this.getTokens().refreshToken)) this.logout()
+    if (this.isTokenExpired(this.getTokens().refreshToken)) this.logout()
 
     return this.http
       .get<Token>(`${environment.apiUrl}/auth/refresh`, {

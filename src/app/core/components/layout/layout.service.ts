@@ -18,12 +18,6 @@ export class LayoutService {
       routerLink: '/profile',
     },
     {
-      label: 'Configurações',
-      icon: 'pi pi-cog',
-      routerLink: '/settings',
-      disabled: true,
-    },
-    {
       label: 'Logout',
       icon: 'pi pi-sign-out',
       command: () => {
