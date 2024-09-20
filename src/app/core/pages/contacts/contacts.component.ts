@@ -14,11 +14,14 @@ import {
 } from 'primeng/autocomplete'
 import { AvatarModule } from 'primeng/avatar'
 import { ButtonModule } from 'primeng/button'
+import { CheckboxModule } from 'primeng/checkbox'
 import { ChipModule } from 'primeng/chip'
 import { DialogModule } from 'primeng/dialog'
 import { InputTextModule } from 'primeng/inputtext'
 import { MenuModule } from 'primeng/menu'
 import { ProgressSpinnerModule } from 'primeng/progressspinner'
+import { TagModule } from 'primeng/tag'
+
 import { TitleComponent } from '../../components/title/title.component'
 import { contactChannels } from '../../constants/contact-channels'
 import { REGEX_NAME } from '../../constants/regexp'
@@ -40,6 +43,8 @@ import { LoadingComponent } from './loading/loading.component'
     ButtonModule,
     InputTextModule,
     MenuModule,
+    CheckboxModule,
+    TagModule,
     AvatarModule,
     TitleComponent,
     DialogModule,
@@ -52,9 +57,8 @@ import { LoadingComponent } from './loading/loading.component'
 export class ContactsComponent {
   showEditContact = false
   loading = false
-
+  selectedChannels: string[] = ['EMAIL']
   contactToEdit = {} as Contact
-
   contacts = this.contactService.getContacts()
 
   selectedItem: any

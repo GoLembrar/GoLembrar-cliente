@@ -109,10 +109,45 @@
   <div>
     <p-menu
       #menu
-      [model]="channels"
       [popup]="true"
-      styleClass="mt-3"
-    />
+      [model]="channels"
+      styleClass="mt-3 w-auto"
+    >
+      <ng-template
+        pTemplate="item"
+        let-item
+      >
+        <div class="flex align-items-center justify-content-start gap-2 p-2">
+          <p-checkbox
+            [value]="item.value"
+            [disabled]="item.disabled"
+            [inputId]="item.value"
+            [disabled]="item.disabled"
+            [name]="item.value"
+            [(ngModel)]="selectedChannels"
+          />
+          <label
+            [for]="item.value"
+            class="w-full px-2 flex align-items-center justify-content-start cursor-pointer"
+          >
+            <i
+              [class]="item.icon"
+              class="mr-2"
+            ></i>
+            {{ item.label }}
+
+            @if (item.disabled) {
+            <p-tag
+              class="ml-2"
+              [style]="{ background: 'var(--secondary-color)' }"
+              severity="info"
+              value="EM BREVE"
+            />
+            }
+          </label>
+        </div>
+      </ng-template>
+    </p-menu>
     <div class="flex align-items-center justify-content-center gap-4">
       <p-autoComplete
         [(ngModel)]="selectedItem"
