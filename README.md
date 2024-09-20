@@ -2,7 +2,7 @@
 
 ## 💭 Oque é o projeto?
 
-O GoLembrar é uma plataforma web desenvolvida para simplificar o gerenciamento de lembretes e mensagens, proporcionando aos usuários uma maneira eficiente de organizar suas tarefas diárias, compromissos e eventos importantes. Com integração a diversas plataformas de mensagens, como WhatsApp, E-mail, Telegram e Discord, o sistema automatiza o processo de entrega de lembretes, oferecendo uma experiência de usuário fluida e eficaz. Além disso, os usuários têm a capacidade de personalizar a data, hora e destinatário de cada lembrete, garantindo uma experiência de uso totalmente adaptada às suas necessidades individuais. Seja para lembrar-se de compromissos profissionais ou pessoais, o GoLembrar oferece uma solução abrangente e conveniente para manter os usuários sempre atualizados e organizados.
+O goLembrar é uma plataforma web desenvolvida para simplificar o gerenciamento de lembretes e mensagens, proporcionando aos usuários uma maneira eficiente de organizar suas tarefas diárias, compromissos e eventos importantes. Com integração a diversas plataformas de mensagens, como WhatsApp, E-mail, Telegram e Discord, o sistema automatiza o processo de entrega de lembretes, oferecendo uma experiência de usuário fluida e eficaz. Além disso, os usuários têm a capacidade de personalizar a data, hora e destinatário de cada lembrete, garantindo uma experiência de uso totalmente adaptada às suas necessidades individuais. Seja para lembrar-se de compromissos profissionais ou pessoais, o goLembrar oferece uma solução abrangente e conveniente para manter os usuários sempre atualizados e organizados.
 
 ## 🔥 Como rodar o sistema
 
@@ -10,7 +10,7 @@ O GoLembrar é uma plataforma web desenvolvida para simplificar o gerenciamento 
 - Instale as dependências com `npm install`.
 - Rode o client com o `npm start`.
 
-## 💡 Características principais do GoLembrar
+## 💡 Características principais do goLembrar
 
 - **Lembretes Personalizados**: Os usuários podem criar lembretes personalizados para uma ampla variedade de atividades, permitindo a configuração de datas, horas e destinatários específicos para cada lembrete. Isso proporciona uma experiência altamente adaptável e organizada.
 
