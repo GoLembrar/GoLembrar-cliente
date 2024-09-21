@@ -9,7 +9,21 @@
   }
 
   p-tag {
-    // background: var(--secondary-color);
     font-size: smaller;
+  }
+
+  ::ng-deep {
+    @layer primeng {
+      .p-button.p-button-secondary.p-button-text:not(:disabled) {
+        color: var(--dark-color);
+
+        &.edit-button:hover {
+          color: var(--primary-color);
+        }
+        &.delete-button:hover {
+          color: var(--red-600);
+        }
+      }
+    }
   }
 }

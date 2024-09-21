@@ -5,10 +5,7 @@
   [resizable]="false"
 >
   <ng-template pTemplate="header">
-    <header
-      style="max-width: 900px; margin: auto"
-      class="pb-5"
-    >
+    <header [style]="{ maxWidth: '900px' }">
       <gl-title
         label1="Editar"
         label2="contato"
@@ -18,18 +15,31 @@
   <ng-template pTemplate="content">
     <form
       [formGroup]="contactToEditForm"
-      class="formgrid grid justify-content-center align-items-center gap-3"
+      class="formgrid grid justify-content-center align-items-center gap-4"
     >
-      <p-avatar
-        label="A"
-        size="xlarge"
-        shape="circle"
-        styleClass="cursor-pointer"
-        [style]="{
-          width: '220px',
-          height: '220px'
-        }"
-      />
+      <div
+        class="flex flex-column justify-content-center align-items-center gap-2"
+      >
+        <p-avatar
+          label="A"
+          size="xlarge"
+          shape="circle"
+          styleClass="cursor-pointer"
+          [style]="{
+            width: '220px',
+            height: '220px'
+          }"
+        />
+
+        <p-button
+          id="avatar"
+          label="Trocar foto de perfil"
+          [link]="true"
+          icon="pi pi-pencil"
+          [style]="{ color: 'var(--secondary-color)' }"
+        />
+      </div>
+
       <fieldset class="field col-12 m-0 p-0">
         <legend>
           <label
@@ -102,7 +112,6 @@
   <p-button
     icon="pi pi-plus"
     label="Novo contato"
-    size="small"
     routerLink="add"
   />
 
@@ -175,12 +184,14 @@
 <ul class="px-0 pt-4 flex flex-column gap-3">
   @for (contact of contacts; track $index) {
   <li
-    class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-1 border-round-xl"
+    [style]="{ minHeight: '63px' }"
+    class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-2 border-round-xl text-bluegray-800"
   >
     <div class="flex align-items-center gap-1">
       <p-avatar
         [label]="contact.name[0]"
         shape="circle"
+        size="large"
         styleClass="mr-2"
       />
       <div class="contact-name">
@@ -210,6 +221,7 @@
         [text]="true"
         severity="secondary"
         (onClick)="onEdit(contact)"
+        styleClass="edit-button"
       ></p-button>
       <p-button
         icon="pi pi-trash"
@@ -217,6 +229,7 @@
         [text]="true"
         severity="secondary"
         (onClick)="onDelete(contact.id)"
+        styleClass="delete-button"
       ></p-button>
     </div>
   </li>

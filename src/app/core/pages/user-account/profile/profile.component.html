@@ -152,16 +152,28 @@
   [formGroup]="updateProfile"
   class="flex flex-column md:flex-row align-items-top justify-content-center gap-4 w-full pt-4 md:mt-4"
 >
-  <div class="flex justify-content-center mt-2">
-    <p-avatar
-      [label]="userInfo().data?.name?.[0] ?? '?'"
-      size="xlarge"
-      shape="circle"
-      styleClass="cursor-pointer"
-      [style]="{
-        width: '220px',
-        height: '220px'
-      }"
+  <div
+    class="flex flex-column justify-content-center align-items-center mt-2 gap-2"
+  >
+    <label for="avatar">
+      <p-avatar
+        [label]="userInfo().data?.name?.[0] ?? '?'"
+        size="xlarge"
+        shape="circle"
+        styleClass="cursor-pointer"
+        [style]="{
+          width: '220px',
+          height: '220px'
+        }"
+      />
+    </label>
+
+    <p-button
+      id="avatar"
+      label="Trocar foto de perfil"
+      [link]="true"
+      icon="pi pi-pencil"
+      [style]="{ color: 'var(--secondary-color)' }"
     />
   </div>
 

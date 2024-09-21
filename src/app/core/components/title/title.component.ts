@@ -3,9 +3,10 @@ import { Component, Input } from '@angular/core'
 
 @Component({
   standalone: true,
+  imports: [CommonModule],
   selector: 'gl-title',
   templateUrl: './title.component.html',
-  imports: [CommonModule],
+  styleUrl: 'title.component.scss',
 })
 export class TitleComponent {
   @Input() label1 = ''
