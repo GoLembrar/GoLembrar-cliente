@@ -1,0 +1,2 @@
+export const MOBILE_THRESHOLD = 768
+export const SIDEBAR_OPEN_THRESHOLD = 1024

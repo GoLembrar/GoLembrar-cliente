@@ -11,7 +11,7 @@
 <p-sidebar
   [(visible)]="isSidebarOpen"
   [modal]="isMobile"
-  [closeOnEscape]="false"
+  [closeOnEscape]="!isMobile"
   [showCloseIcon]="false"
   [blockScroll]="true"
 >

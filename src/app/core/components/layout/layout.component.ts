@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common'
-import { Component, OnInit } from '@angular/core'
+import { Component, inject, OnDestroy, OnInit } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { fromEvent } from 'rxjs'
+import { debounceTime, fromEvent, Subject, takeUntil } from 'rxjs'
 
 import { ConfirmationService } from 'primeng/api'
 import { AvatarModule } from 'primeng/avatar'
@@ -11,6 +11,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog'
 import { MenuModule } from 'primeng/menu'
 import { SidebarModule } from 'primeng/sidebar'
 
+import {
+  MOBILE_THRESHOLD,
+  SIDEBAR_OPEN_THRESHOLD,
+} from '../../constants/responsive'
 import { AuthService } from '../../services/auth.service'
 import { NoConnectionService } from '../../services/no-connection/no-connection.service'
 import { NameAbbreviationPipe } from '../../utils/pipes/name-abbreviation/name-abbreviation.pipe'
@@ -34,35 +38,45 @@ import { LayoutService } from './layout.service'
     NameAbbreviationPipe,
   ],
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, OnDestroy {
+  private noConnectionService = inject(NoConnectionService)
+  private authService = inject(AuthService)
+  private layoutService = inject(LayoutService)
+
   isSidebarOpen = false
   isMobile = false
-  avatarMenu = this.layoutService.avatarMenu
+  readonly avatarMenu = this.layoutService.avatarMenu
   readonly userInfo = this.authService.getUserInfo()
-
-  constructor(
-    private noConnectionService: NoConnectionService,
-    private authService: AuthService,
-    private layoutService: LayoutService
-  ) {
-    if (window.innerWidth > 768) this.isSidebarOpen = true
-    else this.isMobile = true
-
-    fromEvent(window, 'resize').subscribe({
-      next: () => {
-        if (window.innerWidth < 768) {
-          this.isMobile = true
-          this.isSidebarOpen = false
-        } else {
-          this.isMobile = false
-          this.isSidebarOpen = true
-        }
-      },
-    })
-  }
+  private destroy$ = new Subject<void>()
 
   ngOnInit() {
     this.noConnectionService.isVerifyConnection()
+    this.initializeLayout()
+    this.setupResizeListener()
+  }
+
+  private initializeLayout() {
+    const width = window.innerWidth
+    this.isMobile = width < MOBILE_THRESHOLD
+    this.isSidebarOpen = width >= SIDEBAR_OPEN_THRESHOLD
+  }
+
+  private setupResizeListener() {
+    fromEvent(window, 'resize')
+      .pipe(debounceTime(170), takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.handleResize()
+      })
+  }
+
+  private handleResize() {
+    const width = window.innerWidth
+
+    this.isMobile = width < MOBILE_THRESHOLD
+
+    if (this.isMobile) this.isSidebarOpen = false
+    else if (!this.isMobile && !this.isMobile)
+      this.isSidebarOpen = width >= SIDEBAR_OPEN_THRESHOLD
   }
 
   onClickMenuOption() {
@@ -71,5 +85,10 @@ export class LayoutComponent implements OnInit {
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 }
