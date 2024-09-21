@@ -154,7 +154,7 @@
 >
   <div class="flex justify-content-center mt-2">
     <p-avatar
-      label="A"
+      [label]="userInfo().data?.name?.[0] ?? '?'"
       size="xlarge"
       shape="circle"
       styleClass="cursor-pointer"
@@ -165,16 +165,11 @@
     />
   </div>
 
-  <div class="formgrid grid gap-2 mx-1">
+  <div class="formgrid grid gap-4 lg:mt-5">
     @if (!userInfo().isLoading) {
     <fieldset class="field col-12 m-0 p-0">
       <legend>
-        <label
-          for="name"
-          class="block mb-1"
-        >
-          Nome
-        </label>
+        <label for="name"> Nome </label>
       </legend>
       <input
         id="name"
@@ -189,12 +184,7 @@
 
     <fieldset class="field col-12 m-0 p-0">
       <legend>
-        <label
-          for="email"
-          class="block mb-1"
-        >
-          Email
-        </label>
+        <label for="email"> Email </label>
       </legend>
       <input
         id="email"

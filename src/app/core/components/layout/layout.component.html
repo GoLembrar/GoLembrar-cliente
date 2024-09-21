@@ -37,13 +37,10 @@
             width="16"
             src="/assets/Gplus-icon.svg"
           />
-          <span
-            class="p-button-label min-w-full"
-            data-pc-section="label"
-          >
-            <span [style]="{ color: 'var(--primary-color)' }"> Novo </span>
+          <div class="p-button-label min-w-full">
+            <span> novo </span>
             lembrete
-          </span>
+          </div>
         </span>
       </ng-template>
     </p-button>
@@ -75,7 +72,7 @@
       [outlined]="true"
       routerLink="profile"
       (click)="onClickMenuOption()"
-    ></p-button>
+    />
   </ng-template>
 </p-sidebar>
 <div
@@ -89,14 +86,14 @@
       (click)="toggleSidebar()"
       icon="pi pi-bars"
       [outlined]="true"
-    ></p-button>
+    />
     <div class="profile cursor-pointer align-items-end">
       <p-menu
         #menu
         [model]="avatarMenu"
         [popup]="true"
         styleClass="mt-3"
-      ></p-menu>
+      />
       <div
         class="flex align-items-center gap-2"
         (click)="menu.toggle($event)"
@@ -110,12 +107,12 @@
           icon="pi pi-user"
           shape="circle"
           size="large"
-        ></p-avatar>
+        />
       </div>
     </div>
   </header>
 
-  <main class="px-0 pt-3">
-    <router-outlet></router-outlet>
+  <main class="px-2 pt-3">
+    <router-outlet />
   </main>
 </div>

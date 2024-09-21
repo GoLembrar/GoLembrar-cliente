@@ -33,9 +33,20 @@ export class RemindersComponent {
   showDialog = true
   reminders = this.reminderService.findAll()
 
-  items: MenuItem[] = [{ label: 'Hoje' }]
-
-  activeItem = this.items[0]
+  items: MenuItem[] = [
+    {
+      label: 'Hoje',
+      icon: 'pi pi-clock',
+    },
+    {
+      label: 'Agendados',
+      icon: 'pi pi-calendar',
+    },
+    {
+      label: 'Todos',
+      icon: 'pi pi-crown',
+    },
+  ]
 
   onEdit(id: string) {
     this.router.navigateByUrl(`/edit/${id}`)

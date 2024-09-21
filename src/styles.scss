@@ -45,10 +45,15 @@ fieldset {
   border: none;
   margin-inline-start: 0;
   margin-inline-end: 0;
+  margin: 0;
+  padding: 0;
 
-  legend {
-    label {
-      cursor: pointer;
-    }
+  legend label {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 0.65rem;
+    font-weight: bold;
+    line-height: 0.5rem;
+    color: var(--dark-color);
   }
 }

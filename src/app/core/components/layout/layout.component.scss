@@ -13,6 +13,16 @@
 
   p-sidebar {
     font-family: 'Poppins';
+
+    span {
+      div {
+        span {
+          // flex justify-content-start align-items-center
+          // [style]="{ color: 'var(--primary-color)' }"
+          color: var(--primary-color);
+        }
+      }
+    }
   }
 }
 @media (min-width: 768px) {

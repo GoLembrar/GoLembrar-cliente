@@ -68,6 +68,7 @@ export class LayoutComponent implements OnInit {
   onClickMenuOption() {
     if (this.isMobile) this.isSidebarOpen = false
   }
+
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen
   }
