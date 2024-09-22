@@ -2,6 +2,7 @@
   "name": "@go-lembrar-client/source",
   "version": "0.0.0",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "nx": "nx",
     "start": "nx serve",
@@ -9,15 +10,16 @@
     "build": "nx build",
     "lint": "nx lint",
     "lint:fix": "nx lint --fix",
+    "lint-staged": "lint-staged",
     "format": "nx format",
     "format:fix": "nx format --fix",
     "test": "nx test --watch --all",
     "test:only": "jest --watch",
     "e2e": "nx e2e e2e",
     "test:staged": "nx test",
-    "test:cov": "nx test --coverage"
+    "test:cov": "nx test --coverage",
+    "prepare": "husky"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~17.0.0",
     "@angular/common": "~17.0.0",
