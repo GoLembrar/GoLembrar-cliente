@@ -1,7 +1,8 @@
 /* eslint-disable */
 export default {
-  displayName: 'GO Lembrar',
+  displayName: 'goLembrar',
   preset: './jest.preset.js',
+  testEnvironment: '@happy-dom/jest-environment',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: './coverage/go-lembrar-client',
   transform: {
@@ -23,4 +24,4 @@ export default {
     '<rootDir>/src/**/__tests__/**/*.[jt]s?(x)',
     '<rootDir>/src/**/*(*.)@(spec|test).[jt]s?(x)',
   ],
-};
+}
