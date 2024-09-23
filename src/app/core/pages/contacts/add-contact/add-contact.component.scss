@@ -4,3 +4,16 @@
     margin: 0 auto;
   }
 }
+
+@media (max-width: 425px) {
+  main {
+    padding-inline: 1rem;
+  }
+  form {
+    gap: 2rem !important;
+    padding: 0 0.5rem !important;
+  }
+  header {
+    padding: 0 0.5rem !important;
+  }
+}

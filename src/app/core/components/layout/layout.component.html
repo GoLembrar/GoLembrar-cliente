@@ -6,38 +6,42 @@
   rejectButtonStyleClass="p-button-small p-button-text p-button-danger mr-3"
   acceptButtonStyleClass="p-button-small"
   [style]="{ width: '80%' }"
-></p-confirmDialog>
+/>
 
 <p-sidebar
   [(visible)]="isSidebarOpen"
   [modal]="isMobile"
-  [closeOnEscape]="false"
+  [closeOnEscape]="!isMobile"
   [showCloseIcon]="false"
   [blockScroll]="true"
 >
   <ng-template pTemplate="header">
     <img
       src="/assets/logo.svg"
-      alt="GoLembrar logo"
+      alt="goLembrar logo"
       width="180"
       routerLink=""
       (click)="onClickMenuOption()"
     />
 
     <p-button
-      label="Novo lembrete"
       [outlined]="true"
       routerLink="new"
       (click)="onClickMenuOption()"
       styleClass="flex justify-content-center align-items-center gap-2"
     >
       <ng-template pTemplate="icon">
-        <img
-          class="p-0"
-          width="16"
-          src="/assets/Gplus-icon.svg"
-          alt="Description of SVG"
-        />
+        <span class="flex justify-content-start align-items-center gap-2">
+          <img
+            class="p-0"
+            width="16"
+            src="/assets/Gplus-icon.svg"
+          />
+          <div class="p-button-label min-w-full">
+            <span> novo </span>
+            lembrete
+          </div>
+        </span>
       </ng-template>
     </p-button>
   </ng-template>
@@ -63,12 +67,12 @@
 
   <ng-template pTemplate="footer">
     <p-button
-      label="Configurações"
-      icon=" pi pi-cog"
+      label="Meu perfil"
+      icon=" pi pi-user"
       [outlined]="true"
       routerLink="profile"
       (click)="onClickMenuOption()"
-    ></p-button>
+    />
   </ng-template>
 </p-sidebar>
 <div
@@ -82,14 +86,14 @@
       (click)="toggleSidebar()"
       icon="pi pi-bars"
       [outlined]="true"
-    ></p-button>
+    />
     <div class="profile cursor-pointer align-items-end">
       <p-menu
         #menu
         [model]="avatarMenu"
         [popup]="true"
         styleClass="mt-3"
-      ></p-menu>
+      />
       <div
         class="flex align-items-center gap-2"
         (click)="menu.toggle($event)"
@@ -103,12 +107,12 @@
           icon="pi pi-user"
           shape="circle"
           size="large"
-        ></p-avatar>
+        />
       </div>
     </div>
   </header>
 
-  <main class="px-0 pt-3">
-    <router-outlet></router-outlet>
+  <main class="px-2 pt-3">
+    <router-outlet />
   </main>
 </div>

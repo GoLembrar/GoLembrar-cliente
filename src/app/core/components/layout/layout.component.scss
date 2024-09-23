@@ -10,6 +10,18 @@
     max-width: 1200px;
     margin: auto;
   }
+
+  p-sidebar {
+    font-family: 'Poppins';
+
+    span {
+      div {
+        span {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
 }
 @media (min-width: 768px) {
   :host {

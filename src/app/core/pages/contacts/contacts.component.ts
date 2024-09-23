@@ -1,19 +1,27 @@
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import {
+  FormsModule,
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators as V,
 } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { ConfirmationService, MessageService } from 'primeng/api'
+import {
+  AutoCompleteCompleteEvent,
+  AutoCompleteModule,
+} from 'primeng/autocomplete'
 import { AvatarModule } from 'primeng/avatar'
 import { ButtonModule } from 'primeng/button'
+import { CheckboxModule } from 'primeng/checkbox'
 import { ChipModule } from 'primeng/chip'
 import { DialogModule } from 'primeng/dialog'
 import { InputTextModule } from 'primeng/inputtext'
 import { MenuModule } from 'primeng/menu'
 import { ProgressSpinnerModule } from 'primeng/progressspinner'
+import { TagModule } from 'primeng/tag'
+
 import { TitleComponent } from '../../components/title/title.component'
 import { contactChannels } from '../../constants/contact-channels'
 import { REGEX_NAME } from '../../constants/regexp'
@@ -35,20 +43,26 @@ import { LoadingComponent } from './loading/loading.component'
     ButtonModule,
     InputTextModule,
     MenuModule,
+    CheckboxModule,
+    TagModule,
     AvatarModule,
     TitleComponent,
     DialogModule,
     ProgressSpinnerModule,
     LoadingComponent,
+    AutoCompleteModule,
+    FormsModule,
   ],
 })
 export class ContactsComponent {
   showEditContact = false
   loading = false
-
+  selectedChannels: string[] = ['EMAIL']
   contactToEdit = {} as Contact
-
   contacts = this.contactService.getContacts()
+
+  selectedItem: any
+  suggestions: Contact[] = []
 
   channels = contactChannels
 
@@ -76,7 +90,7 @@ export class ContactsComponent {
   }
 
   onSave() {
-    if (!this.contactToEditForm.invalid) {
+    if (!this.contactToEditForm.invalid && !this.contactToEditForm.pristine) {
       this.confirmationService.confirm({
         header: 'Salvar edição?',
         message: 'Confirmar edição de contato?',
@@ -128,12 +142,12 @@ export class ContactsComponent {
     }
   }
 
-  onDelete() {
+  onDelete(id: string) {
     this.confirmationService.confirm({
       header: 'Apagar esse contato?',
       message: 'Não será possível desfazer essa ação.',
       accept: () => {
-        this.contactService.delete(this.contactToEdit.id).subscribe({
+        this.contactService.delete(id).subscribe({
           next: () => {
             this.messageService.add({
               severity: 'info',
@@ -154,6 +168,14 @@ export class ContactsComponent {
           },
         })
       },
+    })
+  }
+
+  search(event: AutoCompleteCompleteEvent) {
+    const inputValue = event.query.toLowerCase()
+    const contacts = this.contacts().data || []
+    this.suggestions = contacts.filter(contact => {
+      return contact.name.toLowerCase().includes(inputValue)
     })
   }
 }

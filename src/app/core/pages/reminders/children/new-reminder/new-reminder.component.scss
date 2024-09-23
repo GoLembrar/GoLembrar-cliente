@@ -3,4 +3,16 @@
     max-width: 900px;
     margin: 0 auto;
   }
+
+  @media (max-width: 425px) {
+    .container {
+      padding: 1rem;
+    }
+  }
+
+  @media (max-width: 1280px) {
+    .container {
+      padding: 0.5rem;
+    }
+  }
 }

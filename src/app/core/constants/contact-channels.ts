@@ -5,22 +5,23 @@ export const contactChannels: MenuItem[] = [
   {
     label: 'Email',
     value: Channel.EMAIL,
+    disabled: false,
     icon: 'pi pi-envelope',
   },
   {
-    label: 'WhatsApp (EM BREVE)',
+    label: 'WhatsApp',
     value: Channel.WHATSAPP,
     icon: 'pi pi-whatsapp',
     disabled: true,
   },
   {
-    label: 'Discord (EM BREVE)',
+    label: 'Discord',
     value: Channel.DISCORD,
     icon: 'pi pi-discord',
     disabled: true,
   },
   {
-    label: 'Telegram (EM BREVE)',
+    label: 'Telegram',
     value: Channel.TELEGRAM,
     icon: 'pi pi-telegram',
     disabled: true,

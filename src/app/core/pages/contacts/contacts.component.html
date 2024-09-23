@@ -5,35 +5,50 @@
   [resizable]="false"
 >
   <ng-template pTemplate="header">
-    <gl-title
-      label1="Editar"
-      label2="contato"
-    ></gl-title>
+    <header [style]="{ maxWidth: '900px' }">
+      <gl-title
+        label1="Editar"
+        label2="contato"
+      ></gl-title>
+    </header>
   </ng-template>
   <ng-template pTemplate="content">
     <form
       [formGroup]="contactToEditForm"
-      class="formgrid grid justify-content-center align-items-center gap-3"
+      class="formgrid grid justify-content-center align-items-center gap-4"
     >
-      <p-avatar
-        label="A"
-        size="xlarge"
-        shape="circle"
-        styleClass="cursor-pointer"
-        [style]="{
-          width: '220px',
-          height: '220px'
-        }"
-      />
+      <div
+        class="flex flex-column justify-content-center align-items-center gap-2"
+      >
+        <p-avatar
+          label="A"
+          size="xlarge"
+          shape="circle"
+          styleClass="cursor-pointer"
+          [style]="{
+            width: '220px',
+            height: '220px'
+          }"
+        />
+
+        <p-button
+          id="avatar"
+          label="Trocar foto de perfil"
+          [link]="true"
+          icon="pi pi-pencil"
+          [style]="{ color: 'var(--secondary-color)' }"
+        />
+      </div>
+
       <fieldset class="field col-12 m-0 p-0">
         <legend>
           <label
             for="name"
-            class="block mb-1"
+            class="block mb-2"
             >Nome</label
           >
         </legend>
-        <span class="p-input-icon-right w-full">
+        <span class="p-input-icon-left w-full">
           <i class="pi pi-user"></i>
           <input
             type="text"
@@ -51,11 +66,11 @@
         <legend>
           <label
             for="identify"
-            class="block mb-1"
+            class="block mb-2"
             >Identificador</label
           >
         </legend>
-        <span class="p-input-icon-right w-full">
+        <span class="p-input-icon-left w-full">
           <i class="pi pi-envelope"></i>
           <input
             id="identify"
@@ -68,24 +83,11 @@
           />
         </span>
       </fieldset>
-      <div class="flex col-12 gap-3 justify-content-between py-0 px-2 mt-1">
-        <p-button
-          label="Apagar"
-          styleClass="justify-content-center text-red-600"
-          icon="pi pi-times"
-          size="small"
-          severity="danger"
-          [link]="true"
-          [loading]="loading"
-          [disabled]="contactToEditForm.invalid || loading"
-          (click)="onDelete()"
-        ></p-button>
-
+      <div class="flex justify-content-end col-12 py-0 px-2 mt-1">
         <p-button
           label="Salvar"
-          styleClass="justify-content-center"
+          styleClass="cursor-pointer"
           icon="pi pi-check"
-          size="small"
           [link]="true"
           [loading]="loading"
           type="submit"
@@ -93,57 +95,103 @@
             contactToEditForm.invalid || loading || contactToEditForm.pristine
           "
           (click)="onSave()"
-        ></p-button>
+        />
       </div>
     </form>
   </ng-template>
 </p-dialog>
 
-<gl-title
-  label1="Meus"
-  label2="contatos"
-/>
+<header class="pb-5">
+  <gl-title
+    label1="Meus"
+    label2="contatos"
+  />
+</header>
 
 <div class="flex justify-content-between align-items-center pt-4">
   <p-button
     icon="pi pi-plus"
     label="Novo contato"
-    size="small"
     routerLink="add"
   />
 
   <div>
     <p-menu
       #menu
-      [model]="channels"
       [popup]="true"
-      styleClass="mt-3"
-    />
-    <p-button
-      styleClass="bg-white px-4"
-      icon="pi pi-filter"
-      label="Filtrar canais"
-      size="small"
-      severity="secondary"
-      [outlined]="true"
-      (onClick)="menu.toggle($event)"
-    />
+      [model]="channels"
+      styleClass="mt-3 w-auto"
+    >
+      <ng-template
+        pTemplate="item"
+        let-item
+      >
+        <div class="flex align-items-center justify-content-start gap-2 p-2">
+          <p-checkbox
+            [value]="item.value"
+            [disabled]="item.disabled"
+            [inputId]="item.value"
+            [disabled]="item.disabled"
+            [name]="item.value"
+            [(ngModel)]="selectedChannels"
+          />
+          <label
+            [for]="item.value"
+            class="w-full px-2 flex align-items-center justify-content-start cursor-pointer"
+          >
+            <i
+              [class]="item.icon"
+              class="mr-2"
+            ></i>
+            {{ item.label }}
+
+            @if (item.disabled) {
+            <p-tag
+              class="ml-2"
+              [style]="{ background: 'var(--secondary-color)' }"
+              severity="info"
+              value="EM BREVE"
+            />
+            }
+          </label>
+        </div>
+      </ng-template>
+    </p-menu>
+    <div class="flex align-items-center justify-content-center gap-4">
+      <p-autoComplete
+        [(ngModel)]="selectedItem"
+        [suggestions]="suggestions"
+        (completeMethod)="search($event)"
+        field="name"
+        placeholder="Pesquisar"
+      />
+      <p-button
+        styleClass="bg-white px-4"
+        icon="pi pi-filter"
+        label="Filtrar canais"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="menu.toggle($event)"
+      />
+    </div>
   </div>
 </div>
 
 @if (contacts().isLoading) {
 <gl-loading></gl-loading>
-} @else if (contacts().data!.length > 0) {
+} @if (contacts().data; as contacts) {
 
 <ul class="px-0 pt-4 flex flex-column gap-3">
-  @for (contact of contacts().data; track $index) {
+  @for (contact of contacts; track $index) {
   <li
-    class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-1 border-round-xl"
+    [style]="{ minHeight: '63px' }"
+    class="flex justify-content-between align-items-center px-3 py-2 bg-white shadow-2 border-round-xl text-bluegray-800"
   >
     <div class="flex align-items-center gap-1">
       <p-avatar
         [label]="contact.name[0]"
         shape="circle"
+        size="large"
         styleClass="mr-2"
       />
       <div class="contact-name">
@@ -166,17 +214,27 @@
         } }
       </div>
     </div>
-    <p-button
-      icon="pi pi-pencil"
-      [rounded]="true"
-      [text]="true"
-      severity="info"
-      (onClick)="onEdit(contact)"
-    ></p-button>
+    <div class="flex flex-column sm:flex-row">
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        (onClick)="onEdit(contact)"
+        styleClass="edit-button"
+      ></p-button>
+      <p-button
+        icon="pi pi-trash"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        (onClick)="onDelete(contact.id)"
+        styleClass="delete-button"
+      ></p-button>
+    </div>
   </li>
+  } @empty {
+  <li class="text-center block mt-4">Nenhum contato cadastrado</li>
   }
 </ul>
-} @else {
-
-<p class="text-center block mt-4">Nenhum contato cadastrado</p>
 }

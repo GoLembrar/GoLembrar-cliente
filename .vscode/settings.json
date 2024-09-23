@@ -13,5 +13,6 @@
     "angular-page": {
       "skipChangeDetectionOnPush": true
     }
-  }
+  },
+  "material-icon-theme.activeIconPack": "angular"
 }

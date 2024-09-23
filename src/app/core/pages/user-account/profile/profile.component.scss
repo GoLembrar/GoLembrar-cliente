@@ -2,5 +2,9 @@
   form {
     max-width: 820px;
     margin: 0 auto;
+
+    div:last-child {
+      margin: 0.2rem 0;
+    }
   }
 }

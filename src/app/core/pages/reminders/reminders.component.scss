@@ -16,4 +16,12 @@
       white-space: nowrap;
     }
   }
+
+  @layer primeng {
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+      background: transparent;
+      border-color: var(--dark-color);
+      color: var(--dark-color);
+    }
+  }
 }

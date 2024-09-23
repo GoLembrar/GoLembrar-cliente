@@ -3,24 +3,22 @@
   label2="lembretes"
 ></gl-title>
 
-<div
-  class="my-4 w-full inline-flex justify-content-center lg:justify-content-start"
->
+<div class="my-4 w-full">
   <p-tabMenu
     [model]="items"
-    [activeItem]="activeItem"
+    [activeItem]="items[0]"
   />
 </div>
 
 @if(reminders().isLoading){
 <p>Loading...</p>
-} @if (reminders().data; as reminder) {
+} @if (reminders().data; as reminders) {
 
 <p-accordion
   expandIcon="pi pi-chevron-down"
   collapseIcon="pi pi-chevron-up"
 >
-  @for (reminder of reminders().data; track $index) {
+  @for (reminder of reminders; track $index) {
   <p-accordionTab>
     <ng-template pTemplate="header">
       <div
@@ -95,6 +93,8 @@
       </div>
     </ng-template>
   </p-accordionTab>
+  } @empty {
+  <p class="text-center block mt-4">Nenhum lembrete por enquanto</p>
   }
 </p-accordion>
 }

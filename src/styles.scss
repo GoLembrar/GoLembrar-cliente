@@ -5,6 +5,7 @@
 @import 'primeicons/primeicons.css';
 
 @import './app/styles/primeng.scss';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
   --primary-color: #00a6cb;
@@ -18,6 +19,7 @@
 html,
 body {
   height: 100%;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -43,10 +45,16 @@ fieldset {
   border: none;
   margin-inline-start: 0;
   margin-inline-end: 0;
+  margin: 0;
+  padding: 0;
 
-  legend {
-    label {
-      cursor: pointer;
-    }
+  legend label {
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    display: block;
+    margin-bottom: 0.65rem;
+    font-weight: bold;
+    line-height: 0.5rem;
+    color: var(--dark-color);
   }
 }

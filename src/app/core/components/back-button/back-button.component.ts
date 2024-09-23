@@ -7,6 +7,7 @@ import { TooltipModule } from 'primeng/tooltip'
   standalone: true,
   selector: 'gl-back-button',
   templateUrl: './back-button.component.html',
+  styleUrl: './back-button.component.scss',
   imports: [CommonModule, ButtonModule, TooltipModule],
 })
 export class BackButtonComponent {

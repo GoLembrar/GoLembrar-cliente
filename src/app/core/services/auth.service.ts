@@ -83,6 +83,8 @@ export class AuthService {
   }
 
   refreshToken() {
+    if (this.isTokenExpired(this.getTokens().refreshToken)) this.logout()
+
     return this.http
       .get<Token>(`${environment.apiUrl}/auth/refresh`, {
         headers: {
@@ -130,16 +132,14 @@ export class AuthService {
     this.router.navigate(['/login'])
   }
 
-  getJwtPayload() {
-    const token = this.getTokens().token
-
+  getJwtPayload(token: string) {
     const jwtPayload = window.atob(token.split('.')[1] || '')
     return JSON.parse(jwtPayload) as JwtPayload
   }
 
-  isTokenExpired() {
-    const exp = this.getJwtPayload().exp
+  isTokenExpired(token: string) {
+    const parsedToken = this.getJwtPayload(token)
     const currentTime = Math.floor(Date.now() / 1000)
-    return currentTime >= exp
+    return currentTime >= parsedToken.exp
   }
 }
