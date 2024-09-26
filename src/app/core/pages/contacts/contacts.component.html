@@ -158,13 +158,15 @@
       </ng-template>
     </p-menu>
     <div class="flex align-items-center justify-content-center gap-4">
-      <p-autoComplete
-        [(ngModel)]="selectedItem"
-        [suggestions]="suggestions"
-        (completeMethod)="search($event)"
-        field="name"
-        placeholder="Pesquisar"
-      />
+      <p-iconField iconPosition="left">
+        <p-inputIcon styleClass="pi pi-search" />
+        <input
+          type="text"
+          pInputText
+          placeholder="Search"
+          [formControl]="inputValue"
+        />
+      </p-iconField>
       <p-button
         styleClass="bg-white px-4"
         icon="pi pi-filter"
@@ -177,10 +179,9 @@
   </div>
 </div>
 
-@if (contacts().isLoading) {
+@if (false) {
 <gl-loading></gl-loading>
-} @if (contacts().data; as contacts) {
-
+} @if (makeSearch(); as contacts) {
 <ul class="px-0 pt-4 flex flex-column gap-3">
   @for (contact of contacts; track $index) {
   <li

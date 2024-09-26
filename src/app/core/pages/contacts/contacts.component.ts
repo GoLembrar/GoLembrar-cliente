@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, signal } from '@angular/core'
 import {
+  FormControl,
   FormsModule,
   NonNullableFormBuilder,
   ReactiveFormsModule,
@@ -8,10 +9,7 @@ import {
 } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { ConfirmationService, MessageService } from 'primeng/api'
-import {
-  AutoCompleteCompleteEvent,
-  AutoCompleteModule,
-} from 'primeng/autocomplete'
+import { AutoCompleteModule } from 'primeng/autocomplete'
 import { AvatarModule } from 'primeng/avatar'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
@@ -22,6 +20,9 @@ import { MenuModule } from 'primeng/menu'
 import { ProgressSpinnerModule } from 'primeng/progressspinner'
 import { TagModule } from 'primeng/tag'
 
+import { IconFieldModule } from 'primeng/iconfield'
+import { InputIconModule } from 'primeng/inputicon'
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs'
 import { TitleComponent } from '../../components/title/title.component'
 import { contactChannels } from '../../constants/contact-channels'
 import { REGEX_NAME } from '../../constants/regexp'
@@ -52,32 +53,60 @@ import { LoadingComponent } from './loading/loading.component'
     LoadingComponent,
     AutoCompleteModule,
     FormsModule,
+    IconFieldModule,
+    InputIconModule,
   ],
 })
 export class ContactsComponent {
   showEditContact = false
   loading = false
-  selectedChannels: string[] = ['EMAIL']
-  contactToEdit = {} as Contact
-  contacts = this.contactService.getContacts()
-
-  selectedItem: any
-  suggestions: Contact[] = []
-
   channels = contactChannels
+  searchValue = signal('')
+  selectedChannels: string[] = ['EMAIL']
+
+  allContacts = this.contactService.getContacts()
+  contactToEdit = {} as Contact
+
+  contactsSearch = this.contactService.search(this.searchValue())
+
+  inputValue = new FormControl<string>('')
 
   constructor(
     private contactService: ContactService,
     private formBuilder: NonNullableFormBuilder,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
-  ) {}
+  ) {
+    this.inputValue.valueChanges
+      .pipe(
+        filter(searchValue => searchValue !== null),
+        debounceTime(800),
+        distinctUntilChanged()
+      )
+      .subscribe(searchValue => {
+        this.searchValue.set(searchValue || '')
+      })
+  }
 
   protected contactToEditForm = this.formBuilder.group({
     name: ['', [V.required, V.pattern(REGEX_NAME)]],
     channel: [Channel.EMAIL],
     identify: ['', [V.required, V.email, V.min(4), V.max(255)]],
   })
+
+  makeSearch() {
+    const searchRes = this.contactsSearch
+
+    if (searchRes && 'data' in searchRes) {
+      console.log('request do search')
+
+      return searchRes().data
+    }
+
+    console.log('returning all contacts')
+
+    return this.allContacts().data
+  }
 
   onEdit(contact: Contact) {
     this.showEditContact = true
@@ -126,7 +155,7 @@ export class ContactsComponent {
                 })
                 this.showEditContact = false
                 this.loading = false
-                this.contacts().refetch()
+                this.allContacts().refetch()
               },
               error: () => {
                 this.messageService.add({
@@ -156,7 +185,7 @@ export class ContactsComponent {
             })
             this.showEditContact = false
             this.loading = false
-            this.contacts().refetch()
+            this.allContacts().refetch()
           },
           error: () => {
             this.loading = false
@@ -171,11 +200,7 @@ export class ContactsComponent {
     })
   }
 
-  search(event: AutoCompleteCompleteEvent) {
-    const inputValue = event.query.toLowerCase()
-    const contacts = this.contacts().data || []
-    this.suggestions = contacts.filter(contact => {
-      return contact.name.toLowerCase().includes(inputValue)
-    })
+  search(value: string) {
+    return
   }
 }
