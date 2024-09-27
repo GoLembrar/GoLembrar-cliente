@@ -48,7 +48,6 @@ export class NewReminderComponent {
     description: ['', [V.required, V.minLength(2), V.maxLength(500)]],
     usersToReminder: [[], [V.required, V.minLength(1)]],
     scheduled: ['', V.required],
-    categoryId: [1, V.required],
   })
 
   constructor(
@@ -59,8 +58,6 @@ export class NewReminderComponent {
   ) {}
 
   onSubmit() {
-    console.log(this.newReminder.controls.title.value)
-    console.log(this.newReminder.controls.title.invalid)
     if (this.newReminder.valid) {
       this.loading = true
       this.reminderService
