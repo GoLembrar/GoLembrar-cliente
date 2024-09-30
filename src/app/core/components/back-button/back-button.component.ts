@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { ButtonModule } from 'primeng/button'
 import { TooltipModule } from 'primeng/tooltip'
 
@@ -11,5 +11,9 @@ import { TooltipModule } from 'primeng/tooltip'
   imports: [CommonModule, ButtonModule, TooltipModule],
 })
 export class BackButtonComponent {
-  constructor(public location: Location) {}
+  readonly location = inject(Location)
+
+  goBack() {
+    this.location.back()
+  }
 }

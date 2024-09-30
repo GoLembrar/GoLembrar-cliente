@@ -1,4 +1,0 @@
-{
-  "*.{js,ts}": ["nx lint --fix", "nx format --fix"],
-  "*.{html,css,scss,json,md,yaml,yml}": ["nx format --fix"]
-}

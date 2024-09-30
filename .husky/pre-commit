@@ -1,3 +1,5 @@
-pnpm lint-staged
+# npx lint-staged
+pnpm lint:fix
+pnpm format:fix
 pnpm test:staged
 git add

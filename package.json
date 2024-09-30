@@ -10,15 +10,23 @@
     "build": "nx build",
     "lint": "nx lint",
     "lint:fix": "nx lint --fix",
-    "lint-staged": "lint-staged",
     "format": "nx format",
     "format:fix": "nx format --fix",
+    "e2e": "nx e2e e2e",
     "test": "nx test --watch --all",
     "test:only": "jest --watch",
-    "e2e": "nx e2e e2e",
-    "test:staged": "nx test",
+    "test:staged": "nx test --bail",
     "test:cov": "nx test --coverage",
     "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "nx lint --fix",
+      "nx format --fix"
+    ],
+    "*.{html,css,scss,json,md,yaml,yml}": [
+      "nx format --fix"
+    ]
   },
   "dependencies": {
     "@angular/animations": "~17.0.0",
