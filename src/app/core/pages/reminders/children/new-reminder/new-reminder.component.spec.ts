@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { MessageService } from 'primeng/api'
 import { NewReminderComponent } from './new-reminder.component'
 
 describe('NewReminderComponent', () => {
@@ -7,7 +9,8 @@ describe('NewReminderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewReminderComponent],
+      imports: [NewReminderComponent, HttpClientModule],
+      providers: [MessageService],
     }).compileComponents()
 
     fixture = TestBed.createComponent(NewReminderComponent)

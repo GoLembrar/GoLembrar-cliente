@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { ConfirmationService, MessageService } from 'primeng/api'
 import { ProfileComponent } from './profile.component'
 
 describe('AddContactComponent', () => {
@@ -7,7 +9,8 @@ describe('AddContactComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProfileComponent],
+      imports: [ProfileComponent, HttpClientModule],
+      providers: [MessageService, ConfirmationService],
     }).compileComponents()
 
     fixture = TestBed.createComponent(ProfileComponent)

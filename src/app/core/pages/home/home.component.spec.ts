@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { ActivatedRoute, convertToParamMap } from '@angular/router'
+import { of } from 'rxjs'
 import { HomeComponent } from './home.component'
 
 describe('HomeComponent', () => {
@@ -8,6 +10,15 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HomeComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            paramMap: of(convertToParamMap({})),
+            queryParamMap: of(convertToParamMap({})),
+          },
+        },
+      ],
     }).compileComponents()
 
     fixture = TestBed.createComponent(HomeComponent)

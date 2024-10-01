@@ -1,4 +1,9 @@
+import { HttpClientModule } from '@angular/common/http'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
+import { ActivatedRoute, convertToParamMap } from '@angular/router'
+import { MessageService } from 'primeng/api'
+import { of } from 'rxjs'
 import { LayoutComponent } from './layout.component'
 
 describe('LayoutComponent', () => {
@@ -7,7 +12,17 @@ describe('LayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LayoutComponent],
+      imports: [LayoutComponent, HttpClientModule, NoopAnimationsModule],
+      providers: [
+        MessageService,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            paramMap: of(convertToParamMap({})),
+            queryParamMap: of(convertToParamMap({})),
+          },
+        },
+      ],
     }).compileComponents()
 
     fixture = TestBed.createComponent(LayoutComponent)
