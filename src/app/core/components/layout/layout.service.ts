@@ -18,6 +18,9 @@ export class LayoutService {
       routerLink: '/profile',
     },
     {
+      separator: true,
+    },
+    {
       label: 'Logout',
       icon: 'pi pi-sign-out',
       command: () => {
