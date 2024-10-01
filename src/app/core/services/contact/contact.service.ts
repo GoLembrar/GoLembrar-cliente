@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { injectMutation, injectQuery } from '@ngneat/query'
-import { map } from 'rxjs'
+import { injectQuery } from '@ngneat/query'
 import { environment } from 'src/environments/environment.development'
 import { Contact, EditContact } from '../../models/contact'
 
@@ -11,32 +10,25 @@ import { Contact, EditContact } from '../../models/contact'
 export class ContactService {
   constructor(private http: HttpClient) {}
   private query = injectQuery()
-  private mutation = injectMutation()
 
-  getContacts() {
+  getContacts(search = '') {
     return this.query({
-      queryKey: ['contacts'] as const,
+      queryKey: ['contacts', search] as const,
       queryFn: () =>
-        this.http
-          .get<Contact[]>(`${environment.apiUrl}/contact`)
-          .pipe(map(res => res)),
+        this.http.get<Contact[]>(
+          `${environment.apiUrl}/contact${search ? `?search=${search}` : ''}`
+        ),
     }).result
   }
 
-  search(searchValue: string) {
-    if (!searchValue) {
-      console.log('log 1 dentro do service de search')
-      return undefined
-    }
-
-    console.log('log 2 dentro do service de search')
-    return this.mutation({
-      mutationKey: ['filteredContacts'],
-      mutationFn: () =>
-        this.http.post<Contact[]>(`${environment.apiUrl}/contact/search`, {
-          name: searchValue,
-        }),
-    }).result
+  getContacts2(search = '') {
+    return this.query({
+      queryKey: ['contacts', search] as const,
+      queryFn: () =>
+        this.http.get<Contact[]>(
+          `${environment.apiUrl}/contact${search ? `?search=${search}` : ''}`
+        ),
+    })
   }
 
   createContact(contact: Contact) {

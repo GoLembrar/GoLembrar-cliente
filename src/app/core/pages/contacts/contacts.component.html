@@ -161,10 +161,10 @@
       <p-iconField iconPosition="left">
         <p-inputIcon styleClass="pi pi-search" />
         <input
-          type="text"
+          type="search"
           pInputText
           placeholder="Search"
-          [formControl]="inputValue"
+          [disabled]="true"
         />
       </p-iconField>
       <p-button
@@ -179,9 +179,9 @@
   </div>
 </div>
 
-@if (false) {
+@if (contacts().isPending) {
 <gl-loading></gl-loading>
-} @if (makeSearch(); as contacts) {
+} @if (contacts().data; as contacts) {
 <ul class="px-0 pt-4 flex flex-column gap-3">
   @for (contact of contacts; track $index) {
   <li
