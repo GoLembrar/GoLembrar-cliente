@@ -9,6 +9,7 @@
   <form
     [formGroup]="newReminder"
     class="mt-5 formgrid grid gap-3"
+    (ngSubmit)="onSubmit()"
   >
     <section class="flex align-items-center gap-5 w-full">
       <div class="col-12 lg:col px-0 flex flex-column gap-4">
@@ -124,7 +125,7 @@
       <p-button
         icon="pi pi-check"
         label="Salvar"
-        (onClick)="onSubmit()"
+        type="submit"
         [disabled]="loading || newReminder.invalid"
         [loading]="loading"
         styleClass="px-5"

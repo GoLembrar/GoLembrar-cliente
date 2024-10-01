@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import {
   FormsModule,
   NonNullableFormBuilder,
@@ -8,15 +8,14 @@ import {
 } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { ConfirmationService, MessageService } from 'primeng/api'
-import {
-  AutoCompleteCompleteEvent,
-  AutoCompleteModule,
-} from 'primeng/autocomplete'
+import { AutoCompleteModule } from 'primeng/autocomplete'
 import { AvatarModule } from 'primeng/avatar'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
 import { ChipModule } from 'primeng/chip'
 import { DialogModule } from 'primeng/dialog'
+import { IconFieldModule } from 'primeng/iconfield'
+import { InputIconModule } from 'primeng/inputicon'
 import { InputTextModule } from 'primeng/inputtext'
 import { MenuModule } from 'primeng/menu'
 import { ProgressSpinnerModule } from 'primeng/progressspinner'
@@ -35,6 +34,7 @@ import { LoadingComponent } from './loading/loading.component'
   selector: 'gl-my-contacts',
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     RouterModule,
@@ -52,26 +52,23 @@ import { LoadingComponent } from './loading/loading.component'
     LoadingComponent,
     AutoCompleteModule,
     FormsModule,
+    IconFieldModule,
+    InputIconModule,
   ],
 })
 export class ContactsComponent {
+  private readonly contactService = inject(ContactService)
+  private readonly formBuilder = inject(NonNullableFormBuilder)
+  private readonly confirmationService = inject(ConfirmationService)
+  private readonly messageService = inject(MessageService)
+
   showEditContact = false
   loading = false
-  selectedChannels: string[] = ['EMAIL']
-  contactToEdit = {} as Contact
-  contacts = this.contactService.getContacts()
-
-  selectedItem: any
-  suggestions: Contact[] = []
-
   channels = contactChannels
+  selectedChannels: Channel[] = [Channel.EMAIL]
 
-  constructor(
-    private contactService: ContactService,
-    private formBuilder: NonNullableFormBuilder,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
-  ) {}
+  contacts = this.contactService.getContacts()
+  contactToEdit = {} as Contact
 
   protected contactToEditForm = this.formBuilder.group({
     name: ['', [V.required, V.pattern(REGEX_NAME)]],
@@ -168,14 +165,6 @@ export class ContactsComponent {
           },
         })
       },
-    })
-  }
-
-  search(event: AutoCompleteCompleteEvent) {
-    const inputValue = event.query.toLowerCase()
-    const contacts = this.contacts().data || []
-    this.suggestions = contacts.filter(contact => {
-      return contact.name.toLowerCase().includes(inputValue)
     })
   }
 }

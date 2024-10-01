@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { injectQuery } from '@ngneat/query'
-import { map } from 'rxjs'
 import { environment } from 'src/environments/environment.development'
 import { Contact, EditContact } from '../../models/contact'
 
@@ -12,14 +11,24 @@ export class ContactService {
   constructor(private http: HttpClient) {}
   private query = injectQuery()
 
-  getContacts() {
+  getContacts(search = '') {
     return this.query({
-      queryKey: ['contacts'] as const,
+      queryKey: ['contacts', search] as const,
       queryFn: () =>
-        this.http
-          .get<Contact[]>(`${environment.apiUrl}/contact`)
-          .pipe(map(res => res)),
+        this.http.get<Contact[]>(
+          `${environment.apiUrl}/contact${search ? `?search=${search}` : ''}`
+        ),
     }).result
+  }
+
+  getContacts2(search = '') {
+    return this.query({
+      queryKey: ['contacts', search] as const,
+      queryFn: () =>
+        this.http.get<Contact[]>(
+          `${environment.apiUrl}/contact${search ? `?search=${search}` : ''}`
+        ),
+    })
   }
 
   createContact(contact: Contact) {
