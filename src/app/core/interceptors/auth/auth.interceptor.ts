@@ -28,9 +28,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             return next(req)
           }),
           catchError(refreshError => {
-            // If refreshToken is expired do the logout of user
-            if (!authService.isTokenExpired(bearer.refreshToken))
-              authService.logout()
+            authService.logout()
 
             return errorHandlerService.handleError(refreshError)
           })
